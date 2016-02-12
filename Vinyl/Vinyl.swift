@@ -19,7 +19,7 @@ final class Vinyl {
     func responseSong(forRequest request: NSURLRequest) -> (NSData?, NSURLResponse?, NSError?)  {
         
         // TODO: Right now we are just comparing the Request, in the future we should compare the body and HTTPMethod
-        guard let song = (songs.filter { $0.url == request.URL?.absoluteString }.first)
+        guard let song = (songs.filter { $0.url == request.URL! }.first)
             else { fatalError("No recorded 🎶 with the Request's url \(request.URL?.absoluteURL) was found 😩")}
         
         let response = NSHTTPURLResponse(URL: song.url, statusCode: song.statusCode, HTTPVersion: nil, headerFields: song.HTTPHeaders)
