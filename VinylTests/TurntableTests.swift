@@ -60,6 +60,5 @@ class TurntableTests: XCTestCase {
         
         turnatable.dataTaskWithRequest(request1, completionHandler: checker)
         turnatable.dataTaskWithRequest(request2, completionHandler: checker)
-
     }
 }
