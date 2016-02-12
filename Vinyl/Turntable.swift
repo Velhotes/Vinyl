@@ -1,0 +1,39 @@
+//
+//  Turntable.swift
+//  Vinyl
+//
+//  Created by Rui Peres on 12/02/2016.
+//  Copyright © 2016 Velhotes. All rights reserved.
+//
+
+import Foundation
+
+typealias Plastic = [[String: AnyObject]]
+
+typealias RequestCompletionHandler =  (NSData?, NSURLResponse?, NSError?) -> Void
+
+final class Turntable: NSURLSession {
+    
+    private let bundle: NSBundle = NSBundle(forClass: Turntable.self)
+    private let vinyl: Vinyl
+    
+    init(vinylName: String) {
+        
+        guard let plastic: Plastic = loadJSON(bundle, fileName: vinylName) else { fatalError("Vinyl not found 😩") }
+        vinyl = Vinyl(plastic: plastic)
+    }
+    
+    override func dataTaskWithRequest(request: NSURLRequest, completionHandler: (NSData?, NSURLResponse?, NSError?) -> Void) -> NSURLSessionDataTask {
+        
+        return playVinyl(request, completionHandler: completionHandler)
+    }
+
+    private func playVinyl(request: NSURLRequest, completionHandler: RequestCompletionHandler) -> NSURLSessionDataTask {
+        
+        let requestedSong = request.toSong()
+        guard vinyl.hasSong(requestedSong) else { fatalError("Request not found not found 😩") }
+        
+        return NSURLSessionDataTask()
+    }
+}
+

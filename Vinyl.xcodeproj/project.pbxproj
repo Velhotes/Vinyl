@@ -7,8 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C72AD2EC1C6E275000E11612 /* JSONHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C72AD2EB1C6E275000E11612 /* JSONHelper.swift */; };
+		C72AD2EF1C6E372400E11612 /* NSURLRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = C72AD2EE1C6E372400E11612 /* NSURLRequest.swift */; };
 		C75D79111C6DFE30004B92A9 /* Vinyl.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C75D79061C6DFE30004B92A9 /* Vinyl.framework */; };
 		C75D79161C6DFE30004B92A9 /* VinylTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C75D79151C6DFE30004B92A9 /* VinylTests.swift */; };
+		C75D79211C6E0B32004B92A9 /* Vinyl.swift in Sources */ = {isa = PBXBuildFile; fileRef = C75D79201C6E0B32004B92A9 /* Vinyl.swift */; };
+		C75D79231C6E0E9D004B92A9 /* Turntable.swift in Sources */ = {isa = PBXBuildFile; fileRef = C75D79221C6E0E9D004B92A9 /* Turntable.swift */; };
+		C75D79251C6E0FAE004B92A9 /* Album.swift in Sources */ = {isa = PBXBuildFile; fileRef = C75D79241C6E0FAE004B92A9 /* Album.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -22,11 +27,16 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		C72AD2EB1C6E275000E11612 /* JSONHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSONHelper.swift; sourceTree = "<group>"; };
+		C72AD2EE1C6E372400E11612 /* NSURLRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSURLRequest.swift; sourceTree = "<group>"; };
 		C75D79061C6DFE30004B92A9 /* Vinyl.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Vinyl.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C75D790B1C6DFE30004B92A9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C75D79101C6DFE30004B92A9 /* VinylTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = VinylTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		C75D79151C6DFE30004B92A9 /* VinylTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VinylTests.swift; sourceTree = "<group>"; };
 		C75D79171C6DFE30004B92A9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C75D79201C6E0B32004B92A9 /* Vinyl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Vinyl.swift; sourceTree = "<group>"; };
+		C75D79221C6E0E9D004B92A9 /* Turntable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Turntable.swift; sourceTree = "<group>"; };
+		C75D79241C6E0FAE004B92A9 /* Album.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Album.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -48,6 +58,22 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		C72AD2EA1C6E274700E11612 /* JSON_Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				C72AD2EB1C6E275000E11612 /* JSONHelper.swift */,
+			);
+			path = JSON_Helpers;
+			sourceTree = "<group>";
+		};
+		C72AD2ED1C6E36DA00E11612 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				C72AD2EE1C6E372400E11612 /* NSURLRequest.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
 		C75D78FC1C6DFE30004B92A9 = {
 			isa = PBXGroup;
 			children = (
@@ -69,7 +95,12 @@
 		C75D79081C6DFE30004B92A9 /* Vinyl */ = {
 			isa = PBXGroup;
 			children = (
+				C72AD2ED1C6E36DA00E11612 /* Extensions */,
+				C72AD2EA1C6E274700E11612 /* JSON_Helpers */,
 				C75D790B1C6DFE30004B92A9 /* Info.plist */,
+				C75D79201C6E0B32004B92A9 /* Vinyl.swift */,
+				C75D79221C6E0E9D004B92A9 /* Turntable.swift */,
+				C75D79241C6E0FAE004B92A9 /* Album.swift */,
 			);
 			path = Vinyl;
 			sourceTree = "<group>";
@@ -190,6 +221,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C75D79251C6E0FAE004B92A9 /* Album.swift in Sources */,
+				C72AD2EC1C6E275000E11612 /* JSONHelper.swift in Sources */,
+				C72AD2EF1C6E372400E11612 /* NSURLRequest.swift in Sources */,
+				C75D79211C6E0B32004B92A9 /* Vinyl.swift in Sources */,
+				C75D79231C6E0E9D004B92A9 /* Turntable.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -304,6 +340,7 @@
 		C75D791B1C6DFE30004B92A9 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
@@ -314,12 +351,14 @@
 				PRODUCT_BUNDLE_IDENTIFIER = velhotes.Vinyl;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
 		};
 		C75D791C1C6DFE30004B92A9 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
