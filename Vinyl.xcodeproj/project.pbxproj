@@ -9,8 +9,9 @@
 /* Begin PBXBuildFile section */
 		C72AD2EC1C6E275000E11612 /* JSONHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C72AD2EB1C6E275000E11612 /* JSONHelper.swift */; };
 		C72AD2F21C6E48B500E11612 /* EncodingDecoding.swift in Sources */ = {isa = PBXBuildFile; fileRef = C72AD2F11C6E48B500E11612 /* EncodingDecoding.swift */; };
+		C72AD2F41C6E4B7800E11612 /* TurntableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C72AD2F31C6E4B7800E11612 /* TurntableTests.swift */; };
+		C72AD2F71C6E4D1600E11612 /* Basic.json in Resources */ = {isa = PBXBuildFile; fileRef = C72AD2F61C6E4D1600E11612 /* Basic.json */; };
 		C75D79111C6DFE30004B92A9 /* Vinyl.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C75D79061C6DFE30004B92A9 /* Vinyl.framework */; };
-		C75D79161C6DFE30004B92A9 /* VinylTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C75D79151C6DFE30004B92A9 /* VinylTests.swift */; };
 		C75D79211C6E0B32004B92A9 /* Vinyl.swift in Sources */ = {isa = PBXBuildFile; fileRef = C75D79201C6E0B32004B92A9 /* Vinyl.swift */; };
 		C75D79231C6E0E9D004B92A9 /* Turntable.swift in Sources */ = {isa = PBXBuildFile; fileRef = C75D79221C6E0E9D004B92A9 /* Turntable.swift */; };
 		C75D79251C6E0FAE004B92A9 /* Album.swift in Sources */ = {isa = PBXBuildFile; fileRef = C75D79241C6E0FAE004B92A9 /* Album.swift */; };
@@ -29,10 +30,11 @@
 /* Begin PBXFileReference section */
 		C72AD2EB1C6E275000E11612 /* JSONHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSONHelper.swift; sourceTree = "<group>"; };
 		C72AD2F11C6E48B500E11612 /* EncodingDecoding.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EncodingDecoding.swift; sourceTree = "<group>"; };
+		C72AD2F31C6E4B7800E11612 /* TurntableTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TurntableTests.swift; sourceTree = "<group>"; };
+		C72AD2F61C6E4D1600E11612 /* Basic.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Basic.json; sourceTree = "<group>"; };
 		C75D79061C6DFE30004B92A9 /* Vinyl.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Vinyl.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C75D790B1C6DFE30004B92A9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C75D79101C6DFE30004B92A9 /* VinylTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = VinylTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		C75D79151C6DFE30004B92A9 /* VinylTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VinylTests.swift; sourceTree = "<group>"; };
 		C75D79171C6DFE30004B92A9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C75D79201C6E0B32004B92A9 /* Vinyl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Vinyl.swift; sourceTree = "<group>"; };
 		C75D79221C6E0E9D004B92A9 /* Turntable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Turntable.swift; sourceTree = "<group>"; };
@@ -74,6 +76,14 @@
 			path = EncodingDecoding;
 			sourceTree = "<group>";
 		};
+		C72AD2F51C6E4C4500E11612 /* Mock */ = {
+			isa = PBXGroup;
+			children = (
+				C72AD2F61C6E4D1600E11612 /* Basic.json */,
+			);
+			path = Mock;
+			sourceTree = "<group>";
+		};
 		C75D78FC1C6DFE30004B92A9 = {
 			isa = PBXGroup;
 			children = (
@@ -108,7 +118,8 @@
 		C75D79141C6DFE30004B92A9 /* VinylTests */ = {
 			isa = PBXGroup;
 			children = (
-				C75D79151C6DFE30004B92A9 /* VinylTests.swift */,
+				C72AD2F31C6E4B7800E11612 /* TurntableTests.swift */,
+				C72AD2F51C6E4C4500E11612 /* Mock */,
 				C75D79171C6DFE30004B92A9 /* Info.plist */,
 			);
 			path = VinylTests;
@@ -211,6 +222,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C72AD2F71C6E4D1600E11612 /* Basic.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -233,7 +245,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C75D79161C6DFE30004B92A9 /* VinylTests.swift in Sources */,
+				C72AD2F41C6E4B7800E11612 /* TurntableTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
