@@ -30,8 +30,8 @@ final class Turntable: NSURLSession {
 
     private func playVinyl(request: NSURLRequest, completionHandler: RequestCompletionHandler) -> NSURLSessionDataTask {
         
-        let requestedSong = request.toSong()
-        guard vinyl.hasSong(requestedSong) else { fatalError("Request not found not found 😩") }
+        let completion = vinyl.responseSong(forRequest: request)
+        completionHandler(completion)
         
         return NSURLSessionDataTask()
     }

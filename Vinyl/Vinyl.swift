@@ -16,22 +16,25 @@ final class Vinyl {
         songs =  plastic.map(mapToSong)
     }
     
-    func hasSong(song: Song) -> Bool  {
-        return songs.filter { $0 == song }.count > 0
+    func responseSong(forRequest request: NSURLRequest) -> (NSData?, NSURLResponse?, NSError?)  {
+        
+        // TODO: Right now we are just comparing the Request, in the future we should compare the body and HTTPMethod
+        guard let song = (songs.filter { $0.url == request.URL?.absoluteString }.first)
+            else { fatalError("No recorded 🎶 with the Request's url \(request.URL?.absoluteURL) was found 😩")}
+        
+        let response = NSHTTPURLResponse(URL: song.url, statusCode: song.statusCode, HTTPVersion: nil, headerFields: song.HTTPHeaders)
+        let data = decodeBody(song.body, headers: song.HTTPHeaders)
+        
+        return (data, response, nil)
     }
 }
 
 struct Song {
     
-    let url: String
-    let body: String?
-    let HTTPHeaders: [String: AnyObject]
-}
-
-extension Song: Equatable {}
-
-func == (lhs: Song, rhs: Song) -> Bool {
-    return lhs.url == rhs.url && lhs.body == rhs.body
+    let url: NSURL
+    let body: AnyObject?
+    let statusCode: Int
+    let HTTPHeaders: [String: String]
 }
 
 private func mapToSong(trackDictionary: [String: AnyObject]) -> Song {
@@ -39,26 +42,9 @@ private func mapToSong(trackDictionary: [String: AnyObject]) -> Song {
     guard
         let url = trackDictionary["url"] as? String,
         let body = trackDictionary["body"] as? String?,
-        let header = trackDictionary["header"] as? [String: AnyObject]
-        else { fatalError("key not found 😞 for Song (check url/body/header) \(trackDictionary)")}
+        let statusCode = trackDictionary["statusCode"] as? Int,
+        let header = trackDictionary["header"] as? [String: String]
+        else { fatalError("key not found 😞 for Song (check url/body/statusCode/header) \(trackDictionary)")}
     
-    return Song(url: url, body: body, HTTPHeaders: header)
+    return Song(url: NSURL(string: url)!, body: body, statusCode: statusCode, HTTPHeaders: header)
 }
-
-func encodeBody(bodyData: NSData?, headers: [String: String]) -> String? {
-    
-    guard
-        let body = bodyData,
-        let contentType = headers["Content-Type"]
-        else { return nil }
-    
-    switch contentType {
-        
-    case _ where contentType.hasPrefix("text/"):
-        return NSString(data: body, encoding: NSUTF8StringEncoding).map (String.init)
-                
-    default:
-        return body.base64EncodedStringWithOptions([])
-    }
-}
-

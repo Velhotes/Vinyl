@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		C72AD2EC1C6E275000E11612 /* JSONHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C72AD2EB1C6E275000E11612 /* JSONHelper.swift */; };
-		C72AD2EF1C6E372400E11612 /* NSURLRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = C72AD2EE1C6E372400E11612 /* NSURLRequest.swift */; };
+		C72AD2F21C6E48B500E11612 /* EncodingDecoding.swift in Sources */ = {isa = PBXBuildFile; fileRef = C72AD2F11C6E48B500E11612 /* EncodingDecoding.swift */; };
 		C75D79111C6DFE30004B92A9 /* Vinyl.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C75D79061C6DFE30004B92A9 /* Vinyl.framework */; };
 		C75D79161C6DFE30004B92A9 /* VinylTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C75D79151C6DFE30004B92A9 /* VinylTests.swift */; };
 		C75D79211C6E0B32004B92A9 /* Vinyl.swift in Sources */ = {isa = PBXBuildFile; fileRef = C75D79201C6E0B32004B92A9 /* Vinyl.swift */; };
@@ -28,7 +28,7 @@
 
 /* Begin PBXFileReference section */
 		C72AD2EB1C6E275000E11612 /* JSONHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSONHelper.swift; sourceTree = "<group>"; };
-		C72AD2EE1C6E372400E11612 /* NSURLRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSURLRequest.swift; sourceTree = "<group>"; };
+		C72AD2F11C6E48B500E11612 /* EncodingDecoding.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EncodingDecoding.swift; sourceTree = "<group>"; };
 		C75D79061C6DFE30004B92A9 /* Vinyl.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Vinyl.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C75D790B1C6DFE30004B92A9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C75D79101C6DFE30004B92A9 /* VinylTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = VinylTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -66,12 +66,12 @@
 			path = JSON_Helpers;
 			sourceTree = "<group>";
 		};
-		C72AD2ED1C6E36DA00E11612 /* Extensions */ = {
+		C72AD2F01C6E489B00E11612 /* EncodingDecoding */ = {
 			isa = PBXGroup;
 			children = (
-				C72AD2EE1C6E372400E11612 /* NSURLRequest.swift */,
+				C72AD2F11C6E48B500E11612 /* EncodingDecoding.swift */,
 			);
-			path = Extensions;
+			path = EncodingDecoding;
 			sourceTree = "<group>";
 		};
 		C75D78FC1C6DFE30004B92A9 = {
@@ -95,7 +95,7 @@
 		C75D79081C6DFE30004B92A9 /* Vinyl */ = {
 			isa = PBXGroup;
 			children = (
-				C72AD2ED1C6E36DA00E11612 /* Extensions */,
+				C72AD2F01C6E489B00E11612 /* EncodingDecoding */,
 				C72AD2EA1C6E274700E11612 /* JSON_Helpers */,
 				C75D790B1C6DFE30004B92A9 /* Info.plist */,
 				C75D79201C6E0B32004B92A9 /* Vinyl.swift */,
@@ -223,7 +223,7 @@
 			files = (
 				C75D79251C6E0FAE004B92A9 /* Album.swift in Sources */,
 				C72AD2EC1C6E275000E11612 /* JSONHelper.swift in Sources */,
-				C72AD2EF1C6E372400E11612 /* NSURLRequest.swift in Sources */,
+				C72AD2F21C6E48B500E11612 /* EncodingDecoding.swift in Sources */,
 				C75D79211C6E0B32004B92A9 /* Vinyl.swift in Sources */,
 				C75D79231C6E0E9D004B92A9 /* Turntable.swift in Sources */,
 			);
