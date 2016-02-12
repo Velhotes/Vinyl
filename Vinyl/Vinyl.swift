@@ -41,10 +41,12 @@ private func mapToSong(trackDictionary: [String: AnyObject]) -> Song {
     
     guard
         let url = trackDictionary["url"] as? String,
-        let body = trackDictionary["body"] as? String?,
         let statusCode = trackDictionary["statusCode"] as? Int,
         let header = trackDictionary["header"] as? [String: String]
+        
         else { fatalError("key not found 😞 for Song (check url/body/statusCode/header) \(trackDictionary)")}
     
+    let body = trackDictionary["body"]
+
     return Song(url: NSURL(string: url)!, body: body, statusCode: statusCode, HTTPHeaders: header)
 }
