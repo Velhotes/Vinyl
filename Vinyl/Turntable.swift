@@ -14,12 +14,14 @@ typealias RequestCompletionHandler =  (NSData?, NSURLResponse?, NSError?) -> Voi
 
 final class Turntable: NSURLSession {
     
-    private let bundle: NSBundle = NSBundle(forClass: Turntable.self)
+    private let bundle: NSBundle
     private let vinyl: Vinyl
     
-    init(vinylName: String) {
+    init(vinylName: String, bundle: NSBundle = NSBundle(forClass: Turntable.self)) {
         
-        guard let plastic: Plastic = loadJSON(bundle, fileName: vinylName) else { fatalError("Vinyl not found 😩") }
+        self.bundle = bundle
+
+        guard let plastic: Plastic = loadJSON(bundle, fileName: vinylName) else { fatalError("Vinyl file \"\(vinylName)\" not found 😩") }
         vinyl = Vinyl(plastic: plastic)
     }
     
