@@ -14,7 +14,6 @@
 		C75D79111C6DFE30004B92A9 /* Vinyl.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C75D79061C6DFE30004B92A9 /* Vinyl.framework */; };
 		C75D79211C6E0B32004B92A9 /* Vinyl.swift in Sources */ = {isa = PBXBuildFile; fileRef = C75D79201C6E0B32004B92A9 /* Vinyl.swift */; };
 		C75D79231C6E0E9D004B92A9 /* Turntable.swift in Sources */ = {isa = PBXBuildFile; fileRef = C75D79221C6E0E9D004B92A9 /* Turntable.swift */; };
-		C75D79251C6E0FAE004B92A9 /* Album.swift in Sources */ = {isa = PBXBuildFile; fileRef = C75D79241C6E0FAE004B92A9 /* Album.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -38,7 +37,6 @@
 		C75D79171C6DFE30004B92A9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C75D79201C6E0B32004B92A9 /* Vinyl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Vinyl.swift; sourceTree = "<group>"; };
 		C75D79221C6E0E9D004B92A9 /* Turntable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Turntable.swift; sourceTree = "<group>"; };
-		C75D79241C6E0FAE004B92A9 /* Album.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Album.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -110,7 +108,6 @@
 				C75D790B1C6DFE30004B92A9 /* Info.plist */,
 				C75D79201C6E0B32004B92A9 /* Vinyl.swift */,
 				C75D79221C6E0E9D004B92A9 /* Turntable.swift */,
-				C75D79241C6E0FAE004B92A9 /* Album.swift */,
 			);
 			path = Vinyl;
 			sourceTree = "<group>";
@@ -233,7 +230,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C75D79251C6E0FAE004B92A9 /* Album.swift in Sources */,
 				C72AD2EC1C6E275000E11612 /* JSONHelper.swift in Sources */,
 				C72AD2F21C6E48B500E11612 /* EncodingDecoding.swift in Sources */,
 				C75D79211C6E0B32004B92A9 /* Vinyl.swift in Sources */,
