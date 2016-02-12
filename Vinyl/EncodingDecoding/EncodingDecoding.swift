@@ -8,6 +8,7 @@
 
 import Foundation
 
+// Heavily inspired by Venmo's work on DVR (https://github.com/venmo/DVR).
 func encodeBody(bodyData: NSData?, headers: [String: String]) -> AnyObject? {
     
     guard
