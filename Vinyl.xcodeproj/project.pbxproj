@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		C75D790A1C6DFE30004B92A9 /* Vinyl.h in Headers */ = {isa = PBXBuildFile; fileRef = C75D79091C6DFE30004B92A9 /* Vinyl.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C75D79111C6DFE30004B92A9 /* Vinyl.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C75D79061C6DFE30004B92A9 /* Vinyl.framework */; };
 		C75D79161C6DFE30004B92A9 /* VinylTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C75D79151C6DFE30004B92A9 /* VinylTests.swift */; };
 /* End PBXBuildFile section */
@@ -24,7 +23,6 @@
 
 /* Begin PBXFileReference section */
 		C75D79061C6DFE30004B92A9 /* Vinyl.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Vinyl.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		C75D79091C6DFE30004B92A9 /* Vinyl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Vinyl.h; sourceTree = "<group>"; };
 		C75D790B1C6DFE30004B92A9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C75D79101C6DFE30004B92A9 /* VinylTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = VinylTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		C75D79151C6DFE30004B92A9 /* VinylTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VinylTests.swift; sourceTree = "<group>"; };
@@ -71,7 +69,6 @@
 		C75D79081C6DFE30004B92A9 /* Vinyl */ = {
 			isa = PBXGroup;
 			children = (
-				C75D79091C6DFE30004B92A9 /* Vinyl.h */,
 				C75D790B1C6DFE30004B92A9 /* Info.plist */,
 			);
 			path = Vinyl;
@@ -93,7 +90,6 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C75D790A1C6DFE30004B92A9 /* Vinyl.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -376,6 +372,7 @@
 				C75D791C1C6DFE30004B92A9 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		C75D791D1C6DFE30004B92A9 /* Build configuration list for PBXNativeTarget "VinylTests" */ = {
 			isa = XCConfigurationList;
@@ -384,6 +381,7 @@
 				C75D791F1C6DFE30004B92A9 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
