@@ -40,7 +40,8 @@ struct Song {
 private func mapToSong(trackDictionary: [String: AnyObject]) -> Song {
     
     guard
-        let url = trackDictionary["url"] as? String,
+        let urlString = trackDictionary["url"] as? String,
+        let url =  NSURL(string: urlString),
         let statusCode = trackDictionary["statusCode"] as? Int,
         let header = trackDictionary["header"] as? [String: String]
         
@@ -48,5 +49,5 @@ private func mapToSong(trackDictionary: [String: AnyObject]) -> Song {
     
     let body = trackDictionary["body"]
 
-    return Song(url: NSURL(string: url)!, body: body, statusCode: statusCode, HTTPHeaders: header)
+    return Song(url:url, body: body, statusCode: statusCode, HTTPHeaders: header)
 }
