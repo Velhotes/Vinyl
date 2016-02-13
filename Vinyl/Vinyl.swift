@@ -13,7 +13,7 @@ final class Vinyl {
     private let songs: [Song]
     
     init(plastic: Plastic) {
-        songs =  plastic.map(mapToSong)
+        songs = plastic.map(mapToSong)
     }
     
     func responseSong(forRequest request: NSURLRequest) -> (NSData?, NSURLResponse?, NSError?)  {
