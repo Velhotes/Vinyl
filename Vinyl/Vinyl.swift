@@ -19,8 +19,11 @@ final class Vinyl {
     func responseSong(forRequest request: NSURLRequest) -> (NSData?, NSURLResponse?, NSError?)  {
         
         // TODO: Right now we are just comparing the Request, in the future we should compare the body and HTTPMethod
-        guard let song = (songs.filter { $0.url == request.URL! }.first)
-            else { fatalError("No recorded 🎶 with the Request's url \(request.URL?.absoluteURL) was found 😩")}
+        guard
+            let song = (songs.filter { $0.url == request.URL! }.first)
+        else {
+            fatalError("No recorded 🎶 with the Request's url \(request.URL?.absoluteURL) was found 😩")
+        }
         
         let response = NSHTTPURLResponse(URL: song.url, statusCode: song.statusCode, HTTPVersion: nil, headerFields: song.HTTPHeaders)
         let data = decodeBody(song.body, headers: song.HTTPHeaders)
@@ -44,8 +47,9 @@ private func mapToSong(trackDictionary: [String: AnyObject]) -> Song {
         let url =  NSURL(string: urlString),
         let statusCode = trackDictionary["statusCode"] as? Int,
         let header = trackDictionary["header"] as? [String: String]
-        
-        else { fatalError("key not found 😞 for Song (check url/body/statusCode/header) \(trackDictionary)")}
+    else {
+        fatalError("key not found 😞 for Song (check url/body/statusCode/header) \(trackDictionary)")
+    }
     
     let body = trackDictionary["body"]
 
