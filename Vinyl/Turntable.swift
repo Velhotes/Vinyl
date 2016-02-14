@@ -21,7 +21,11 @@ final class Turntable: NSURLSession {
         
         self.bundle = bundle
 
-        guard let plastic: Plastic = loadJSON(bundle, fileName: vinylName) else { fatalError("Vinyl file \"\(vinylName)\" not found 😩") }
+        guard
+            let plastic: Plastic = loadJSON(bundle, fileName: vinylName)
+        else {
+            fatalError("Vinyl file \"\(vinylName)\" not found 😩")
+        }
         vinyl = Vinyl(plastic: plastic)
     }
     
