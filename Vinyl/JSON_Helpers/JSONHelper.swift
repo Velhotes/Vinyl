@@ -14,7 +14,9 @@ func loadJSON<T>(bundle: NSBundle, fileName: String) -> T?  {
         let path = bundle.pathForResource(fileName, ofType: "json"),
         data = NSData(contentsOfFile: path),
         jsonData = try? NSJSONSerialization.JSONObjectWithData(data, options: []) as? T
-        else { return nil }
+    else {
+        return nil
+    }
     
     return jsonData
 }
