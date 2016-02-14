@@ -1,6 +1,12 @@
- [{
-    "url": "http://api.test.com",
-    "statusCode": 200,
-    "body": null,
-    "header": {}
-  }]
+[
+  {
+    "request": {
+        "url": "http://api.test.com"
+    },
+    "response": {
+        "url": "http://api.test.com",
+        "statusCode": 200,
+        "headers": {}
+    }
+  }
+]
