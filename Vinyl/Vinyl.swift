@@ -11,20 +11,22 @@ import Foundation
 final class Vinyl {
     
     private let tracks: [Track]
+    private let requestMatcherRegistry: RequestMatcherRegistry
     
-    init(plastic: Plastic) {
+    init(plastic: Plastic, registry: RequestMatcherRegistry) {
         tracks = plastic.map(Track.init)
+        requestMatcherRegistry = registry
     }
     
     func responseTrack(forRequest request: NSURLRequest) -> (NSData?, NSURLResponse?, NSError?)  {
         
-        // TODO: Right now we are just comparing the Request, in the future we should compare the body and HTTPMethod
-        guard
-            let track = (tracks.filter { $0.request.URL == request.URL }.first)
-        else {
-            fatalError("No recorded 🎶 with the Request's url \(request.URL?.absoluteURL) was found 😩")
+        for track in tracks {
+            if requestMatcherRegistry.matchableRequests(request, anotherRequest: track.request) {
+                // TODO: We should support a `NSError` in the future
+                return (track.response.body, track.response.urlResponse, nil)
+            }
         }
         
-        return (track.response.body, track.response.urlResponse, nil)
+        fatalError("💥 No 🎶 recorded and matchable with request: \(request.debugDescription) 😩")
     }
 }

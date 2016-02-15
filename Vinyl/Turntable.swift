@@ -17,7 +17,7 @@ final class Turntable: NSURLSession {
     private let bundle: NSBundle
     private let vinyl: Vinyl
     
-    init(vinylName: String, bundle: NSBundle = NSBundle(forClass: Turntable.self)) {
+    init(vinylName: String, bundle: NSBundle = NSBundle(forClass: Turntable.self), requestMatcherRegistry: RequestMatcherRegistry = RequestMatcherRegistry()) {
         
         self.bundle = bundle
 
@@ -26,7 +26,7 @@ final class Turntable: NSURLSession {
         else {
             fatalError("Vinyl file \"\(vinylName)\" not found 😩")
         }
-        vinyl = Vinyl(plastic: plastic)
+        vinyl = Vinyl(plastic: plastic, registry: requestMatcherRegistry)
     }
     
     override func dataTaskWithRequest(request: NSURLRequest, completionHandler: (NSData?, NSURLResponse?, NSError?) -> Void) -> NSURLSessionDataTask {
