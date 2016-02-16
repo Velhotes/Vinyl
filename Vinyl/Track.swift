@@ -16,6 +16,7 @@ typealias Request = NSURLRequest
 struct Response {
     let urlResponse: NSURLResponse
     let body: NSData?
+    let error: NSError?
 }
 
 struct Track {
@@ -81,6 +82,6 @@ extension Response {
             fatalError("key not found 😞 for Response (check url/statusCode/headers) \(encodedResponse)")
         }
         
-        self.init(urlResponse: urlResponse, body: decodeBody(encodedResponse["body"], headers: headers))
+        self.init(urlResponse: urlResponse, body: decodeBody(encodedResponse["body"], headers: headers), error: nil)
     }
 }
