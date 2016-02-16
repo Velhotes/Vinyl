@@ -40,8 +40,6 @@ final class Turntable: NSURLSession {
         
         let completion = player.playTrack(forRequest: request)
         
-        completionHandler(completion)
-        
-        return NSURLSessionDataTask()
+        return URLSessionTask(completion: { completionHandler(completion) })
     }
 }
