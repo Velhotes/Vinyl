@@ -86,8 +86,8 @@ struct PathRequestMatcher: RequestMatcher {
 struct QueryRequestMatcher: RequestMatcher {
     func match(aRequest: Request, anotherRequest: Request) -> Bool {
         
-        let queryItems: Request -> [NSURLQueryItem]  = { request in
-            let components = NSURLComponents.init(string: request.URL?.absoluteString ?? "")
+        let queryItems: Request -> [NSURLQueryItem] = { request in
+            let components = NSURLComponents(string: request.URL?.absoluteString ?? "")
             return components?.queryItems ?? []
         }
         
