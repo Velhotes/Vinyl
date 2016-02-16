@@ -21,9 +21,10 @@ extension SequenceType {
     
     func all(f: Generator.Element -> Bool) -> Bool {
         
-        let result = self.map(f)
-        let and: (Bool, Bool) -> Bool =  {lhs, rhs in lhs && rhs }
+        for element in self where f(element) == false {
+            return false
+        }
         
-        return result.reduce(true, combine: and)
+        return true
     }
 }
