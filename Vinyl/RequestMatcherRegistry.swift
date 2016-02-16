@@ -79,8 +79,7 @@ struct URLRequestMatcher: RequestMatcher {
 
 struct PathRequestMatcher: RequestMatcher {
     func match(aRequest: Request, anotherRequest: Request) -> Bool {
-        // TODO: Implement
-        fatalError()
+        return aRequest.URL?.path == anotherRequest.URL?.path
     }
 }
 
