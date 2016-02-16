@@ -104,11 +104,22 @@ struct HeadersRequestMatcher: RequestMatcher {
         let headers: Request -> [String: String]  = { request in
             return request.allHTTPHeaderFields ?? [:]
         }
+        
+        let toLowerCase: [String: String] -> [String: String] = {dic in
+        
+            var loweredCase: [String: String] = [:]
+            for key in dic.keys {
+                loweredCase[key.lowercaseString] = dic[key]?.lowercaseString
+            }
+            return loweredCase
+        }
 
-        let aRequestHeaders = headers(aRequest)
-        let anotherRequestHeaders = headers(anotherRequest)
+        let loweredHeaders = headers ~> toLowerCase
+        
+        let aRequestLoweredHeaders =  loweredHeaders(aRequest)
+        let anotherRequestLoweredHeaders = loweredHeaders(anotherRequest)
 
-        return aRequestHeaders == anotherRequestHeaders
+        return aRequestLoweredHeaders == anotherRequestLoweredHeaders
     }
 }
 
