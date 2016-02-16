@@ -17,7 +17,7 @@ We advise against its usage right now, until version 1.0 is released. Once we ha
 
 #### Roadmap
 
-* [ ] Allow the user to configure how strict the library should be. [Currently in progress [#11](https://github.com/Velhotes/Vinyl/pull/11)]
+* [X] Allow the user to configure how strict the library should be.
 * [ ] Instead of relying on a configuration, fix the responses in an array (e.g. first request made will use the first response in the array and so on).
 * [ ] Allow request recording.
 * [ ] Allow the user to define its own response without relying on a json file.
