@@ -15,5 +15,4 @@ final class Vinyl {
     init(plastic: Plastic) {
         tracks = plastic.map(Track.init)
     }
-
 }
