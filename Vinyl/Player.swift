@@ -28,6 +28,6 @@ struct Player {
             fatalError("💥 No 🎶 recorded and matchable with request: \(request.debugDescription) 😩")
         }
         
-        return (track.response.body, track.response.urlResponse, nil)
+        return (track.response.body, track.response.urlResponse, track.response.error)
     }
 }
