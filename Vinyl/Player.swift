@@ -14,12 +14,8 @@ struct Player {
     let trackMatcher: TrackMatcher
     
     private func seekTrackForRequest(request: Request) -> Track? {
-        for track in vinyl.tracks {
-            if trackMatcher.matchableTrack(request, track: track) {
-                return track
-            }
-        }
-        return nil
+        
+        return vinyl.tracks.filter { trackMatcher.matchableTrack(request, track: $0) }.first
     }
     
     func playTrack(forRequest request: Request) -> (NSData?, NSURLResponse?, NSError?) {
