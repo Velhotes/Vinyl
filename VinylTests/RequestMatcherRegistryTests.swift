@@ -31,7 +31,7 @@ class RequestMatcherRegistryTests: XCTestCase {
         XCTAssertFalse(registry.matchableRequests(aRequest, anotherRequest: anotherRequest))
     }
     
-    func test_Match_byPath_withSameOrderedQuery() {
+    func test_Match_byQuery_Ordered() {
         
         let registry = RequestMatcherRegistry(types: [.Query])
         
@@ -41,7 +41,7 @@ class RequestMatcherRegistryTests: XCTestCase {
         XCTAssertTrue(registry.matchableRequests(aRequest, anotherRequest: anotherRequest))
     }
 
-    func test_Match_byPath_withSameOrderedQuery_DifferentURL() {
+    func test_Match_byQuery_Ordered_DifferentURL() {
         
         let registry = RequestMatcherRegistry(types: [.Query])
         
@@ -51,7 +51,7 @@ class RequestMatcherRegistryTests: XCTestCase {
         XCTAssertTrue(registry.matchableRequests(aRequest, anotherRequest: anotherRequest))
     }
     
-    func test_Match_byPath_withUnorderedQuery() {
+    func test_Match_byQuery_Unordered() {
         
         let registry = RequestMatcherRegistry(types: [.Query])
         
@@ -61,7 +61,7 @@ class RequestMatcherRegistryTests: XCTestCase {
         XCTAssertTrue(registry.matchableRequests(aRequest, anotherRequest: anotherRequest))
     }
     
-    func test_Match_byPath_withDifferentQuery() {
+    func test_Match_byQuery_withDifferentQuery() {
         
         let registry = RequestMatcherRegistry(types: [.Query])
         
