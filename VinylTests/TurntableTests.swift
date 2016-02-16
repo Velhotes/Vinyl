@@ -29,7 +29,7 @@ class TurntableTests: XCTestCase {
             XCTAssertEqual(httpResponse.URL!.absoluteString, "http://api.test.com")
             XCTAssertEqual(httpResponse.statusCode, 200)
             expectation.fulfill()
-        }
+        }.resume()
     }
     
     func test_BasicVinyl_with2Songs() {
@@ -58,8 +58,8 @@ class TurntableTests: XCTestCase {
             }
         }
         
-        turnatable.dataTaskWithRequest(request1, completionHandler: checker)
-        turnatable.dataTaskWithRequest(request2, completionHandler: checker)
+        turnatable.dataTaskWithRequest(request1, completionHandler: checker).resume()
+        turnatable.dataTaskWithRequest(request2, completionHandler: checker).resume()
     }
     
     func test_BasicVinyl_with2Songs_andDifferentMethods() {
@@ -94,7 +94,7 @@ class TurntableTests: XCTestCase {
             }
         }
         
-        turnatable.dataTaskWithRequest(request1, completionHandler: checker)
-        turnatable.dataTaskWithRequest(request2, completionHandler: checker)
+        turnatable.dataTaskWithRequest(request1, completionHandler: checker).resume()
+        turnatable.dataTaskWithRequest(request2, completionHandler: checker).resume()
     }
 }
