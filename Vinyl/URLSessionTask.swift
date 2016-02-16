@@ -8,7 +8,7 @@
 
 import Foundation
 
-class URLSessionTask: NSURLSessionDataTask {
+final class URLSessionTask: NSURLSessionDataTask {
     
     private let completion: Void -> Void
     
