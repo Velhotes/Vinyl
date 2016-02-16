@@ -16,6 +16,7 @@
 		C70886151C735136002DBB2C /* FuncComposition.swift in Sources */ = {isa = PBXBuildFile; fileRef = C70886141C735136002DBB2C /* FuncComposition.swift */; };
 		C70886171C737684002DBB2C /* NSURLRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = C70886161C737684002DBB2C /* NSURLRequest.swift */; };
 		C70886191C737699002DBB2C /* Response.swift in Sources */ = {isa = PBXBuildFile; fileRef = C70886181C737699002DBB2C /* Response.swift */; };
+		C708861B1C737C1B002DBB2C /* SequenceType.swift in Sources */ = {isa = PBXBuildFile; fileRef = C708861A1C737C1B002DBB2C /* SequenceType.swift */; };
 		C72AD2EC1C6E275000E11612 /* JSONHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C72AD2EB1C6E275000E11612 /* JSONHelper.swift */; };
 		C72AD2F21C6E48B500E11612 /* EncodingDecoding.swift in Sources */ = {isa = PBXBuildFile; fileRef = C72AD2F11C6E48B500E11612 /* EncodingDecoding.swift */; };
 		C72AD2F41C6E4B7800E11612 /* TurntableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C72AD2F31C6E4B7800E11612 /* TurntableTests.swift */; };
@@ -46,6 +47,7 @@
 		C70886141C735136002DBB2C /* FuncComposition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FuncComposition.swift; sourceTree = "<group>"; };
 		C70886161C737684002DBB2C /* NSURLRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSURLRequest.swift; sourceTree = "<group>"; };
 		C70886181C737699002DBB2C /* Response.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Response.swift; sourceTree = "<group>"; };
+		C708861A1C737C1B002DBB2C /* SequenceType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SequenceType.swift; sourceTree = "<group>"; };
 		C72AD2EB1C6E275000E11612 /* JSONHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSONHelper.swift; sourceTree = "<group>"; };
 		C72AD2F11C6E48B500E11612 /* EncodingDecoding.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EncodingDecoding.swift; sourceTree = "<group>"; };
 		C72AD2F31C6E4B7800E11612 /* TurntableTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TurntableTests.swift; sourceTree = "<group>"; };
@@ -84,6 +86,7 @@
 				C70886111C7346CF002DBB2C /* NSURLQueryItem.swift */,
 				C70886161C737684002DBB2C /* NSURLRequest.swift */,
 				C70886181C737699002DBB2C /* Response.swift */,
+				C708861A1C737C1B002DBB2C /* SequenceType.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -278,6 +281,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C72AD2EC1C6E275000E11612 /* JSONHelper.swift in Sources */,
+				C708861B1C737C1B002DBB2C /* SequenceType.swift in Sources */,
 				7D93580C1C7117A80020103D /* Track.swift in Sources */,
 				C72AD2F21C6E48B500E11612 /* EncodingDecoding.swift in Sources */,
 				C70886171C737684002DBB2C /* NSURLRequest.swift in Sources */,
