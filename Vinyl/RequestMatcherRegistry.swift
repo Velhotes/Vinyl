@@ -28,7 +28,7 @@ struct RequestMatcherRegistry {
     
     private let matchingChain: [RequestMatcher]
     
-    init(types: [RequestMatcherType] = [.Method, .URL]) {
+    init(types: [RequestMatcherType]) {
         registeredTypes = types
         matchingChain = types.map { RequestMatcherRegistry.matcherForType($0) }
     }

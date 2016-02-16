@@ -67,7 +67,10 @@ class TurntableTests: XCTestCase {
         let expectation = self.expectationWithDescription("Expected callback to have the correct URL")
         defer { self.waitForExpectationsWithTimeout(4, handler: nil) }
         
-        let turnatable = Turntable(vinylName: "Basic_2_Songs", bundle: NSBundle(forClass: TurntableTests.self), requestMatcherRegistry: RequestMatcherRegistry(types: [.URL]))
+        let turnatable = Turntable(
+            vinylName: "Basic_2_Songs",
+            bundle: NSBundle(forClass: TurntableTests.self),
+            requestMatcherTypes: [.URL])
         
         let request1 = NSMutableURLRequest(URL: NSURL(string: "http://api.test1.com")!)
         request1.HTTPMethod = "POST"

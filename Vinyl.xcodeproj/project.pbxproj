@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		7D48F0D31C7159F10044DC32 /* RequestMatcherRegistry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D48F0D21C7159F10044DC32 /* RequestMatcherRegistry.swift */; };
 		7D93580C1C7117A80020103D /* Track.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D93580B1C7117A80020103D /* Track.swift */; };
+		7DC5704D1C72A1AB00BA1458 /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DC5704C1C72A1AB00BA1458 /* Player.swift */; };
+		7DC5704F1C72A1FD00BA1458 /* TrackMatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DC5704E1C72A1FD00BA1458 /* TrackMatcher.swift */; };
 		C72AD2EC1C6E275000E11612 /* JSONHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C72AD2EB1C6E275000E11612 /* JSONHelper.swift */; };
 		C72AD2F21C6E48B500E11612 /* EncodingDecoding.swift in Sources */ = {isa = PBXBuildFile; fileRef = C72AD2F11C6E48B500E11612 /* EncodingDecoding.swift */; };
 		C72AD2F41C6E4B7800E11612 /* TurntableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C72AD2F31C6E4B7800E11612 /* TurntableTests.swift */; };
@@ -32,6 +34,8 @@
 /* Begin PBXFileReference section */
 		7D48F0D21C7159F10044DC32 /* RequestMatcherRegistry.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RequestMatcherRegistry.swift; sourceTree = "<group>"; };
 		7D93580B1C7117A80020103D /* Track.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Track.swift; sourceTree = "<group>"; };
+		7DC5704C1C72A1AB00BA1458 /* Player.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
+		7DC5704E1C72A1FD00BA1458 /* TrackMatcher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrackMatcher.swift; sourceTree = "<group>"; };
 		C72AD2EB1C6E275000E11612 /* JSONHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSONHelper.swift; sourceTree = "<group>"; };
 		C72AD2F11C6E48B500E11612 /* EncodingDecoding.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EncodingDecoding.swift; sourceTree = "<group>"; };
 		C72AD2F31C6E4B7800E11612 /* TurntableTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TurntableTests.swift; sourceTree = "<group>"; };
@@ -114,6 +118,8 @@
 				C72AD2EA1C6E274700E11612 /* JSON_Helpers */,
 				C75D790B1C6DFE30004B92A9 /* Info.plist */,
 				C75D79221C6E0E9D004B92A9 /* Turntable.swift */,
+				7DC5704C1C72A1AB00BA1458 /* Player.swift */,
+				7DC5704E1C72A1FD00BA1458 /* TrackMatcher.swift */,
 				C75D79201C6E0B32004B92A9 /* Vinyl.swift */,
 				7D93580B1C7117A80020103D /* Track.swift */,
 				7D48F0D21C7159F10044DC32 /* RequestMatcherRegistry.swift */,
@@ -244,7 +250,9 @@
 				7D93580C1C7117A80020103D /* Track.swift in Sources */,
 				C72AD2F21C6E48B500E11612 /* EncodingDecoding.swift in Sources */,
 				C75D79211C6E0B32004B92A9 /* Vinyl.swift in Sources */,
+				7DC5704D1C72A1AB00BA1458 /* Player.swift in Sources */,
 				C75D79231C6E0E9D004B92A9 /* Turntable.swift in Sources */,
+				7DC5704F1C72A1FD00BA1458 /* TrackMatcher.swift in Sources */,
 				7D48F0D31C7159F10044DC32 /* RequestMatcherRegistry.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

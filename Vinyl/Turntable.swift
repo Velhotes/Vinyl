@@ -16,27 +16,30 @@ final class Turntable: NSURLSession {
     
     private let bundle: NSBundle
     private let vinyl: Vinyl
+    private let player: Player
     
-    init(vinylName: String, bundle: NSBundle = NSBundle(forClass: Turntable.self), requestMatcherRegistry: RequestMatcherRegistry = RequestMatcherRegistry()) {
+    var playTracksInSequence = false
+    
+    init(vinylName: String, bundle: NSBundle = NSBundle(forClass: Turntable.self), requestMatcherTypes: [RequestMatcherType] = [.Method, .URL]) {
+        
+        guard let plastic: Plastic = loadJSON(bundle, fileName: vinylName) else {
+            fatalError("💣 Vinyl file \"\(vinylName)\" not found 😩")
+        }
         
         self.bundle = bundle
-
-        guard
-            let plastic: Plastic = loadJSON(bundle, fileName: vinylName)
-        else {
-            fatalError("Vinyl file \"\(vinylName)\" not found 😩")
-        }
-        vinyl = Vinyl(plastic: plastic, registry: requestMatcherRegistry)
+        self.vinyl = Vinyl(plastic: plastic)
+        self.player = Player(vinyl: vinyl, trackMatcher: DefaultTrackMatcher(requestMatcherTypes: requestMatcherTypes))
+        super.init()
     }
     
     override func dataTaskWithRequest(request: NSURLRequest, completionHandler: (NSData?, NSURLResponse?, NSError?) -> Void) -> NSURLSessionDataTask {
-        
         return playVinyl(request, completionHandler: completionHandler)
     }
 
     private func playVinyl(request: NSURLRequest, completionHandler: RequestCompletionHandler) -> NSURLSessionDataTask {
         
-        let completion = vinyl.responseTrack(forRequest: request)
+        let completion = player.playTrack(forRequest: request)
+        
         completionHandler(completion)
         
         return NSURLSessionDataTask()
