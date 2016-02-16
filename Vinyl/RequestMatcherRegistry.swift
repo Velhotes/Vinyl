@@ -114,7 +114,11 @@ struct HeadersRequestMatcher: RequestMatcher {
 
 struct BodyRequestMatcher: RequestMatcher {
     func match(aRequest: Request, anotherRequest: Request) -> Bool {
-        // TODO: Implement
-        fatalError()
+
+        switch (aRequest.HTTPBody, anotherRequest.HTTPBody) {
+        case (.None, .None): return true
+        case (.Some(let lhsData), .Some(let rhsData)): return lhsData.isEqualToData(rhsData)
+        default: return false
+        }
     }
 }

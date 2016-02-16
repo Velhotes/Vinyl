@@ -98,4 +98,42 @@ class RequestMatcherRegistryTests: XCTestCase {
         
         XCTAssertFalse(registry.matchableRequests(aRequest, anotherRequest: anotherRequest))
     }
+    
+    func test_Match_byBody_withSameBody() {
+        
+        let registry = RequestMatcherRegistry(types: [.Body])
+        
+        let commonData = "Hello World".dataUsingEncoding(NSUTF8StringEncoding)
+        
+        let aRequest = NSMutableURLRequest(URL: NSURL(string: "http://hostname/some/path")!)
+        aRequest.HTTPBody = commonData
+        
+        let anotherRequest = NSMutableURLRequest(URL: NSURL(string: "http://hostname/some/path")!)
+        anotherRequest.HTTPBody = commonData
+        
+        XCTAssertTrue(registry.matchableRequests(aRequest, anotherRequest: anotherRequest))
+    }
+    
+    func test_Match_byBody_withNilBody() {
+        
+        let registry = RequestMatcherRegistry(types: [.Body])
+        
+        let aRequest = NSMutableURLRequest(URL: NSURL(string: "http://hostname/some/path")!)
+        let anotherRequest = NSMutableURLRequest(URL: NSURL(string: "http://hostname/some/path")!)
+        
+        XCTAssertTrue(registry.matchableRequests(aRequest, anotherRequest: anotherRequest))
+    }
+    
+    func test_Match_byBody_withDifferentBody() {
+        
+        let registry = RequestMatcherRegistry(types: [.Body])
+        
+        let aRequest = NSMutableURLRequest(URL: NSURL(string: "http://hostname/some/path")!)
+        aRequest.HTTPBody =  "Foo".dataUsingEncoding(NSUTF8StringEncoding)
+
+        let anotherRequest = NSMutableURLRequest(URL: NSURL(string: "http://hostname/some/path")!)
+        anotherRequest.HTTPBody =  "Bar".dataUsingEncoding(NSUTF8StringEncoding)
+
+        XCTAssertFalse(registry.matchableRequests(aRequest, anotherRequest: anotherRequest))
+    }
 }
