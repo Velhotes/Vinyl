@@ -20,6 +20,10 @@ final class URLSessionTask: NSURLSessionDataTask {
         completion()
     }
     
+    override func suspend() {
+        // We won't do anything here
+    }
+    
     override func cancel() {
         // We won't do anything here
     }
