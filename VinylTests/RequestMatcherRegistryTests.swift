@@ -70,4 +70,32 @@ class RequestMatcherRegistryTests: XCTestCase {
         
         XCTAssertFalse(registry.matchableRequests(aRequest, anotherRequest: anotherRequest))
     }
+    
+    func test_Match_byHeader_withSameHeader() {
+        
+        let registry = RequestMatcherRegistry(types: [.Headers])
+        
+        let commonHeader = ["header" : "common", "awesomeness": "max"]
+        
+        let aRequest = NSMutableURLRequest(URL: NSURL(string: "http://hostname/some/path")!)
+        aRequest.allHTTPHeaderFields = commonHeader
+        
+        let anotherRequest = NSMutableURLRequest(URL: NSURL(string: "http://hostname/some/path")!)
+        anotherRequest.allHTTPHeaderFields = commonHeader
+        
+        XCTAssertTrue(registry.matchableRequests(aRequest, anotherRequest: anotherRequest))
+    }
+    
+    func test_Match_byHeader_withDifferentHeader() {
+        
+        let registry = RequestMatcherRegistry(types: [.Headers])
+        
+        let aRequest = NSMutableURLRequest(URL: NSURL(string: "http://hostname/some/path")!)
+        aRequest.allHTTPHeaderFields = ["header" : "aRequest", "awesomeness": "max"]
+        
+        let anotherRequest = NSMutableURLRequest(URL: NSURL(string: "http://hostname/some/path")!)
+        anotherRequest.allHTTPHeaderFields = ["header" : "anotherRequest", "awesomeness": "min"]
+        
+        XCTAssertFalse(registry.matchableRequests(aRequest, anotherRequest: anotherRequest))
+    }
 }

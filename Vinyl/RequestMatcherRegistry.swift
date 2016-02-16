@@ -100,8 +100,15 @@ struct QueryRequestMatcher: RequestMatcher {
 
 struct HeadersRequestMatcher: RequestMatcher {
     func match(aRequest: Request, anotherRequest: Request) -> Bool {
-        // TODO: Implement
-        fatalError()
+        
+        let headers: Request -> [String: String]  = { request in
+            return request.allHTTPHeaderFields ?? [:]
+        }
+
+        let aRequestHeaders = headers(aRequest)
+        let anotherRequestHeaders = headers(anotherRequest)
+
+        return aRequestHeaders == anotherRequestHeaders
     }
 }
 
