@@ -12,7 +12,27 @@ protocol TrackMatcher {
     func matchableTrack(request: Request, track: Track) -> Bool
 }
 
-struct DefaultTrackMatcher: TrackMatcher {
+// We cannot use a struct, otherwise we need to mark `-matchableTrack` as mutating and that breaks protocol conformance (rdar://21966810)
+final class UniqueTrackMatcher: TrackMatcher {
+
+    private var availableTracks: [Track]
+    
+    init(availableTracks: [Track]) {
+        self.availableTracks = availableTracks
+    }
+    
+    func matchableTrack(_: Request, track: Track) -> Bool {
+        
+        if let index = availableTracks.indexOf(track) {
+            availableTracks.removeAtIndex(index)
+            return true
+        }
+        
+        return false
+    }
+}
+
+struct TypeTrackMatcher: TrackMatcher {
     
     let requestMatcherRegistry: RequestMatcherRegistry
     

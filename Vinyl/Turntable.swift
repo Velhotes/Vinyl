@@ -20,7 +20,12 @@ final class Turntable: NSURLSession {
     
     init(vinyl: Vinyl, requestMatcherTypes: [RequestMatcherType] = [.Method, .URL]) {
         
-        self.player = Player(vinyl: vinyl, trackMatcher: DefaultTrackMatcher(requestMatcherTypes: requestMatcherTypes))
+        let trackMatchers: [TrackMatcher] = [
+            TypeTrackMatcher(requestMatcherTypes: requestMatcherTypes),
+            UniqueTrackMatcher(availableTracks: vinyl.tracks)
+        ]
+        
+        self.player = Player(vinyl: vinyl, trackMatchers: trackMatchers)
         
         super.init()
     }
