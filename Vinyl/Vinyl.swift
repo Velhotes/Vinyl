@@ -36,7 +36,7 @@ struct VinylFactory {
         return Vinyl(tracks: [track])
     }
     
-    static func createVinyl(url: NSURL, body: NSData? = nil, headers: HTTPHeaders = [:]) -> Vinyl {
+    static func createValidVinyl(url: NSURL, body: NSData? = nil, headers: HTTPHeaders = [:]) -> Vinyl {
         
         guard
             let response = NSHTTPURLResponse(URL: url, statusCode: 200, HTTPVersion: nil, headerFields: headers)

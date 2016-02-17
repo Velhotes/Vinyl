@@ -42,7 +42,7 @@ class VinylTests: XCTestCase {
         let data = "Hello World".dataUsingEncoding(NSUTF8StringEncoding)!
         let headers = ["awesomeness": "max"]
         
-        let vinyl = VinylFactory.createVinyl(NSURL(string: "http://feelGoodINC.com")!, body: data, headers: headers)
+        let vinyl = VinylFactory.createValidVinyl(NSURL(string: "http://feelGoodINC.com")!, body: data, headers: headers)
         
         let track = vinyl.tracks[0]
         
