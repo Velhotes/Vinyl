@@ -24,3 +24,26 @@ extension Response {
         self.init(urlResponse: urlResponse, body: decodeBody(encodedResponse["body"], headers: headers), error: nil)
     }
 }
+
+func ==(lhs: Response, rhs: Response) -> Bool {
+    return lhs.urlResponse == rhs.urlResponse && lhs.body == rhs.body && lhs.error == rhs.error
+}
+
+extension Response: Hashable {
+    
+    var hashValue: Int {
+        
+        var hash = urlResponse.hashValue
+        
+        if let body = body {
+            hash ^= body.hashValue
+        }
+        
+        if let error = error {
+            hash ^= error.hashValue
+        }
+        
+        return hash
+    }
+    
+}

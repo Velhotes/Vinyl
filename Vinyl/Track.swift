@@ -45,6 +45,8 @@ struct Track {
     }
 }
 
+// MARK: - Extensions
+
 extension Track {
     
     init(encodedTrack: EncodedObject) {
@@ -61,6 +63,20 @@ extension Track {
         response = Response(encodedResponse: encodedResponse)
     }
 }
+
+extension Track: Hashable {
+    
+    var hashValue: Int {
+        return request.hashValue ^ response.hashValue
+    }
+    
+}
+
+func ==(lhs: Track, rhs: Track) -> Bool {
+    return lhs.request == rhs.request && lhs.response == rhs.response
+}
+
+// MARK: - Factory
 
 struct TrackFactory {
     
