@@ -19,7 +19,7 @@ We advise against its usage right now, until version 1.0 is released. Once we ha
 
 * [X] Allow the user to configure how strict the library should be.
 * [X] Allow the user to define its own response without relying on a json file.
-* [ ] Instead of relying on a configuration, fix the responses in an array (e.g. first request made will use the first response in the array and so on).
+* [ ] Instead mapping requests ➡️ responses , fix the responses in an array (e.g. first request made will use the first response in the array and so on).
 * [ ] Allow request recording.
 
 #### Why not simply use DVR?
