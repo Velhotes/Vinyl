@@ -16,7 +16,7 @@ extension Response {
             let url =  NSURL(string: urlString),
             let statusCode = encodedResponse["statusCode"] as? Int,
             let headers = encodedResponse["headers"] as? HTTPHeaders,
-            let urlResponse = HTTPURLResponse(URL: url, statusCode: statusCode, HTTPVersion: nil, headerFields: headers)
+            let urlResponse = NSHTTPURLResponse(URL: url, statusCode: statusCode, HTTPVersion: nil, headerFields: headers)
             else {
                 fatalError("key not found 😞 for Response (check url/statusCode/headers) \(encodedResponse)")
         }

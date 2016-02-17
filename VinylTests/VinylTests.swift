@@ -26,7 +26,7 @@ class VinylTests: XCTestCase {
     func test_badVinylCreation_withError() {
         
         let error = NSError(domain: "Test Domain", code: 1, userInfo: nil)
-        let vinyl = VinylFactory.createBadVinyl(NSURL(string: "http://badRecord.com")!, error: error, statusCode: 400)
+        let vinyl = VinylFactory.createBadVinyl(NSURL(string: "http://badRecord.com")!, statusCode: 400, error: error)
         
         let track = vinyl.tracks[0]
         

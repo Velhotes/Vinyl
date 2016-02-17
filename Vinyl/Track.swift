@@ -14,11 +14,11 @@ typealias HTTPHeaders = [String : String]
 typealias Request = NSURLRequest
 
 struct Response {
-    let urlResponse: HTTPURLResponse
+    let urlResponse: NSHTTPURLResponse
     let body: NSData?
     let error: NSError?
     
-    init(urlResponse: HTTPURLResponse, body: NSData? = nil, error: NSError? = nil) {
+    init(urlResponse: NSHTTPURLResponse, body: NSData? = nil, error: NSError? = nil) {
         self.urlResponse = urlResponse
         self.body = body
         self.error = error

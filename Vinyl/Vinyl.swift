@@ -24,10 +24,13 @@ struct Vinyl {
 
 struct VinylFactory {
     
-    static func createBadVinyl(url: NSURL, error: NSError? = nil, statusCode: Int) -> Vinyl {
+    static func createBadVinyl(url: NSURL, statusCode: Int, error: NSError? = nil, headers: HTTPHeaders = [:]) -> Vinyl {
         
-        let response = HTTPURLResponse(URL: url, MIMEType: nil, expectedContentLength: 0, textEncodingName: nil)
-        response.statusCode = statusCode
+        guard
+            let response = NSHTTPURLResponse(URL: url, statusCode: statusCode, HTTPVersion: nil, headerFields: headers)
+        else {
+            fatalError("We weren't able to create the Vinyl 😫")
+        }
         
         let track = Track(response: Response(urlResponse: response, error: error))
         return Vinyl(tracks: [track])
@@ -35,9 +38,11 @@ struct VinylFactory {
     
     static func createVinyl(url: NSURL, body: NSData? = nil, headers: HTTPHeaders = [:]) -> Vinyl {
         
-        let response = HTTPURLResponse(URL: url, MIMEType: nil, expectedContentLength: 0, textEncodingName: nil)
-        response.statusCode = 200
-        response.allHeaderFields = headers
+        guard
+            let response = NSHTTPURLResponse(URL: url, statusCode: 200, HTTPVersion: nil, headerFields: headers)
+        else {
+                fatalError("We weren't able to create the Vinyl 😫")
+        }
         
         let track = Track(response: Response(urlResponse: response, body: body))
         return Vinyl(tracks: [track])
