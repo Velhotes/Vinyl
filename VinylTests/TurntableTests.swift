@@ -47,7 +47,7 @@ class TurntableTests: XCTestCase {
         let turnatable = Turntable(
             vinylName: "vinyl_multiple",
             bundle: NSBundle(forClass: TurntableTests.self),
-            requestMatcherTypes: [.URL])
+            turntableConfiguration: TurntableConfiguration(requestMatcherTypes: [.URL]))
         
         let request1 = NSMutableURLRequest(URL: NSURL(string: "http://api.test1.com")!)
         request1.HTTPMethod = "POST"

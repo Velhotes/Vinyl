@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7D22F3021C75351B00A81608 /* TurntableConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D22F3011C75351B00A81608 /* TurntableConfiguration.swift */; };
 		7D48F0D31C7159F10044DC32 /* RequestMatcherRegistry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D48F0D21C7159F10044DC32 /* RequestMatcherRegistry.swift */; };
 		7D93580C1C7117A80020103D /* Track.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D93580B1C7117A80020103D /* Track.swift */; };
 		7DC5704D1C72A1AB00BA1458 /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DC5704C1C72A1AB00BA1458 /* Player.swift */; };
@@ -42,6 +43,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		7D22F3011C75351B00A81608 /* TurntableConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TurntableConfiguration.swift; sourceTree = "<group>"; };
 		7D48F0D21C7159F10044DC32 /* RequestMatcherRegistry.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RequestMatcherRegistry.swift; sourceTree = "<group>"; };
 		7D93580B1C7117A80020103D /* Track.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Track.swift; sourceTree = "<group>"; };
 		7DC5704C1C72A1AB00BA1458 /* Player.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
@@ -161,6 +163,7 @@
 				C72AD2F01C6E489B00E11612 /* EncodingDecoding */,
 				C72AD2EA1C6E274700E11612 /* JSON_Helpers */,
 				C75D79221C6E0E9D004B92A9 /* Turntable.swift */,
+				7D22F3011C75351B00A81608 /* TurntableConfiguration.swift */,
 				C708861C1C738A19002DBB2C /* URLSessionTask.swift */,
 				7DC5704C1C72A1AB00BA1458 /* Player.swift */,
 				7DC5704E1C72A1FD00BA1458 /* TrackMatcher.swift */,
@@ -302,6 +305,7 @@
 				C70886171C737684002DBB2C /* NSURLRequest.swift in Sources */,
 				C70886191C737699002DBB2C /* Response.swift in Sources */,
 				C75D79211C6E0B32004B92A9 /* Vinyl.swift in Sources */,
+				7D22F3021C75351B00A81608 /* TurntableConfiguration.swift in Sources */,
 				7DC5704D1C72A1AB00BA1458 /* Player.swift in Sources */,
 				C70886121C7346CF002DBB2C /* NSURLQueryItem.swift in Sources */,
 				C75D79231C6E0E9D004B92A9 /* Turntable.swift in Sources */,
