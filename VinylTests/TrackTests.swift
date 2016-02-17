@@ -40,7 +40,7 @@ class TrackTests: XCTestCase {
         
         XCTAssertTrue(track.response.urlResponse.statusCode == 200)
         XCTAssertTrue(track.response.body!.isEqualToData(data))
-        XCTAssertTrue(track.response.urlResponse.allHeaderFields as! [String: String] == headers)
+        XCTAssertTrue(track.response.urlResponse.allHeaderFields as! HTTPHeaders == headers)
         XCTAssertTrue(track.response.urlResponse.URL?.absoluteString == "http://feelGoodINC.com")
         XCTAssertTrue(track.request.URL?.absoluteString == "http://feelGoodINC.com")
     }

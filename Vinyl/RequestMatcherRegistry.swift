@@ -96,13 +96,13 @@ private struct QueryRequestMatcher: RequestMatcher {
 private struct HeadersRequestMatcher: RequestMatcher {
     func match(aRequest: Request, anotherRequest: Request) -> Bool {
         
-        let headers: Request -> [String: String]  = { request in
+        let headers: Request -> HTTPHeaders  = { request in
             return request.allHTTPHeaderFields ?? [:]
         }
         
-        let toLowerCase: [String: String] -> [String: String] = { dic in
+        let toLowerCase: HTTPHeaders -> HTTPHeaders = { dic in
         
-            var loweredCase: [String: String] = [:]
+            var loweredCase: HTTPHeaders = [:]
             for key in dic.keys {
                 loweredCase[key.lowercaseString] = dic[key]?.lowercaseString
             }
