@@ -14,8 +14,8 @@ func encodeBody(bodyData: NSData?, headers: HTTPHeaders) -> AnyObject? {
     guard
         let body = bodyData,
         let contentType = headers["Content-Type"]
-    else {
-        return nil
+        else {
+            return nil
     }
     
     switch contentType {
@@ -33,11 +33,17 @@ func encodeBody(bodyData: NSData?, headers: HTTPHeaders) -> AnyObject? {
 
 func decodeBody(bodyData: AnyObject?, headers: HTTPHeaders) -> NSData? {
     
-    guard
-        let body = bodyData,
-        let contentType = headers["Content-Type"]
-    else {
-        return nil
+    guard let body = bodyData else { return nil }
+    
+    guard let contentType = headers["Content-Type"]  else {
+        
+        // As last resource, we will check if the bodyData is a string and if so convert it
+        if let string = body as? String {
+            return string.dataUsingEncoding(NSUTF8StringEncoding)
+        }
+        else {
+            return nil
+        }
     }
     
     if let string = body as? String where contentType.hasPrefix("text/") {
