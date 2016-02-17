@@ -5,7 +5,7 @@
     },
     "response": {
         "url": "http://api.test1.com",
-        "statusCode": 200,
+        "status": 200,
         "headers": {}
     }
  },
@@ -15,7 +15,7 @@
     },
     "response": {
         "url": "http://api.test2.com",
-        "statusCode": 200,
+        "status": 200,
         "headers": {}
     }
  }

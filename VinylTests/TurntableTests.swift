@@ -97,4 +97,59 @@ class TurntableTests: XCTestCase {
         turnatable.dataTaskWithRequest(request1, completionHandler: checker).resume()
         turnatable.dataTaskWithRequest(request2, completionHandler: checker).resume()
     }
+    
+    func test_DVRCompatibility_SingleTrack() {
+        
+        let expectation = self.expectationWithDescription("Expected callback to have the correct URL")
+        defer { self.waitForExpectationsWithTimeout(4, handler: nil) }
+        
+        let turnatable = Turntable(cassetteName: "dvr_example", bundle: NSBundle(forClass: TurntableTests.self))
+        let request = NSURLRequest(URL: NSURL(string: "http://api.test.com")!)
+        
+        turnatable.dataTaskWithRequest(request) { (data, response, anError) in
+            
+            XCTAssertNil(anError)
+            
+            guard let httpResponse = response as? NSHTTPURLResponse else { fatalError("\(response) should be a NSHTTPURLResponse") }
+            
+            let body = "hello".dataUsingEncoding(NSUTF8StringEncoding)!
+
+            XCTAssertEqual(httpResponse.URL!.absoluteString, "http://api.test.com")
+            XCTAssertEqual(httpResponse.statusCode, 200)
+            XCTAssertTrue(data!.isEqualToData(body))
+            XCTAssertNotNil(httpResponse.allHeaderFields)
+
+            expectation.fulfill()
+            }.resume()
+    }
+    
+    func test_DVRCompatibility_MultipleTrack() {
+        
+        let expectation = self.expectationWithDescription("Expected callback to have the correct URL")
+        defer { self.waitForExpectationsWithTimeout(4, handler: nil) }
+        
+        let turnatable = Turntable(cassetteName: "dvr_example_multiple", bundle: NSBundle(forClass: TurntableTests.self))
+        
+        let request1 = NSURLRequest(URL: NSURL(string: "http://api.test1.com")!)
+        let request2 = NSURLRequest(URL: NSURL(string: "http://api.test2.com")!)
+        
+        var numberOfCalls = 0
+        let checker: (NSData?, NSURLResponse?, NSError?) -> () = { (data, response, anError) in
+            
+            guard let httpResponse = response as? NSHTTPURLResponse else { fatalError("\(response) should be a NSHTTPURLResponse") }
+            
+            switch numberOfCalls {
+            case 0:
+                XCTAssertEqual(httpResponse.URL!.absoluteString, "http://api.test1.com")
+                numberOfCalls += 1
+            case 1:
+                XCTAssertEqual(httpResponse.URL!.absoluteString, "http://api.test2.com")
+                expectation.fulfill()
+            default: break
+            }
+        }
+        
+        turnatable.dataTaskWithRequest(request1, completionHandler: checker).resume()
+        turnatable.dataTaskWithRequest(request2, completionHandler: checker).resume()
+    }
 }

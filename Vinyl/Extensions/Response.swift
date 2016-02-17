@@ -14,11 +14,11 @@ extension Response {
         guard
             let urlString = encodedResponse["url"] as? String,
             let url =  NSURL(string: urlString),
-            let statusCode = encodedResponse["statusCode"] as? Int,
+            let statusCode = encodedResponse["status"] as? Int,
             let headers = encodedResponse["headers"] as? HTTPHeaders,
             let urlResponse = NSHTTPURLResponse(URL: url, statusCode: statusCode, HTTPVersion: nil, headerFields: headers)
             else {
-                fatalError("key not found 😞 for Response (check url/statusCode/headers) \(encodedResponse)")
+                fatalError("key not found 😞 for Response (check url/statusCode/headers) check \n------\n\(encodedResponse)\n------\n")
         }
         
         self.init(urlResponse: urlResponse, body: decodeBody(encodedResponse["body"], headers: headers), error: nil)

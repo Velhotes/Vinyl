@@ -19,6 +19,8 @@
 		C708861B1C737C1B002DBB2C /* SequenceType.swift in Sources */ = {isa = PBXBuildFile; fileRef = C708861A1C737C1B002DBB2C /* SequenceType.swift */; };
 		C708861D1C738A19002DBB2C /* URLSessionTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = C708861C1C738A19002DBB2C /* URLSessionTask.swift */; };
 		C70886211C73FBBF002DBB2C /* TrackTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C70886201C73FBBF002DBB2C /* TrackTests.swift */; };
+		C70886271C74CC28002DBB2C /* dvr_example_simple.json in Resources */ = {isa = PBXBuildFile; fileRef = C70886231C74CC28002DBB2C /* dvr_example_simple.json */; };
+		C708862E1C74D2AB002DBB2C /* dvr_example_multiple.json in Resources */ = {isa = PBXBuildFile; fileRef = C708862D1C74D2AB002DBB2C /* dvr_example_multiple.json */; };
 		C72AD2EC1C6E275000E11612 /* JSONHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C72AD2EB1C6E275000E11612 /* JSONHelper.swift */; };
 		C72AD2F21C6E48B500E11612 /* EncodingDecoding.swift in Sources */ = {isa = PBXBuildFile; fileRef = C72AD2F11C6E48B500E11612 /* EncodingDecoding.swift */; };
 		C72AD2F41C6E4B7800E11612 /* TurntableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C72AD2F31C6E4B7800E11612 /* TurntableTests.swift */; };
@@ -52,6 +54,8 @@
 		C708861A1C737C1B002DBB2C /* SequenceType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SequenceType.swift; sourceTree = "<group>"; };
 		C708861C1C738A19002DBB2C /* URLSessionTask.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = URLSessionTask.swift; sourceTree = "<group>"; };
 		C70886201C73FBBF002DBB2C /* TrackTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrackTests.swift; sourceTree = "<group>"; };
+		C70886231C74CC28002DBB2C /* dvr_example_simple.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = dvr_example_simple.json; sourceTree = "<group>"; };
+		C708862D1C74D2AB002DBB2C /* dvr_example_multiple.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = dvr_example_multiple.json; sourceTree = "<group>"; };
 		C72AD2EB1C6E275000E11612 /* JSONHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSONHelper.swift; sourceTree = "<group>"; };
 		C72AD2F11C6E48B500E11612 /* EncodingDecoding.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EncodingDecoding.swift; sourceTree = "<group>"; };
 		C72AD2F31C6E4B7800E11612 /* TurntableTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TurntableTests.swift; sourceTree = "<group>"; };
@@ -101,6 +105,15 @@
 				C70886141C735136002DBB2C /* FuncComposition.swift */,
 			);
 			path = Composition;
+			sourceTree = "<group>";
+		};
+		C70886221C74CC28002DBB2C /* DVR_Fixtures */ = {
+			isa = PBXGroup;
+			children = (
+				C70886231C74CC28002DBB2C /* dvr_example_simple.json */,
+				C708862D1C74D2AB002DBB2C /* dvr_example_multiple.json */,
+			);
+			path = DVR_Fixtures;
 			sourceTree = "<group>";
 		};
 		C72AD2EA1C6E274700E11612 /* JSON_Helpers */ = {
@@ -168,10 +181,11 @@
 		C75D79141C6DFE30004B92A9 /* VinylTests */ = {
 			isa = PBXGroup;
 			children = (
+				C70886221C74CC28002DBB2C /* DVR_Fixtures */,
+				C72AD2F51C6E4C4500E11612 /* Mock */,
 				C72AD2F31C6E4B7800E11612 /* TurntableTests.swift */,
 				7DC570501C72ACA100BA1458 /* RequestMatcherRegistryTests.swift */,
 				C70886201C73FBBF002DBB2C /* TrackTests.swift */,
-				C72AD2F51C6E4C4500E11612 /* Mock */,
 				C75D79171C6DFE30004B92A9 /* Info.plist */,
 			);
 			path = VinylTests;
@@ -276,6 +290,8 @@
 			files = (
 				C72AD2F91C6E80D900E11612 /* Basic_2_Songs.json in Resources */,
 				C72AD2F71C6E4D1600E11612 /* Basic.json in Resources */,
+				C70886271C74CC28002DBB2C /* dvr_example_simple.json in Resources */,
+				C708862E1C74D2AB002DBB2C /* dvr_example_multiple.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
