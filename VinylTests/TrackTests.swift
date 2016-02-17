@@ -1,5 +1,5 @@
 //
-//  VinylTests.swift
+//  TrackTests.swift
 //  Vinyl
 //
 //  Created by Rui Peres on 17/02/2016.
@@ -20,7 +20,7 @@ class TrackTests: XCTestCase {
         XCTAssertTrue(track.request?.URL?.absoluteString == "http://badRecord.com")
     }
     
-    func test_badVinylCreation_withError() {
+    func test_badTrackCreation_withError() {
         
         let error = NSError(domain: "Test Domain", code: 1, userInfo: nil)
         let track = TrackFactory.createBadTrack(NSURL(string: "http://badRecord.com")!, statusCode: 400, error: error)
@@ -31,7 +31,7 @@ class TrackTests: XCTestCase {
         XCTAssertTrue(track.request?.URL?.absoluteString == "http://badRecord.com")
     }
 
-    func test_AwesomeVinylCreation() {
+    func test_AwesomeTrackCreation() {
         
         let data = "Hello World".dataUsingEncoding(NSUTF8StringEncoding)!
         let headers = ["awesomeness": "max"]
