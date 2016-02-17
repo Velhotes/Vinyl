@@ -8,11 +8,16 @@
 
 import Foundation
 
-final class Vinyl {
+struct Vinyl {
     
     let tracks: [Track]
     
     init(plastic: Plastic) {
         tracks = plastic.map(Track.init)
+    }
+    
+    init(tracks: [Track]) {
+        
+        self.tracks = tracks
     }
 }
