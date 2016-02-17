@@ -26,7 +26,7 @@ struct Response {
 }
 
 struct Track {
-    let request: Request?
+    let request: Request
     let response: Response
     
     init(request: Request, response: Response) {
@@ -38,13 +38,8 @@ struct Track {
         
         self.response = response
         
-        guard
-            let urlString = response.urlResponse.URL?.absoluteString,
-            let url = NSURL(string: urlString)
-        else {
-            self.request = nil
-            return
-        }
+        let urlString = response.urlResponse.URL?.absoluteString
+        let url = NSURL(string: urlString!)!
         
         self.request = NSURLRequest(URL: url)
     }
@@ -56,8 +51,8 @@ extension Track {
         guard
             let encodedRequest = encodedTrack["request"] as? EncodedObject,
             let encodedResponse = encodedTrack["response"] as? EncodedObject
-        else {
-            fatalError("request/response not found 😞 for Track: \(encodedTrack)")
+            else {
+                fatalError("request/response not found 😞 for Track: \(encodedTrack)")
         }
         
         // We're using a helper function because we cannot mutate a NSURLRequest directly

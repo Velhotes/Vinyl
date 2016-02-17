@@ -32,11 +32,9 @@ struct RequestMatcherRegistry {
         matchingChain = types.map { RequestMatcherRegistry.matcherForType($0) }
     }
     
-    func matchableRequests(aRequest: Request, anotherRequest: Request?) -> Bool {
+    func matchableRequests(aRequest: Request, anotherRequest: Request) -> Bool {
         
-        guard let request = anotherRequest else { return false }
-        
-        return matchingChain.all { $0.match(aRequest, anotherRequest: request) }
+        return matchingChain.all { $0.match(aRequest, anotherRequest: aRequest) }
     }
     
     private static func matcherForType(requestMatcherType: RequestMatcherType) -> RequestMatcher {
