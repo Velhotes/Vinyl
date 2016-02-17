@@ -34,7 +34,7 @@ struct RequestMatcherRegistry {
     
     func matchableRequests(aRequest: Request, anotherRequest: Request) -> Bool {
         
-        return matchingChain.all { $0.match(aRequest, anotherRequest: aRequest) }
+        return matchingChain.all { $0.match(aRequest, anotherRequest: anotherRequest) }
     }
     
     private static func matcherForType(requestMatcherType: RequestMatcherType) -> RequestMatcher {
