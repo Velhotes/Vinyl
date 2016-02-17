@@ -21,4 +21,15 @@ class HTTPURLResponse: NSHTTPURLResponse {
             _statusCode = newValue
         }
     }
+    
+    private var _allHeaderFields: [NSObject : AnyObject]?
+    override var allHeaderFields: [NSObject : AnyObject] {
+        get {
+            return _allHeaderFields ?? super.allHeaderFields
+        }
+        
+        set {
+            _allHeaderFields = newValue
+        }
+    }
 }

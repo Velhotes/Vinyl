@@ -24,12 +24,23 @@ struct Vinyl {
 
 struct VinylFactory {
     
-    static func createBadVinyl(url: NSURL, statusCode: Int) -> Vinyl {
+    static func createBadVinyl(url: NSURL, error: NSError? = nil, statusCode: Int) -> Vinyl {
         
         let response = HTTPURLResponse(URL: url, MIMEType: nil, expectedContentLength: 0, textEncodingName: nil)
         response.statusCode = statusCode
         
-        let track = Track(response: Response(urlResponse: response))
+        let track = Track(response: Response(urlResponse: response, error: error))
+        return Vinyl(tracks: [track])
+    }
+    
+    static func createVinyl(url: NSURL, body: NSData? = nil, headers: HTTPHeaders = [:]) -> Vinyl {
+        
+        let response = HTTPURLResponse(URL: url, MIMEType: nil, expectedContentLength: 0, textEncodingName: nil)
+        response.statusCode = 200
+        response.allHeaderFields = headers
+        
+        let track = Track(response: Response(urlResponse: response, body: body))
         return Vinyl(tracks: [track])
     }
 }
+
