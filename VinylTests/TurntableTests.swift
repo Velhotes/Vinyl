@@ -10,38 +10,51 @@ import XCTest
 @testable import Vinyl
 
 class TurntableTests: XCTestCase {
-
-    func test_BasicVinyl() {
+    
+    func test_Vinyl_single() {
         
-        let expectation = self.expectationWithDescription("Expected callback to have the correct URL")
-        defer { self.waitForExpectationsWithTimeout(4, handler: nil) }
-
-        let turnatable = Turntable(vinylName: "Basic", bundle: NSBundle(forClass: TurntableTests.self))
-        let request = NSURLRequest(URL: NSURL(string: "http://api.test.com")!)
+        let turnatable = Turntable(vinylName: "vinyl_single", bundle: NSBundle(forClass: TurntableTests.self))
         
-        turnatable.dataTaskWithRequest(request) { (data, response, anError) in
-            
-            XCTAssertNil(anError)
-            XCTAssertNil(data)
-            
-            guard let httpResponse = response as? NSHTTPURLResponse else { fatalError("\(response) should be a NSHTTPURLResponse") }
-            
-            XCTAssertEqual(httpResponse.URL!.absoluteString, "http://api.test.com")
-            XCTAssertEqual(httpResponse.statusCode, 200)
-            expectation.fulfill()
-        }.resume()
+        singleCallTest(turnatable)
     }
     
-    func test_BasicVinyl_with2Songs() {
+    func test_DVR_single() {
+
+        let turnatable = Turntable(cassetteName: "dvr_single", bundle: NSBundle(forClass: TurntableTests.self))
+        
+        singleCallTest(turnatable)
+    }
+    
+    func test_Vinyl_multiple() {
+        
+        let turnatable = Turntable(vinylName: "vinyl_multiple", bundle: NSBundle(forClass: TurntableTests.self))
+        
+        multipleCallTest(turnatable)
+    }
+    
+    func test_DVR_multiple() {
+        
+        let turnatable = Turntable(cassetteName: "dvr_multiple", bundle: NSBundle(forClass: TurntableTests.self))
+        
+        multipleCallTest(turnatable)
+    }
+    
+    func test_Vinyl_multiple_differentMethods() {
         
         let expectation = self.expectationWithDescription("Expected callback to have the correct URL")
         defer { self.waitForExpectationsWithTimeout(4, handler: nil) }
         
-        let turnatable = Turntable(vinylName: "Basic_2_Songs", bundle: NSBundle(forClass: TurntableTests.self))
+        let turnatable = Turntable(
+            vinylName: "vinyl_multiple",
+            bundle: NSBundle(forClass: TurntableTests.self),
+            requestMatcherTypes: [.URL])
         
-        let request1 = NSURLRequest(URL: NSURL(string: "http://api.test1.com")!)
-        let request2 = NSURLRequest(URL: NSURL(string: "http://api.test2.com")!)
-
+        let request1 = NSMutableURLRequest(URL: NSURL(string: "http://api.test1.com")!)
+        request1.HTTPMethod = "POST"
+        
+        let request2 = NSMutableURLRequest(URL: NSURL(string: "http://api.test2.com")!)
+        request2.HTTPMethod = "POST"
+        
         var numberOfCalls = 0
         let checker: (NSData?, NSURLResponse?, NSError?) -> () = { (data, response, anError) in
             
@@ -62,21 +75,39 @@ class TurntableTests: XCTestCase {
         turnatable.dataTaskWithRequest(request2, completionHandler: checker).resume()
     }
     
-    func test_BasicVinyl_with2Songs_andDifferentMethods() {
+    //MARK: Aux methods
+    
+    private func singleCallTest(turnatable: Turntable) {
         
         let expectation = self.expectationWithDescription("Expected callback to have the correct URL")
         defer { self.waitForExpectationsWithTimeout(4, handler: nil) }
         
-        let turnatable = Turntable(
-            vinylName: "Basic_2_Songs",
-            bundle: NSBundle(forClass: TurntableTests.self),
-            requestMatcherTypes: [.URL])
+        let request = NSURLRequest(URL: NSURL(string: "http://api.test.com")!)
         
-        let request1 = NSMutableURLRequest(URL: NSURL(string: "http://api.test1.com")!)
-        request1.HTTPMethod = "POST"
+        turnatable.dataTaskWithRequest(request) { (data, response, anError) in
+            
+            XCTAssertNil(anError)
+            
+            guard let httpResponse = response as? NSHTTPURLResponse else { fatalError("\(response) should be a NSHTTPURLResponse") }
+            
+            let body = "hello".dataUsingEncoding(NSUTF8StringEncoding)!
+                        
+            XCTAssertEqual(httpResponse.URL!.absoluteString, "http://api.test.com")
+            XCTAssertEqual(httpResponse.statusCode, 200)
+            XCTAssertTrue(data!.isEqualToData(body))
+            XCTAssertNotNil(httpResponse.allHeaderFields)
+            
+            expectation.fulfill()
+            }.resume()
+    }
+    
+    private func multipleCallTest(turnatable: Turntable) {
         
-        let request2 = NSMutableURLRequest(URL: NSURL(string: "http://api.test2.com")!)
-        request2.HTTPMethod = "POST"
+        let expectation = self.expectationWithDescription("Expected callback to have the correct URL")
+        defer { self.waitForExpectationsWithTimeout(4, handler: nil) }
+        
+        let request1 = NSURLRequest(URL: NSURL(string: "http://api.test1.com")!)
+        let request2 = NSURLRequest(URL: NSURL(string: "http://api.test2.com")!)
         
         var numberOfCalls = 0
         let checker: (NSData?, NSURLResponse?, NSError?) -> () = { (data, response, anError) in

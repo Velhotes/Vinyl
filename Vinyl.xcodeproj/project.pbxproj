@@ -19,11 +19,13 @@
 		C708861B1C737C1B002DBB2C /* SequenceType.swift in Sources */ = {isa = PBXBuildFile; fileRef = C708861A1C737C1B002DBB2C /* SequenceType.swift */; };
 		C708861D1C738A19002DBB2C /* URLSessionTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = C708861C1C738A19002DBB2C /* URLSessionTask.swift */; };
 		C70886211C73FBBF002DBB2C /* TrackTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C70886201C73FBBF002DBB2C /* TrackTests.swift */; };
+		C70886321C74D452002DBB2C /* vinyl_multiple.json in Resources */ = {isa = PBXBuildFile; fileRef = C70886301C74D452002DBB2C /* vinyl_multiple.json */; };
+		C70886331C74D452002DBB2C /* vinyl_single.json in Resources */ = {isa = PBXBuildFile; fileRef = C70886311C74D452002DBB2C /* vinyl_single.json */; };
+		C70886361C74D470002DBB2C /* dvr_multiple.json in Resources */ = {isa = PBXBuildFile; fileRef = C70886341C74D470002DBB2C /* dvr_multiple.json */; };
+		C70886371C74D470002DBB2C /* dvr_single.json in Resources */ = {isa = PBXBuildFile; fileRef = C70886351C74D470002DBB2C /* dvr_single.json */; };
 		C72AD2EC1C6E275000E11612 /* JSONHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C72AD2EB1C6E275000E11612 /* JSONHelper.swift */; };
 		C72AD2F21C6E48B500E11612 /* EncodingDecoding.swift in Sources */ = {isa = PBXBuildFile; fileRef = C72AD2F11C6E48B500E11612 /* EncodingDecoding.swift */; };
 		C72AD2F41C6E4B7800E11612 /* TurntableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C72AD2F31C6E4B7800E11612 /* TurntableTests.swift */; };
-		C72AD2F71C6E4D1600E11612 /* Basic.json in Resources */ = {isa = PBXBuildFile; fileRef = C72AD2F61C6E4D1600E11612 /* Basic.json */; };
-		C72AD2F91C6E80D900E11612 /* Basic_2_Songs.json in Resources */ = {isa = PBXBuildFile; fileRef = C72AD2F81C6E80D900E11612 /* Basic_2_Songs.json */; };
 		C75D79111C6DFE30004B92A9 /* Vinyl.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C75D79061C6DFE30004B92A9 /* Vinyl.framework */; };
 		C75D79211C6E0B32004B92A9 /* Vinyl.swift in Sources */ = {isa = PBXBuildFile; fileRef = C75D79201C6E0B32004B92A9 /* Vinyl.swift */; };
 		C75D79231C6E0E9D004B92A9 /* Turntable.swift in Sources */ = {isa = PBXBuildFile; fileRef = C75D79221C6E0E9D004B92A9 /* Turntable.swift */; };
@@ -52,11 +54,13 @@
 		C708861A1C737C1B002DBB2C /* SequenceType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SequenceType.swift; sourceTree = "<group>"; };
 		C708861C1C738A19002DBB2C /* URLSessionTask.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = URLSessionTask.swift; sourceTree = "<group>"; };
 		C70886201C73FBBF002DBB2C /* TrackTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrackTests.swift; sourceTree = "<group>"; };
+		C70886301C74D452002DBB2C /* vinyl_multiple.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = vinyl_multiple.json; sourceTree = "<group>"; };
+		C70886311C74D452002DBB2C /* vinyl_single.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = vinyl_single.json; sourceTree = "<group>"; };
+		C70886341C74D470002DBB2C /* dvr_multiple.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = dvr_multiple.json; sourceTree = "<group>"; };
+		C70886351C74D470002DBB2C /* dvr_single.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = dvr_single.json; sourceTree = "<group>"; };
 		C72AD2EB1C6E275000E11612 /* JSONHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSONHelper.swift; sourceTree = "<group>"; };
 		C72AD2F11C6E48B500E11612 /* EncodingDecoding.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EncodingDecoding.swift; sourceTree = "<group>"; };
 		C72AD2F31C6E4B7800E11612 /* TurntableTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TurntableTests.swift; sourceTree = "<group>"; };
-		C72AD2F61C6E4D1600E11612 /* Basic.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Basic.json; sourceTree = "<group>"; };
-		C72AD2F81C6E80D900E11612 /* Basic_2_Songs.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Basic_2_Songs.json; sourceTree = "<group>"; };
 		C75D79061C6DFE30004B92A9 /* Vinyl.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Vinyl.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C75D790B1C6DFE30004B92A9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C75D79101C6DFE30004B92A9 /* VinylTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = VinylTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -103,6 +107,17 @@
 			path = Composition;
 			sourceTree = "<group>";
 		};
+		C708862F1C74D452002DBB2C /* Fixtures */ = {
+			isa = PBXGroup;
+			children = (
+				C70886341C74D470002DBB2C /* dvr_multiple.json */,
+				C70886351C74D470002DBB2C /* dvr_single.json */,
+				C70886301C74D452002DBB2C /* vinyl_multiple.json */,
+				C70886311C74D452002DBB2C /* vinyl_single.json */,
+			);
+			path = Fixtures;
+			sourceTree = "<group>";
+		};
 		C72AD2EA1C6E274700E11612 /* JSON_Helpers */ = {
 			isa = PBXGroup;
 			children = (
@@ -117,15 +132,6 @@
 				C72AD2F11C6E48B500E11612 /* EncodingDecoding.swift */,
 			);
 			path = EncodingDecoding;
-			sourceTree = "<group>";
-		};
-		C72AD2F51C6E4C4500E11612 /* Mock */ = {
-			isa = PBXGroup;
-			children = (
-				C72AD2F61C6E4D1600E11612 /* Basic.json */,
-				C72AD2F81C6E80D900E11612 /* Basic_2_Songs.json */,
-			);
-			path = Mock;
 			sourceTree = "<group>";
 		};
 		C75D78FC1C6DFE30004B92A9 = {
@@ -168,10 +174,10 @@
 		C75D79141C6DFE30004B92A9 /* VinylTests */ = {
 			isa = PBXGroup;
 			children = (
+				C708862F1C74D452002DBB2C /* Fixtures */,
 				C72AD2F31C6E4B7800E11612 /* TurntableTests.swift */,
 				7DC570501C72ACA100BA1458 /* RequestMatcherRegistryTests.swift */,
 				C70886201C73FBBF002DBB2C /* TrackTests.swift */,
-				C72AD2F51C6E4C4500E11612 /* Mock */,
 				C75D79171C6DFE30004B92A9 /* Info.plist */,
 			);
 			path = VinylTests;
@@ -274,8 +280,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C72AD2F91C6E80D900E11612 /* Basic_2_Songs.json in Resources */,
-				C72AD2F71C6E4D1600E11612 /* Basic.json in Resources */,
+				C70886371C74D470002DBB2C /* dvr_single.json in Resources */,
+				C70886331C74D452002DBB2C /* vinyl_single.json in Resources */,
+				C70886361C74D470002DBB2C /* dvr_multiple.json in Resources */,
+				C70886321C74D452002DBB2C /* vinyl_multiple.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

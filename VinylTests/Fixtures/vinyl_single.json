@@ -5,7 +5,8 @@
     },
     "response": {
         "url": "http://api.test.com",
-        "statusCode": 200,
+        "body": "hello",
+        "status": 200,
         "headers": {}
     }
   }
