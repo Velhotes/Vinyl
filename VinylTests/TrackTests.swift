@@ -17,7 +17,7 @@ class TrackTests: XCTestCase {
         
         XCTAssertTrue(track.response.urlResponse.statusCode == 400)
         XCTAssertTrue(track.response.urlResponse.URL?.absoluteString == "http://badRecord.com")
-        XCTAssertTrue(track.request?.URL?.absoluteString == "http://badRecord.com")
+        XCTAssertTrue(track.request.URL?.absoluteString == "http://badRecord.com")
     }
     
     func test_badTrackCreation_withError() {
@@ -28,7 +28,7 @@ class TrackTests: XCTestCase {
         XCTAssertTrue(track.response.urlResponse.statusCode == 400)
         XCTAssertTrue(track.response.error == error)
         XCTAssertTrue(track.response.urlResponse.URL?.absoluteString == "http://badRecord.com")
-        XCTAssertTrue(track.request?.URL?.absoluteString == "http://badRecord.com")
+        XCTAssertTrue(track.request.URL?.absoluteString == "http://badRecord.com")
     }
 
     func test_AwesomeTrackCreation() {
@@ -42,6 +42,6 @@ class TrackTests: XCTestCase {
         XCTAssertTrue(track.response.body!.isEqualToData(data))
         XCTAssertTrue(track.response.urlResponse.allHeaderFields as! [String: String] == headers)
         XCTAssertTrue(track.response.urlResponse.URL?.absoluteString == "http://feelGoodINC.com")
-        XCTAssertTrue(track.request?.URL?.absoluteString == "http://feelGoodINC.com")
+        XCTAssertTrue(track.request.URL?.absoluteString == "http://feelGoodINC.com")
     }
 }
