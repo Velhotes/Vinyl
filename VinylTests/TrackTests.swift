@@ -9,15 +9,12 @@
 import XCTest
 @testable import Vinyl
 
-class VinylTests: XCTestCase {
+class TrackTests: XCTestCase {
 
-    func test_badVinylCreation() {
+    func test_badTrackCreation() {
         
-        let vinyl = VinylFactory.createBadVinyl(NSURL(string: "http://badRecord.com")!, statusCode: 400)
+        let track = TrackFactory.createBadTrack(NSURL(string: "http://badRecord.com")!, statusCode: 400)
         
-        let track = vinyl.tracks[0]
-        
-        XCTAssertTrue(vinyl.tracks.count == 1)
         XCTAssertTrue(track.response.urlResponse.statusCode == 400)
         XCTAssertTrue(track.response.urlResponse.URL?.absoluteString == "http://badRecord.com")
         XCTAssertTrue(track.request?.URL?.absoluteString == "http://badRecord.com")
@@ -26,11 +23,8 @@ class VinylTests: XCTestCase {
     func test_badVinylCreation_withError() {
         
         let error = NSError(domain: "Test Domain", code: 1, userInfo: nil)
-        let vinyl = VinylFactory.createBadVinyl(NSURL(string: "http://badRecord.com")!, statusCode: 400, error: error)
+        let track = TrackFactory.createBadTrack(NSURL(string: "http://badRecord.com")!, statusCode: 400, error: error)
         
-        let track = vinyl.tracks[0]
-        
-        XCTAssertTrue(vinyl.tracks.count == 1)
         XCTAssertTrue(track.response.urlResponse.statusCode == 400)
         XCTAssertTrue(track.response.error == error)
         XCTAssertTrue(track.response.urlResponse.URL?.absoluteString == "http://badRecord.com")
@@ -42,13 +36,8 @@ class VinylTests: XCTestCase {
         let data = "Hello World".dataUsingEncoding(NSUTF8StringEncoding)!
         let headers = ["awesomeness": "max"]
         
-        let vinyl = VinylFactory.createValidVinyl(NSURL(string: "http://feelGoodINC.com")!, body: data, headers: headers)
+        let track = TrackFactory.createValidTrack(NSURL(string: "http://feelGoodINC.com")!, body: data, headers: headers)
         
-        let track = vinyl.tracks[0]
-        
-        print(track.response.urlResponse.allHeaderFields)
-        
-        XCTAssertTrue(vinyl.tracks.count == 1)
         XCTAssertTrue(track.response.urlResponse.statusCode == 200)
         XCTAssertTrue(track.response.body!.isEqualToData(data))
         XCTAssertTrue(track.response.urlResponse.allHeaderFields as! [String: String] == headers)

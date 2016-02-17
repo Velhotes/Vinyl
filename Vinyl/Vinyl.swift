@@ -21,31 +21,3 @@ struct Vinyl {
         self.tracks = tracks
     }
 }
-
-struct VinylFactory {
-    
-    static func createBadVinyl(url: NSURL, statusCode: Int, error: NSError? = nil, headers: HTTPHeaders = [:]) -> Vinyl {
-        
-        guard
-            let response = NSHTTPURLResponse(URL: url, statusCode: statusCode, HTTPVersion: nil, headerFields: headers)
-        else {
-            fatalError("We weren't able to create the Vinyl 😫")
-        }
-        
-        let track = Track(response: Response(urlResponse: response, error: error))
-        return Vinyl(tracks: [track])
-    }
-    
-    static func createValidVinyl(url: NSURL, body: NSData? = nil, headers: HTTPHeaders = [:]) -> Vinyl {
-        
-        guard
-            let response = NSHTTPURLResponse(URL: url, statusCode: 200, HTTPVersion: nil, headerFields: headers)
-        else {
-                fatalError("We weren't able to create the Vinyl 😫")
-        }
-        
-        let track = Track(response: Response(urlResponse: response, body: body))
-        return Vinyl(tracks: [track])
-    }
-}
-

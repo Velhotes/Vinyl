@@ -66,3 +66,28 @@ extension Track {
         response = Response(encodedResponse: encodedResponse)
     }
 }
+
+struct TrackFactory {
+    
+    static func createTrack(url: NSURL, statusCode: Int, body: NSData? = nil, error: NSError? = nil, headers: HTTPHeaders = [:]) -> Track {
+        
+        guard
+            let response = NSHTTPURLResponse(URL: url, statusCode: statusCode, HTTPVersion: nil, headerFields: headers)
+            else {
+                fatalError("We weren't able to create the Vinyl 😫")
+        }
+        
+        let track = Track(response: Response(urlResponse: response, body: body, error: error))
+        return track
+    }
+    
+    static func createBadTrack(url: NSURL, statusCode: Int, error: NSError? = nil, headers: HTTPHeaders = [:]) -> Track {
+        
+        return createTrack(url, statusCode: statusCode, body: nil, error: error, headers: headers)
+    }
+    
+    static func createValidTrack(url: NSURL, body: NSData? = nil, headers: HTTPHeaders = [:]) -> Track {
+        
+        return createTrack(url, statusCode: 200, body: body, error: nil, headers: headers)
+    }
+}
