@@ -14,14 +14,40 @@ typealias HTTPHeaders = [String : String]
 typealias Request = NSURLRequest
 
 struct Response {
-    let urlResponse: NSURLResponse
+    let urlResponse: HTTPURLResponse
     let body: NSData?
     let error: NSError?
+    
+    init(urlResponse: HTTPURLResponse, body: NSData? = nil, error: NSError? = nil) {
+        self.urlResponse = urlResponse
+        self.body = body
+        self.error = error
+    }
 }
 
 struct Track {
-    let request: Request
+    let request: Request?
     let response: Response
+    
+    init(request: Request, response: Response) {
+        self.request = request
+        self.response = response
+    }
+    
+    init(response: Response) {
+        
+        self.response = response
+        
+        guard
+            let urlString = response.urlResponse.URL?.absoluteString,
+            let url = NSURL(string: urlString)
+        else {
+            self.request = nil
+            return
+        }
+        
+        self.request = NSURLRequest(URL: url)
+    }
 }
 
 extension Track {

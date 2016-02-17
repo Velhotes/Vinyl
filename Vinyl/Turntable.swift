@@ -14,11 +14,18 @@ typealias RequestCompletionHandler =  (NSData?, NSURLResponse?, NSError?) -> Voi
 
 final class Turntable: NSURLSession {
     
-    private let bundle: NSBundle
-    private let vinyl: Vinyl
+    private let bundle: NSBundle?
     private let player: Player
     
     var playTracksInSequence = false
+    
+    init(vinyl: Vinyl, requestMatcherTypes: [RequestMatcherType] = [.Method, .URL]) {
+        
+        self.bundle = nil
+        self.player = Player(vinyl: vinyl, trackMatcher: DefaultTrackMatcher(requestMatcherTypes: requestMatcherTypes))
+        
+        super.init()
+    }
     
     init(vinylName: String, bundle: NSBundle = NSBundle(forClass: Turntable.self), requestMatcherTypes: [RequestMatcherType] = [.Method, .URL]) {
         
@@ -27,8 +34,8 @@ final class Turntable: NSURLSession {
         }
         
         self.bundle = bundle
-        self.vinyl = Vinyl(plastic: plastic)
-        self.player = Player(vinyl: vinyl, trackMatcher: DefaultTrackMatcher(requestMatcherTypes: requestMatcherTypes))
+        self.player = Player(vinyl: Vinyl(plastic: plastic), trackMatcher: DefaultTrackMatcher(requestMatcherTypes: requestMatcherTypes))
+        
         super.init()
     }
     
