@@ -11,7 +11,6 @@ import XCTest
 
 class VinylTests: XCTestCase {
 
-    
     func test_badVinylCreation() {
         
         let vinyl = VinylFactory.createBadVinyl(NSURL(string: "http://badRecord.com")!, statusCode: 400)
