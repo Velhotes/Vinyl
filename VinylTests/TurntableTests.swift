@@ -75,6 +75,46 @@ class TurntableTests: XCTestCase {
         turnatable.dataTaskWithRequest(request2, completionHandler: checker).resume()
     }
     
+    func test_Vinyl_multiple_andNotUniquely() {
+        
+        let expectation = self.expectationWithDescription("Expected callback to have the correct URL")
+        defer { self.waitForExpectationsWithTimeout(4, handler: nil) }
+        
+        let turnatable = Turntable(
+            vinylName: "vinyl_multiple",
+            bundle: NSBundle(forClass: TurntableTests.self),
+            turntableConfiguration: TurntableConfiguration(requestMatcherTypes: [.URL], playTracksUniquely: false))
+        
+        let request1 = NSMutableURLRequest(URL: NSURL(string: "http://api.test1.com")!)
+        let request2 = NSMutableURLRequest(URL: NSURL(string: "http://api.test2.com")!)
+        let request3 = NSMutableURLRequest(URL: NSURL(string: "http://api.test2.com")!)
+        let request4 = NSMutableURLRequest(URL: NSURL(string: "http://api.test2.com")!)
+        
+        var numberOfCalls = 0
+        let checker: (NSData?, NSURLResponse?, NSError?) -> () = { (data, response, anError) in
+            
+            guard let httpResponse = response as? NSHTTPURLResponse else { fatalError("\(response) should be a NSHTTPURLResponse") }
+            
+            numberOfCalls += 1
+            
+            switch numberOfCalls {
+            case 1:
+                XCTAssertEqual(httpResponse.URL!.absoluteString, "http://api.test1.com")
+            case 2...4:
+                XCTAssertEqual(httpResponse.URL!.absoluteString, "http://api.test2.com")
+                if numberOfCalls == 4 {
+                    expectation.fulfill()
+                }
+            default: break
+            }
+        }
+        
+        turnatable.dataTaskWithRequest(request1, completionHandler: checker).resume()
+        turnatable.dataTaskWithRequest(request2, completionHandler: checker).resume()
+        turnatable.dataTaskWithRequest(request3, completionHandler: checker).resume()
+        turnatable.dataTaskWithRequest(request4, completionHandler: checker).resume()
+    }
+    
     //MARK: Aux methods
     
     private func singleCallTest(turnatable: Turntable) {
