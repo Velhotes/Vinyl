@@ -11,17 +11,18 @@ import Foundation
 struct Player {
     
     let vinyl: Vinyl
-    let trackMatcher: TrackMatcher
+    let trackMatchers: [TrackMatcher]
     
     private func seekTrackForRequest(request: Request) -> Track? {
-        
-        return vinyl.tracks.filter { trackMatcher.matchableTrack(request, track: $0) }.first
+        return vinyl.tracks.filter { track in
+            trackMatchers.all { matcher in matcher.matchableTrack(request, track: track) }
+        }.first
     }
     
-    func playTrack(forRequest request: Request) -> (NSData?, NSURLResponse?, NSError?) {
+    func playTrack(forRequest request: Request) throws -> (NSData?, NSURLResponse?, NSError?) {
         
         guard let track = self.seekTrackForRequest(request) else {
-            fatalError("💥 No 🎶 recorded and matchable with request: \(request.debugDescription) 😩")
+            throw Error.TrackNotFound
         }
         
         return (track.response.body, track.response.urlResponse, track.response.error)

@@ -13,18 +13,6 @@ typealias HTTPHeaders = [String : String]
 
 typealias Request = NSURLRequest
 
-struct Response {
-    let urlResponse: NSHTTPURLResponse
-    let body: NSData?
-    let error: NSError?
-    
-    init(urlResponse: NSHTTPURLResponse, body: NSData? = nil, error: NSError? = nil) {
-        self.urlResponse = urlResponse
-        self.body = body
-        self.error = error
-    }
-}
-
 struct Track {
     let request: Request
     let response: Response
@@ -45,6 +33,8 @@ struct Track {
     }
 }
 
+// MARK: - Extensions
+
 extension Track {
     
     init(encodedTrack: EncodedObject) {
@@ -62,14 +52,28 @@ extension Track {
     }
 }
 
+extension Track: Hashable {
+    
+    var hashValue: Int {
+        return request.hashValue ^ response.hashValue
+    }
+    
+}
+
+func ==(lhs: Track, rhs: Track) -> Bool {
+    return lhs.request == rhs.request && lhs.response == rhs.response
+}
+
+// MARK: - Factory
+
 struct TrackFactory {
     
     static func createTrack(url: NSURL, statusCode: Int, body: NSData? = nil, error: NSError? = nil, headers: HTTPHeaders = [:]) -> Track {
         
         guard
             let response = NSHTTPURLResponse(URL: url, statusCode: statusCode, HTTPVersion: nil, headerFields: headers)
-            else {
-                fatalError("We weren't able to create the Track 😫")
+        else {
+            fatalError("We weren't able to create the Track 😫")
         }
         
         let track = Track(response: Response(urlResponse: response, body: body, error: error))

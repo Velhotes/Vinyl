@@ -57,7 +57,7 @@ struct RequestMatcherRegistry {
     }
 }
 
-// MARK: Matchers
+// MARK: - Matchers
 
 private struct MethodRequestMatcher: RequestMatcher {
     func match(aRequest: Request, anotherRequest: Request) -> Bool {

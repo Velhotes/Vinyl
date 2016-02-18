@@ -8,24 +8,31 @@
 
 import Foundation
 
-typealias Plastic = [[String: AnyObject]]
+enum Error: ErrorType {
+    
+    case TrackNotFound
+}
 
+typealias Plastic = [[String: AnyObject]]
 typealias RequestCompletionHandler =  (NSData?, NSURLResponse?, NSError?) -> Void
 
 final class Turntable: NSURLSession {
     
+    var errorHandler: ErrorHandler = DefaultErrorHandler()
+    private let turntableConfiguration: TurntableConfiguration
     private let player: Player
     
-    var playTracksInSequence = false
-    
-    init(vinyl: Vinyl, requestMatcherTypes: [RequestMatcherType] = [.Method, .URL]) {
+    init(turntableConfiguration: TurntableConfiguration, vinyl: Vinyl) {
         
-        self.player = Player(vinyl: vinyl, trackMatcher: DefaultTrackMatcher(requestMatcherTypes: requestMatcherTypes))
+        let trackMatchers = Turntable.trackMatchersForConfiguration(turntableConfiguration, vinyl: vinyl)
+        
+        self.player = Player(vinyl: vinyl, trackMatchers: trackMatchers)
+        self.turntableConfiguration = turntableConfiguration
         
         super.init()
     }
     
-    convenience init(cassetteName: String, bundle: NSBundle = NSBundle(forClass: Turntable.self), requestMatcherTypes: [RequestMatcherType] = [.Method, .URL]) {
+    convenience init(cassetteName: String, bundle: NSBundle = NSBundle(forClass: Turntable.self), turntableConfiguration: TurntableConfiguration = TurntableConfiguration()) {
         
         guard let cassette: [String: AnyObject] = loadJSON(bundle, fileName: cassetteName) else {
             fatalError("💣 Cassette file \"\(cassetteName)\" not found 😩")
@@ -35,26 +42,56 @@ final class Turntable: NSURLSession {
             fatalError("💣 We couldn't find the \"interactions\" key in your cassette 😩")
         }
         
-        self.init(vinyl: Vinyl(plastic: plastic), requestMatcherTypes: requestMatcherTypes)
+        self.init(turntableConfiguration: turntableConfiguration, vinyl: Vinyl(plastic: plastic))
     }
     
-    convenience init(vinylName: String, bundle: NSBundle = NSBundle(forClass: Turntable.self), requestMatcherTypes: [RequestMatcherType] = [.Method, .URL]) {
+    convenience init(vinylName: String, bundle: NSBundle = NSBundle(forClass: Turntable.self), turntableConfiguration: TurntableConfiguration = TurntableConfiguration()) {
         
         guard let plastic: Plastic = loadJSON(bundle, fileName: vinylName) else {
             fatalError("💣 Vinyl file \"\(vinylName)\" not found 😩")
         }
         
-        self.init(vinyl: Vinyl(plastic: plastic), requestMatcherTypes: requestMatcherTypes)
+        self.init(turntableConfiguration: turntableConfiguration, vinyl: Vinyl(plastic: plastic))
     }
     
-    override func dataTaskWithRequest(request: NSURLRequest, completionHandler: (NSData?, NSURLResponse?, NSError?) -> Void) -> NSURLSessionDataTask {
-        return playVinyl(request, completionHandler: completionHandler)
-    }
+    // MARK: - Private methods
     
-    private func playVinyl(request: NSURLRequest, completionHandler: RequestCompletionHandler) -> NSURLSessionDataTask {
+    private class func trackMatchersForConfiguration(configuration: TurntableConfiguration, vinyl: Vinyl) -> [TrackMatcher] {
         
-        let completion = player.playTrack(forRequest: request)
+        var trackMatchers: [TrackMatcher] = [ TypeTrackMatcher(requestMatcherTypes: configuration.requestMatcherTypes) ]
+        
+        if configuration.playTracksUniquely {
+            // NOTE: This should be always the last matcher since we only want to match if the track is still available or not, and that means keeping some state 🙄
+            trackMatchers.append(UniqueTrackMatcher(availableTracks: vinyl.tracks))
+        }
+        
+        return trackMatchers
+    }
+    
+    private func playVinyl(request: NSURLRequest, completionHandler: RequestCompletionHandler) throws -> NSURLSessionDataTask {
+        
+        let completion = try player.playTrack(forRequest: request)
         
         return URLSessionTask(completion: { completionHandler(completion) })
     }
+    
+    // MARK: - NSURLSession methods
+    
+    override func dataTaskWithRequest(request: NSURLRequest, completionHandler: (NSData?, NSURLResponse?, NSError?) -> Void) -> NSURLSessionDataTask {
+        
+        do {
+            return try playVinyl(request, completionHandler: completionHandler)
+        }
+        catch Error.TrackNotFound {
+            errorHandler.handleTrackNotFound(request, playTracksUniquely: turntableConfiguration.playTracksUniquely)
+        }
+        catch {
+            errorHandler.handleUnknownError()
+        }
+        
+        return URLSessionTask(completion: {})
+    }
 }
+
+
+
