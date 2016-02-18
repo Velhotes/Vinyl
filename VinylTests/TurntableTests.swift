@@ -144,16 +144,16 @@ class TurntableTests: XCTestCase {
             case 1:
                 XCTAssertEqual(httpResponse.URL!.absoluteString, "http://api.test2.com")
                 numberOfCalls += 1
-                
+            case 2:
+                fatalError("This shouldn't be reached")
             default: break
-            }
-            
-            if numberOfCalls == 2 {
-                expectation.fulfill()
             }
         }
         
         turnatable.dataTaskWithRequest(request1, completionHandler: checker).resume()
+        turnatable.dataTaskWithRequest(request2, completionHandler: checker).resume()
+        turnatable.dataTaskWithRequest(request2, completionHandler: checker).resume()
+        turnatable.dataTaskWithRequest(request2, completionHandler: checker).resume()
         turnatable.dataTaskWithRequest(request2, completionHandler: checker).resume()
     }
     
