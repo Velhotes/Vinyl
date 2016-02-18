@@ -215,12 +215,20 @@ class TurntableTests: XCTestCase {
     
     func test_Vinyl_withTrackOrder() {
         
-        let data = "Hello World".dataUsingEncoding(NSUTF8StringEncoding)!
-        let headers = ["awesomeness": "max"]
+        let expectation = self.expectationWithDescription("All tracks should be placed in order")
+        defer { self.waitForExpectationsWithTimeout(4, handler: nil) }
         
-        let tracks = [
-            TrackFactory.createValidTrack(NSURL(string: "http://feelGoodINC.com")!, body: data, headers: headers),
-            TrackFactory.createValidTrack(NSURL(string: "http://feelGoodINC.com")!, body: data, headers: headers)
+        var tracks = [
+            TrackFactory.createValidTrack(
+                NSURL(string: "http://feelGoodINC.com/request/2")!,
+                body: nil,
+                headers: [ "header1": "value1" ]),
+            TrackFactory.createValidTrack(
+                NSURL(string: "http://feelGoodINC.com/request/1")!,
+                body: nil,
+                headers: [ "header1": "value1", "header2": "value2" ]),
+            TrackFactory.createValidTrack(
+                NSURL(string: "https://rand.com/")!)
         ]
         
         let request1 = NSMutableURLRequest(URL: NSURL(string: "http://random.com")!)
@@ -229,26 +237,39 @@ class TurntableTests: XCTestCase {
         let request2 = NSMutableURLRequest(URL: NSURL(string: "http://random.com/random")!)
         request2.HTTPMethod = "DELETE"
         
+        let request3 = NSMutableURLRequest(URL: NSURL(string: "http://random.com/random/another/one")!)
+        request2.HTTPMethod = "PUT"
+        
         let checker: (NSData?, NSURLResponse?, NSError?) -> () = { (taskData, response, anError) in
             
             guard let httpResponse = response as? NSHTTPURLResponse else {
                 fatalError("response should be a `NSHTTPURLResponse`")
             }
             
-            XCTAssertTrue(httpResponse.statusCode == 200)
-            XCTAssertTrue(taskData!.isEqualToData(data))
-            XCTAssertTrue(httpResponse.allHeaderFields as! HTTPHeaders == headers)
-            XCTAssertTrue(httpResponse.URL?.absoluteString == "http://feelGoodINC.com")
-            XCTAssertTrue(httpResponse.URL?.absoluteString == "http://feelGoodINC.com")
+            if let track = tracks.first {
+                
+                XCTAssertTrue(httpResponse.statusCode == 200)
+                
+                if let responseHeaders = httpResponse.allHeaderFields as? HTTPHeaders, let originalHeaders = track.response.urlResponse.allHeaderFields as? HTTPHeaders {
+                    XCTAssertTrue(responseHeaders == originalHeaders)
+                }
+                
+                XCTAssertTrue(httpResponse.URL == track.response.urlResponse.URL)
+                
+                tracks.removeAtIndex(tracks.indexOf(track)!)
+            }
+            
+            if tracks.isEmpty {
+                expectation.fulfill()
+            }
         }
-        
-        let vinyl = Vinyl(tracks: tracks)
         
         let turnatable = Turntable(
             turntableConfiguration: TurntableConfiguration(matchingStrategy: .TrackOrder),
-            vinyl: vinyl)
+            vinyl: Vinyl(tracks: tracks))
             
         turnatable.dataTaskWithRequest(request1, completionHandler: checker).resume()
         turnatable.dataTaskWithRequest(request2, completionHandler: checker).resume()
+        turnatable.dataTaskWithRequest(request3, completionHandler: checker).resume()
     }
 }
