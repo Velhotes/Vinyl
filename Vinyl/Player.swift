@@ -14,9 +14,9 @@ struct Player {
     let trackMatchers: [TrackMatcher]
     
     private func seekTrackForRequest(request: Request) -> Track? {
-        return vinyl.tracks.filter { track in
+        return vinyl.tracks.first { track in
             trackMatchers.all { matcher in matcher.matchableTrack(request, track: track) }
-        }.first
+        }
     }
     
     func playTrack(forRequest request: Request) throws -> (NSData?, NSURLResponse?, NSError?) {

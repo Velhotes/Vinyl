@@ -8,14 +8,45 @@
 
 import Foundation
 
+enum MatchingStrategy {
+    case RequestAttributes(types: [RequestMatcherType], playTracksUniquely: Bool)
+    case TrackOrder
+}
+
 struct TurntableConfiguration {
     
-    let requestMatcherTypes: [RequestMatcherType]
+    let matchingStrategy: MatchingStrategy
     
-    let playTracksUniquely: Bool
+    var playTracksUniquely: Bool {
+        get {
+            switch matchingStrategy {
+            case .RequestAttributes(_, let playTracksUniquely): return playTracksUniquely
+            case .TrackOrder: return true
+            }
+        }
+    }
     
-    init(requestMatcherTypes: [RequestMatcherType] = [.Method, .URL], playTracksUniquely: Bool = true) {
-        self.requestMatcherTypes = requestMatcherTypes
-        self.playTracksUniquely = playTracksUniquely
+    init(matchingStrategy: MatchingStrategy = .RequestAttributes(types: [.Method, .URL], playTracksUniquely: true)) {
+        self.matchingStrategy = matchingStrategy
+    }
+    
+    func trackMatchersForVinyl(vinyl: Vinyl) -> [TrackMatcher] {
+        
+        switch matchingStrategy {
+            
+        case .RequestAttributes(let types, let playTracksUniquely):
+            
+            var trackMatchers: [TrackMatcher] = [ TypeTrackMatcher(requestMatcherTypes: types) ]
+            
+            if playTracksUniquely {
+                // NOTE: This should be always the last matcher since we only want to match if the track is still available or not, and that means keeping some state 🙄
+                trackMatchers.append(UniqueTrackMatcher(availableTracks: vinyl.tracks))
+            }
+            
+            return trackMatchers
+            
+        case .TrackOrder:
+            return [ UniqueTrackMatcher(availableTracks: vinyl.tracks) ]
+        }
     }
 }

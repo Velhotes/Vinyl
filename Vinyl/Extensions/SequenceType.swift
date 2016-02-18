@@ -10,7 +10,7 @@ import Foundation
 
 extension SequenceType {
     
-    func any(f: Generator.Element -> Bool) -> Bool {
+    func any(@noescape f: Self.Generator.Element -> Bool) -> Bool {
         
         for element in self where f(element) {
             return true
@@ -19,12 +19,21 @@ extension SequenceType {
         return false
     }
     
-    func all(f: Generator.Element -> Bool) -> Bool {
+    func all(@noescape f: Self.Generator.Element -> Bool) -> Bool {
         
         for element in self where f(element) == false {
             return false
         }
         
         return true
+    }
+    
+    func first(@noescape f: Self.Generator.Element -> Bool) -> Self.Generator.Element? {
+        
+        for element in self where f(element) {
+            return element
+        }
+        
+        return nil
     }
 }

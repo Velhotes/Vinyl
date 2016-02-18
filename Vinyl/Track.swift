@@ -38,17 +38,23 @@ struct Track {
 extension Track {
     
     init(encodedTrack: EncodedObject) {
-        guard
-            let encodedRequest = encodedTrack["request"] as? EncodedObject,
-            let encodedResponse = encodedTrack["response"] as? EncodedObject
-            else {
-                fatalError("request/response not found 😞 for Track: \(encodedTrack)")
+        
+        guard let encodedResponse = encodedTrack["response"] as? EncodedObject else {
+            fatalError("request/response not found 😞 for Track: \(encodedTrack)")
         }
         
-        // We're using a helper function because we cannot mutate a NSURLRequest directly
-        request = Request.createWithEncodedRequest(encodedRequest)
+        let response = Response(encodedResponse: encodedResponse)
         
-        response = Response(encodedResponse: encodedResponse)
+        if let encodedRequest = encodedTrack["request"] as? EncodedObject {
+            
+            // We're using a helper function because we cannot mutate a NSURLRequest directly
+            let request = Request.createWithEncodedRequest(encodedRequest)
+            
+            self.init(request: request, response: response)
+            
+        } else {
+            self.init(response: response)
+        }
     }
 }
 
