@@ -24,7 +24,7 @@ final class Turntable: NSURLSession {
     
     init(turntableConfiguration: TurntableConfiguration, vinyl: Vinyl) {
         
-        let trackMatchers = Turntable.trackMatchersForConfiguration(turntableConfiguration, vinyl: vinyl)
+        let trackMatchers = turntableConfiguration.trackMatchersForVinyl(vinyl)
         
         self.player = Player(vinyl: vinyl, trackMatchers: trackMatchers)
         self.turntableConfiguration = turntableConfiguration
@@ -55,18 +55,6 @@ final class Turntable: NSURLSession {
     }
     
     // MARK: - Private methods
-    
-    private class func trackMatchersForConfiguration(configuration: TurntableConfiguration, vinyl: Vinyl) -> [TrackMatcher] {
-        
-        var trackMatchers: [TrackMatcher] = [ TypeTrackMatcher(requestMatcherTypes: configuration.requestMatcherTypes) ]
-        
-        if configuration.playTracksUniquely {
-            // NOTE: This should be always the last matcher since we only want to match if the track is still available or not, and that means keeping some state 🙄
-            trackMatchers.append(UniqueTrackMatcher(availableTracks: vinyl.tracks))
-        }
-        
-        return trackMatchers
-    }
     
     private func playVinyl(request: NSURLRequest, completionHandler: RequestCompletionHandler) throws -> NSURLSessionDataTask {
         

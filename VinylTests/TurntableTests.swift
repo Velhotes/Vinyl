@@ -47,7 +47,7 @@ class TurntableTests: XCTestCase {
         let turnatable = Turntable(
             vinylName: "vinyl_multiple",
             bundle: NSBundle(forClass: TurntableTests.self),
-            turntableConfiguration: TurntableConfiguration(requestMatcherTypes: [.URL]))
+            turntableConfiguration: TurntableConfiguration(matchingStrategy: .RequestAttributes(types: [.URL], playTracksUniquely: true)))
         
         let request1 = NSMutableURLRequest(URL: NSURL(string: "http://api.test1.com")!)
         request1.HTTPMethod = "POST"
@@ -83,7 +83,7 @@ class TurntableTests: XCTestCase {
         let turnatable = Turntable(
             vinylName: "vinyl_multiple",
             bundle: NSBundle(forClass: TurntableTests.self),
-            turntableConfiguration: TurntableConfiguration(requestMatcherTypes: [.URL], playTracksUniquely: false))
+            turntableConfiguration: TurntableConfiguration(matchingStrategy: .RequestAttributes(types: [.URL], playTracksUniquely: false)))
         
         let request1 = NSMutableURLRequest(URL: NSURL(string: "http://api.test1.com")!)
         let request2 = NSMutableURLRequest(URL: NSURL(string: "http://api.test2.com")!)
@@ -124,7 +124,7 @@ class TurntableTests: XCTestCase {
         let turnatable = Turntable(
             vinylName: "vinyl_multiple",
             bundle: NSBundle(forClass: TurntableTests.self),
-            turntableConfiguration: TurntableConfiguration(requestMatcherTypes: [.URL]))
+            turntableConfiguration: TurntableConfiguration(matchingStrategy: .RequestAttributes(types: [.URL], playTracksUniquely: true)))
         
         let request1 = NSMutableURLRequest(URL: NSURL(string: "http://api.test1.com")!)
         let request2 = NSMutableURLRequest(URL: NSURL(string: "http://api.test2.com")!)
@@ -144,16 +144,16 @@ class TurntableTests: XCTestCase {
             case 1:
                 XCTAssertEqual(httpResponse.URL!.absoluteString, "http://api.test2.com")
                 numberOfCalls += 1
-            case 2:
-                fatalError("This shouldn't be reached")
+                
             default: break
+            }
+            
+            if numberOfCalls == 2 {
+                expectation.fulfill()
             }
         }
         
         turnatable.dataTaskWithRequest(request1, completionHandler: checker).resume()
-        turnatable.dataTaskWithRequest(request2, completionHandler: checker).resume()
-        turnatable.dataTaskWithRequest(request2, completionHandler: checker).resume()
-        turnatable.dataTaskWithRequest(request2, completionHandler: checker).resume()
         turnatable.dataTaskWithRequest(request2, completionHandler: checker).resume()
     }
     
@@ -207,6 +207,47 @@ class TurntableTests: XCTestCase {
             }
         }
         
+        turnatable.dataTaskWithRequest(request1, completionHandler: checker).resume()
+        turnatable.dataTaskWithRequest(request2, completionHandler: checker).resume()
+    }
+    
+    // MARK: - Track Order strategy
+    
+    func test_Vinyl_withTrackOrder() {
+        
+        let data = "Hello World".dataUsingEncoding(NSUTF8StringEncoding)!
+        let headers = ["awesomeness": "max"]
+        
+        let tracks = [
+            TrackFactory.createValidTrack(NSURL(string: "http://feelGoodINC.com")!, body: data, headers: headers),
+            TrackFactory.createValidTrack(NSURL(string: "http://feelGoodINC.com")!, body: data, headers: headers)
+        ]
+        
+        let request1 = NSMutableURLRequest(URL: NSURL(string: "http://random.com")!)
+        request1.HTTPMethod = "POST"
+        
+        let request2 = NSMutableURLRequest(URL: NSURL(string: "http://random.com/random")!)
+        request2.HTTPMethod = "DELETE"
+        
+        let checker: (NSData?, NSURLResponse?, NSError?) -> () = { (taskData, response, anError) in
+            
+            guard let httpResponse = response as? NSHTTPURLResponse else {
+                fatalError("response should be a `NSHTTPURLResponse`")
+            }
+            
+            XCTAssertTrue(httpResponse.statusCode == 200)
+            XCTAssertTrue(taskData!.isEqualToData(data))
+            XCTAssertTrue(httpResponse.allHeaderFields as! HTTPHeaders == headers)
+            XCTAssertTrue(httpResponse.URL?.absoluteString == "http://feelGoodINC.com")
+            XCTAssertTrue(httpResponse.URL?.absoluteString == "http://feelGoodINC.com")
+        }
+        
+        let vinyl = Vinyl(tracks: tracks)
+        
+        let turnatable = Turntable(
+            turntableConfiguration: TurntableConfiguration(matchingStrategy: .TrackOrder),
+            vinyl: vinyl)
+            
         turnatable.dataTaskWithRequest(request1, completionHandler: checker).resume()
         turnatable.dataTaskWithRequest(request2, completionHandler: checker).resume()
     }
