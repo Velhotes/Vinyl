@@ -8,19 +8,26 @@
 
 import Foundation
 
-typealias Plastic = [[String: AnyObject]]
+enum Error: ErrorType {
+    
+    case TrackNotFound
+}
 
+typealias Plastic = [[String: AnyObject]]
 typealias RequestCompletionHandler =  (NSData?, NSURLResponse?, NSError?) -> Void
 
 final class Turntable: NSURLSession {
     
+    var errorHandler: ErrorHandler = DefaultErrorHandler()
+    private let turntableConfiguration: TurntableConfiguration
     private let player: Player
     
     init(turntableConfiguration: TurntableConfiguration, vinyl: Vinyl) {
         
         let trackMatchers = Turntable.trackMatchersForConfiguration(turntableConfiguration, vinyl: vinyl)
         
-        player = Player(vinyl: vinyl, trackMatchers: trackMatchers)
+        self.player = Player(vinyl: vinyl, trackMatchers: trackMatchers)
+        self.turntableConfiguration = turntableConfiguration
         
         super.init()
     }
@@ -61,9 +68,9 @@ final class Turntable: NSURLSession {
         return trackMatchers
     }
     
-    private func playVinyl(request: NSURLRequest, completionHandler: RequestCompletionHandler) -> NSURLSessionDataTask {
+    private func playVinyl(request: NSURLRequest, completionHandler: RequestCompletionHandler) throws -> NSURLSessionDataTask {
         
-        let completion = player.playTrack(forRequest: request)
+        let completion = try player.playTrack(forRequest: request)
         
         return URLSessionTask(completion: { completionHandler(completion) })
     }
@@ -71,6 +78,20 @@ final class Turntable: NSURLSession {
     // MARK: - NSURLSession methods
     
     override func dataTaskWithRequest(request: NSURLRequest, completionHandler: (NSData?, NSURLResponse?, NSError?) -> Void) -> NSURLSessionDataTask {
-        return playVinyl(request, completionHandler: completionHandler)
+        
+        do {
+            return try playVinyl(request, completionHandler: completionHandler)
+        }
+        catch Error.TrackNotFound {
+            errorHandler.handleTrackNotFound(request, playTracksUniquely: turntableConfiguration.playTracksUniquely)
+        }
+        catch {
+            errorHandler.handleUnknownError()
+        }
+        
+        return URLSessionTask(completion: {})
     }
 }
+
+
+
