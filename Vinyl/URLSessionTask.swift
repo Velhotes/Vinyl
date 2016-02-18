@@ -8,7 +8,7 @@
 
 import Foundation
 
-final class URLSessionTask: NSURLSessionDataTask {
+public final class URLSessionTask: NSURLSessionDataTask {
     
     private let completion: Void -> Void
     
@@ -16,15 +16,15 @@ final class URLSessionTask: NSURLSessionDataTask {
         self.completion = completion
     }
     
-    override func resume() {
+   public override func resume() {
         completion()
     }
     
-    override func suspend() {
+   public override func suspend() {
         // We won't do anything here
     }
     
-    override func cancel() {
+   public override func cancel() {
         // We won't do anything here
     }
 }

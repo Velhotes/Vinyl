@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct Vinyl {
+public struct Vinyl {
     
     let tracks: [Track]
     

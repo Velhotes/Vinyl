@@ -8,14 +8,14 @@
 
 import Foundation
 
-typealias EncodedObject = [String : AnyObject]
-typealias HTTPHeaders = [String : String]
+public typealias EncodedObject = [String : AnyObject]
+public typealias HTTPHeaders = [String : String]
 
-typealias Request = NSURLRequest
+public typealias Request = NSURLRequest
 
-struct Track {
-    let request: Request
-    let response: Response
+public struct Track {
+   public let request: Request
+   public let response: Response
     
     init(request: Request, response: Response) {
         self.request = request
@@ -60,21 +60,21 @@ extension Track {
 
 extension Track: Hashable {
     
-    var hashValue: Int {
+    public var hashValue: Int {
         return request.hashValue ^ response.hashValue
     }
     
 }
 
-func ==(lhs: Track, rhs: Track) -> Bool {
+public func ==(lhs: Track, rhs: Track) -> Bool {
     return lhs.request == rhs.request && lhs.response == rhs.response
 }
 
 // MARK: - Factory
 
-struct TrackFactory {
+public struct TrackFactory {
     
-    static func createTrack(url: NSURL, statusCode: Int, body: NSData? = nil, error: NSError? = nil, headers: HTTPHeaders = [:]) -> Track {
+   public static func createTrack(url: NSURL, statusCode: Int, body: NSData? = nil, error: NSError? = nil, headers: HTTPHeaders = [:]) -> Track {
         
         guard
             let response = NSHTTPURLResponse(URL: url, statusCode: statusCode, HTTPVersion: nil, headerFields: headers)
@@ -86,12 +86,12 @@ struct TrackFactory {
         return track
     }
     
-    static func createBadTrack(url: NSURL, statusCode: Int, error: NSError? = nil, headers: HTTPHeaders = [:]) -> Track {
+   public static func createBadTrack(url: NSURL, statusCode: Int, error: NSError? = nil, headers: HTTPHeaders = [:]) -> Track {
         
         return createTrack(url, statusCode: statusCode, body: nil, error: error, headers: headers)
     }
     
-    static func createValidTrack(url: NSURL, body: NSData? = nil, headers: HTTPHeaders = [:]) -> Track {
+   public static func createValidTrack(url: NSURL, body: NSData? = nil, headers: HTTPHeaders = [:]) -> Track {
         
         return createTrack(url, statusCode: 200, body: body, error: nil, headers: headers)
     }
