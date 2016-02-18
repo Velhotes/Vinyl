@@ -143,6 +143,7 @@ class TurntableTests: XCTestCase {
                 numberOfCalls += 1
             case 1:
                 XCTAssertEqual(httpResponse.URL!.absoluteString, "http://api.test2.com")
+                numberOfCalls += 1
             case 2:
                 fatalError("This shouldn't be reached")
             default: break
