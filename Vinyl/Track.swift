@@ -72,8 +72,8 @@ struct TrackFactory {
         
         guard
             let response = NSHTTPURLResponse(URL: url, statusCode: statusCode, HTTPVersion: nil, headerFields: headers)
-            else {
-                fatalError("We weren't able to create the Track 😫")
+        else {
+            fatalError("We weren't able to create the Track 😫")
         }
         
         let track = Track(response: Response(urlResponse: response, body: body, error: error))

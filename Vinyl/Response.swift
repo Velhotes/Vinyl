@@ -45,17 +45,10 @@ extension Response: Hashable {
     
     var hashValue: Int {
         
-        var hash = urlResponse.hashValue
+        let body = self.body ?? ""
+        let error = self.error ?? ""
         
-        if let body = body {
-            hash ^= body.hashValue
-        }
-        
-        if let error = error {
-            hash ^= error.hashValue
-        }
-        
-        return hash
+        return "\(urlResponse.hashValue):\((body)):\(error)".hashValue
     }
     
 }
