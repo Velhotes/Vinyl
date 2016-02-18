@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		7D22F3021C75351B00A81608 /* TurntableConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D22F3011C75351B00A81608 /* TurntableConfiguration.swift */; };
+		7D22F3041C754F5C00A81608 /* Response.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D22F3031C754F5C00A81608 /* Response.swift */; };
 		7D48F0D31C7159F10044DC32 /* RequestMatcherRegistry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D48F0D21C7159F10044DC32 /* RequestMatcherRegistry.swift */; };
 		7D93580C1C7117A80020103D /* Track.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D93580B1C7117A80020103D /* Track.swift */; };
 		7DC5704D1C72A1AB00BA1458 /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DC5704C1C72A1AB00BA1458 /* Player.swift */; };
@@ -16,7 +17,6 @@
 		C70886121C7346CF002DBB2C /* NSURLQueryItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = C70886111C7346CF002DBB2C /* NSURLQueryItem.swift */; };
 		C70886151C735136002DBB2C /* FuncComposition.swift in Sources */ = {isa = PBXBuildFile; fileRef = C70886141C735136002DBB2C /* FuncComposition.swift */; };
 		C70886171C737684002DBB2C /* NSURLRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = C70886161C737684002DBB2C /* NSURLRequest.swift */; };
-		C70886191C737699002DBB2C /* Response.swift in Sources */ = {isa = PBXBuildFile; fileRef = C70886181C737699002DBB2C /* Response.swift */; };
 		C708861B1C737C1B002DBB2C /* SequenceType.swift in Sources */ = {isa = PBXBuildFile; fileRef = C708861A1C737C1B002DBB2C /* SequenceType.swift */; };
 		C708861D1C738A19002DBB2C /* URLSessionTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = C708861C1C738A19002DBB2C /* URLSessionTask.swift */; };
 		C70886211C73FBBF002DBB2C /* TrackTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C70886201C73FBBF002DBB2C /* TrackTests.swift */; };
@@ -44,6 +44,7 @@
 
 /* Begin PBXFileReference section */
 		7D22F3011C75351B00A81608 /* TurntableConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TurntableConfiguration.swift; sourceTree = "<group>"; };
+		7D22F3031C754F5C00A81608 /* Response.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Response.swift; sourceTree = "<group>"; };
 		7D48F0D21C7159F10044DC32 /* RequestMatcherRegistry.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RequestMatcherRegistry.swift; sourceTree = "<group>"; };
 		7D93580B1C7117A80020103D /* Track.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Track.swift; sourceTree = "<group>"; };
 		7DC5704C1C72A1AB00BA1458 /* Player.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
@@ -52,7 +53,6 @@
 		C70886111C7346CF002DBB2C /* NSURLQueryItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSURLQueryItem.swift; sourceTree = "<group>"; };
 		C70886141C735136002DBB2C /* FuncComposition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FuncComposition.swift; sourceTree = "<group>"; };
 		C70886161C737684002DBB2C /* NSURLRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSURLRequest.swift; sourceTree = "<group>"; };
-		C70886181C737699002DBB2C /* Response.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Response.swift; sourceTree = "<group>"; };
 		C708861A1C737C1B002DBB2C /* SequenceType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SequenceType.swift; sourceTree = "<group>"; };
 		C708861C1C738A19002DBB2C /* URLSessionTask.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = URLSessionTask.swift; sourceTree = "<group>"; };
 		C70886201C73FBBF002DBB2C /* TrackTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrackTests.swift; sourceTree = "<group>"; };
@@ -95,7 +95,6 @@
 			children = (
 				C70886111C7346CF002DBB2C /* NSURLQueryItem.swift */,
 				C70886161C737684002DBB2C /* NSURLRequest.swift */,
-				C70886181C737699002DBB2C /* Response.swift */,
 				C708861A1C737C1B002DBB2C /* SequenceType.swift */,
 			);
 			path = Extensions;
@@ -169,6 +168,7 @@
 				7DC5704E1C72A1FD00BA1458 /* TrackMatcher.swift */,
 				C75D79201C6E0B32004B92A9 /* Vinyl.swift */,
 				7D93580B1C7117A80020103D /* Track.swift */,
+				7D22F3031C754F5C00A81608 /* Response.swift */,
 				7D48F0D21C7159F10044DC32 /* RequestMatcherRegistry.swift */,
 			);
 			path = Vinyl;
@@ -303,8 +303,8 @@
 				C708861D1C738A19002DBB2C /* URLSessionTask.swift in Sources */,
 				C72AD2F21C6E48B500E11612 /* EncodingDecoding.swift in Sources */,
 				C70886171C737684002DBB2C /* NSURLRequest.swift in Sources */,
-				C70886191C737699002DBB2C /* Response.swift in Sources */,
 				C75D79211C6E0B32004B92A9 /* Vinyl.swift in Sources */,
+				7D22F3041C754F5C00A81608 /* Response.swift in Sources */,
 				7D22F3021C75351B00A81608 /* TurntableConfiguration.swift in Sources */,
 				7DC5704D1C72A1AB00BA1458 /* Player.swift in Sources */,
 				C70886121C7346CF002DBB2C /* NSURLQueryItem.swift in Sources */,

@@ -13,18 +13,6 @@ typealias HTTPHeaders = [String : String]
 
 typealias Request = NSURLRequest
 
-struct Response {
-    let urlResponse: NSHTTPURLResponse
-    let body: NSData?
-    let error: NSError?
-    
-    init(urlResponse: NSHTTPURLResponse, body: NSData? = nil, error: NSError? = nil) {
-        self.urlResponse = urlResponse
-        self.body = body
-        self.error = error
-    }
-}
-
 struct Track {
     let request: Request
     let response: Response
