@@ -11,6 +11,104 @@ Vinyl is a simple, yet flexible library used for replaying HTTP requests while u
 
 Vinyl should be used, when you design your app's architecture with [Dependency Injection](https://en.wikipedia.org/wiki/Dependency_injection) in mind. For other cases, where your `NSURLSession` is fixed, we would recommend [OHHTTPStubs](https://github.com/AliSoftware/OHHTTPStubs) or [Mockingjay](https://github.com/kylef/Mockingjay). 
 
+#### Overview
+
+Vinyl uses the same nomenclature that you would see in real life, when playing a vinyl:
+
+* Turntable
+* Vinyl
+* Track
+
+Let's start with the most basic configuration, where you already have a pre-recorded response and you just want to use it:
+
+```
+let turntable = Turntable(vinylName: "vinyl_single")
+let request = NSURLRequest(URL: NSURL(string: "http://api.test.com")!)
+ 
+turnatable.dataTaskWithRequest(request) { (data, response, anError) in
+ // Assert your expectations    
+}.resume()
+```
+
+A pre-recorded response is a mapping between a request (`NSURLRequest`) and a response (`NSHTTPURLResponse` + `NSData?` + `NSError?`). As expected, the `vinyl_single` that you are seeing in the example above is exactly that:
+
+```
+[
+  {
+    "request": {
+        "url": "http://api.test.com"
+    },
+    "response": {
+        "url": "http://api.test.com",
+        "body": "hello",
+        "status": 200,
+        "headers": {}
+    }
+  }
+]
+```
+Vinyl by default will use the mapping approach. Internally, we will try to match the request sent  with the request recorded based:
+
+*  The sent request's `URL` with the  recorded request's `URL`. 
+*  The sent request's `HTTPMethod` with the recorded request's `HTTPMethod`. 
+
+As you might have noticed, we don't provide an `HTTPMethod` in the `vinyl_single`, by default it will fallback to `.GET` (this is the expected behaviour, because when you create an `NSURLRequest` thats the `HTTPMethod` you have).
+
+If the mapping doesn't suit your needs, you can customize it by:
+```
+enum RequestMatcherType {
+    case Method
+    case URL
+    case Path
+    case Query
+    case Headers
+    case Body
+    case Custom(RequestMatcher)
+}
+```
+
+In practise it would look like this:
+
+```
+let matching = .RequestAttributes(types: [.URL, .Query], playTracksUniquely: true)
+let configuration = TurntableConfiguration( matchingStrategy:  matching)
+let turnatable = Turntable( vinylName: "vinyl_simple", turntableConfiguration: configuration)
+```
+In this case we are matching by `.URL` and `.Query`. We also provide a way of making sure each track is only played once (or not), by setting the `playTracksUniquely` accordingly. 
+
+If the mapping approach is not desirable, you can make it behave like a queue: the first request will match the first response in the array and so on:
+
+```
+let matching = .TrackOrder
+let configuration = TurntableConfiguration( matchingStrategy:  matching)
+let turnatable = Turntable( vinylName: "vinyl_simple", turntableConfiguration: configuration)
+```
+Finally we allow you to create a track by hand, instead of relying on a JSON file:
+
+```
+let track = TrackFactory.createValidTrack(NSURL(string: "http://feelGoodINC.com")!, body: data, headers: headers)
+
+ let vinyl = Vinyl(tracks: [track])
+let turnatable = Turntable(vinyl: vinyl, turntableConfiguration: configuration)
+```
+
+#### Coming from DVR
+
+If your tests are already working with DVR, you will probably have pre-recorded cassettes. Vinyl provides a compatibility mode that allows you to re-use those cassettes. 
+
+If your tests look like this:
+
+```
+let session = Session(cassetteName: "dvr_single")
+```
+You can just use a `Turntable` instead:
+
+```
+let turnatable = Turntable(cassetteName: "dvr_single")
+```
+
+This way you won't have to throw anything away.
+
 #### Current Status
 
 We advise against its usage right now, until version 1.0 is released. Once we have our first release, we will update this README with a section on "How to Use it".
