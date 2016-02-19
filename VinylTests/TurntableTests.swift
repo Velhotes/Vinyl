@@ -154,6 +154,35 @@ class TurntableTests: XCTestCase {
         turnatable.dataTaskWithRequest(request2, completionHandler: checker).resume()
     }
     
+    func test_GlobalConfigurationIsUsed_When_InputConfigurationIsNil() {
+        
+        let expectation = self.expectationWithDescription("Expected Global Configuration to be used")
+        defer { self.waitForExpectationsWithTimeout(4, handler: nil) }
+
+        let body = "Hello world".dataUsingEncoding(NSUTF8StringEncoding)
+        let requestToBeSent = NSMutableURLRequest(URL: NSURL(string: "http://api.test1.com")!)
+        requestToBeSent.HTTPBody = body
+        
+        let HTTPResponse = NSHTTPURLResponse(URL: NSURL(string: "http://feelGoodINC")!, MIMEType: nil, expectedContentLength: 0, textEncodingName: nil)
+        let response = Response(urlResponse: HTTPResponse, body: body, error: nil)
+        let mappingRequest = NSMutableURLRequest()
+        mappingRequest.HTTPBody = body
+        
+        let track = Track(request: mappingRequest, response: response)
+
+        let configuration = TurntableConfiguration(matchingStrategy: .RequestAttributes(types: [.Body], playTracksUniquely: true))
+        Turntable.configuration = configuration
+
+        let turnatable = Turntable(vinyl: Vinyl(tracks: [track]))        
+        
+        turnatable.dataTaskWithRequest(requestToBeSent) { (data, response, anError) in
+            
+            XCTAssertFalse(requestToBeSent.URL == response?.URL)
+            XCTAssertTrue(requestToBeSent.HTTPBody == data)
+            expectation.fulfill()
+        }.resume()
+    }
+    
     //MARK: Aux methods
     
     private func singleCallTest(turnatable: Turntable) {
