@@ -72,11 +72,11 @@ enum RequestMatcherType {
 In practise it would look like this:
 
 ```swift
-let matching = .RequestAttributes(types: [.URL, .Query], playTracksUniquely: true)
+let matching = .RequestAttributes(types: [.Body, .Query], playTracksUniquely: true)
 let configuration = TurntableConfiguration( matchingStrategy:  matching)
 let turntable = Turntable( vinylName: "vinyl_simple", turntableConfiguration: configuration)
 ```
-In this case we are matching by `.URL` and `.Query`. We also provide a way of making sure each track is only played once (or not), by setting the `playTracksUniquely` accordingly. 
+In this case we are matching by `.Body` and `.Query`. We also provide a way of making sure each track is only played once (or not), by setting the `playTracksUniquely` accordingly. 
 
 If the mapping approach is not desirable, you can make it behave like a queue: the first request will match the first response in the array and so on:
 
