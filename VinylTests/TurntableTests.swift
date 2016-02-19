@@ -262,8 +262,8 @@ class TurntableTests: XCTestCase {
         }
         
         let turnatable = Turntable(
-            turntableConfiguration: TurntableConfiguration(matchingStrategy: .TrackOrder),
-            vinyl: Vinyl(tracks: tracks))
+            vinyl: Vinyl(tracks: tracks),
+            turntableConfiguration: TurntableConfiguration(matchingStrategy: .TrackOrder))
             
         turnatable.dataTaskWithRequest(request1, completionHandler: checker).resume()
         turnatable.dataTaskWithRequest(request2, completionHandler: checker).resume()

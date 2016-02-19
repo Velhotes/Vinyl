@@ -22,7 +22,7 @@ public final class Turntable: NSURLSession {
     private let turntableConfiguration: TurntableConfiguration
     private let player: Player
     
-    public init(turntableConfiguration: TurntableConfiguration, vinyl: Vinyl) {
+    public init(vinyl: Vinyl, turntableConfiguration: TurntableConfiguration) {
         
         let trackMatchers = turntableConfiguration.trackMatchersForVinyl(vinyl)
         
@@ -42,7 +42,7 @@ public final class Turntable: NSURLSession {
             fatalError("💣 We couldn't find the \"interactions\" key in your cassette 😩")
         }
         
-        self.init(turntableConfiguration: turntableConfiguration, vinyl: Vinyl(plastic: plastic))
+        self.init(vinyl: Vinyl(plastic: plastic), turntableConfiguration: turntableConfiguration)
     }
     
     public convenience init(vinylName: String, bundle: NSBundle = testingBundle(), turntableConfiguration: TurntableConfiguration = TurntableConfiguration()) {
@@ -51,7 +51,7 @@ public final class Turntable: NSURLSession {
             fatalError("💣 Vinyl file \"\(vinylName)\" not found 😩")
         }
         
-        self.init(turntableConfiguration: turntableConfiguration, vinyl: Vinyl(plastic: plastic))
+        self.init(vinyl: Vinyl(plastic: plastic), turntableConfiguration: turntableConfiguration)
     }
     
     // MARK: - Private methods
