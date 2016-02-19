@@ -79,4 +79,7 @@ public final class Turntable: NSURLSession {
         
         return URLSessionTask(completion: {})
     }
+    public override func invalidateAndCancel() {
+        // We won't do anything for
+    }
 }
