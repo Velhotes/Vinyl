@@ -19,20 +19,22 @@ typealias RequestCompletionHandler =  (NSData?, NSURLResponse?, NSError?) -> Voi
 public final class Turntable: NSURLSession {
     
     var errorHandler: ErrorHandler = DefaultErrorHandler()
-    private let turntableConfiguration: TurntableConfiguration
+    static var configuration = TurntableConfiguration()
+
     private let player: Player
     
-    public init(vinyl: Vinyl, turntableConfiguration: TurntableConfiguration) {
+    public init(vinyl: Vinyl, turntableConfiguration: TurntableConfiguration? = nil) {
         
-        let trackMatchers = turntableConfiguration.trackMatchersForVinyl(vinyl)
+        let configuration = turntableConfiguration ?? Turntable.configuration
+        let trackMatchers = configuration.trackMatchersForVinyl(vinyl)
         
         self.player = Player(vinyl: vinyl, trackMatchers: trackMatchers)
-        self.turntableConfiguration = turntableConfiguration
+        Turntable.configuration = configuration
         
         super.init()
     }
     
-    public convenience init(cassetteName: String, bundle: NSBundle = testingBundle(), turntableConfiguration: TurntableConfiguration = TurntableConfiguration()) {
+    public convenience init(cassetteName: String, bundle: NSBundle = testingBundle(), turntableConfiguration: TurntableConfiguration? = nil) {
         
         guard let cassette: [String: AnyObject] = loadJSON(bundle, fileName: cassetteName) else {
             fatalError("💣 Cassette file \"\(cassetteName)\" not found 😩")
@@ -71,7 +73,7 @@ public final class Turntable: NSURLSession {
             return try playVinyl(request, completionHandler: completionHandler)
         }
         catch Error.TrackNotFound {
-            errorHandler.handleTrackNotFound(request, playTracksUniquely: turntableConfiguration.playTracksUniquely)
+            errorHandler.handleTrackNotFound(request, playTracksUniquely: Turntable.configuration.playTracksUniquely)
         }
         catch {
             errorHandler.handleUnknownError()
