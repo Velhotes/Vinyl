@@ -17,11 +17,11 @@ Vinyl should be used, when you design your app's architecture with [Dependency I
 #### Intro
 Vinyl uses the same nomenclature that you would see in real life, when playing a vinyl:
 
-* Turntable
-* Vinyl
-* Track
+* `Turntable`
+* `Vinyl`
+* `Track`
 
-Let's start with the most basic configuration, where you already have a pre-recorded response and you just want to use it:
+Let's start with the most basic configuration, where you already have a track (stored in the `vinyl_single`):
 
 ```swift
 let turntable = Turntable(vinylName: "vinyl_single")
@@ -32,7 +32,7 @@ turnatable.dataTaskWithRequest(request) { (data, response, anError) in
 }.resume()
 ```
 
-A pre-recorded response is a mapping between a request (`NSURLRequest`) and a response (`NSHTTPURLResponse` + `NSData?` + `NSError?`). As expected, the `vinyl_single` that you are seeing in the example above is exactly that:
+A track is a mapping between a request (`NSURLRequest`) and a response (`NSHTTPURLResponse` + `NSData?` + `NSError?`). As expected, the `vinyl_single` that you are seeing in the example above is exactly that:
 
 ```json
 [
@@ -49,10 +49,10 @@ A pre-recorded response is a mapping between a request (`NSURLRequest`) and a re
   }
 ]
 ```
-Vinyl by default will use the mapping approach. Internally, we will try to match the request sent  with the request recorded based:
+Vinyl by default will use the mapping approach. Internally, we will try to match the request sent with the track recorded based on:
 
-*  The sent request's `URL` with the  recorded request's `URL`. 
-*  The sent request's `HTTPMethod` with the recorded request's `HTTPMethod`. 
+*  The sent request's `URL` with the track request's `URL`. 
+*  The sent request's `HTTPMethod` with the track request's `HTTPMethod`. 
 
 As you might have noticed, we don't provide an `HTTPMethod` in the `vinyl_single`, by default it will fallback to `.GET`.
 
