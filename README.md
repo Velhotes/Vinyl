@@ -9,7 +9,7 @@ Vinyl
 
 Vinyl is a simple, yet flexible library used for replaying HTTP requests while unit testing. It takes heavy inspiration from [DVR](https://github.com/venmo/DVR) and [VCR](https://github.com/vcr/vcr).
 
-Vinyl should be used, when you design your app's architecture with [Dependency Injection](https://en.wikipedia.org/wiki/Dependency_injection) in mind. For other cases, where your `NSURLSession` is fixed, we would recommend [OHHTTPStubs](https://github.com/AliSoftware/OHHTTPStubs) or [Mockingjay](https://github.com/kylef/Mockingjay). 
+Vinyl should be used when you design your app's architecture with [Dependency Injection](https://en.wikipedia.org/wiki/Dependency_injection) in mind. For other cases, where your `NSURLSession` is fixed, we would recommend [OHHTTPStubs](https://github.com/AliSoftware/OHHTTPStubs) or [Mockingjay](https://github.com/kylef/Mockingjay). 
 
 ## How to use it
 
@@ -109,17 +109,17 @@ You can just use a `Turntable` instead:
 let turntable = Turntable(cassetteName: "dvr_single")
 ```
 
-This way you won't have to throw anything away.
+That way you won't have to throw anything away.
 
 ## Current Status
 
-The current version (v0.9) is currently being used successfuly in a project, so we are confident it will work for you as well. The only bit we are not supporting yet, that will be release in v1.0, is requests recording. On the meantime if you don't have any JSON pre recorded response, you should create your own `Track` manually. 
+The current version (v0.9) is currently being used successfuly in a project, so we are confident it will work for you as well. The only bit we are not supporting yet, that will be released in v1.0, is recording requests. In the meantime if you don't have any JSON pre recorded response, you should create your own `Track` manually. 
 
 ## Roadmap
 
 * [X] Allow the user to configure how strict the library should be.
-* [X] Allow the user to define its own response without relying on a json file.
-* [X] Instead mapping requests ➡️ responses , fix the responses in an array (e.g. first request made will use the first response in the array and so on).
+* [X] Allow the user to define their own response without relying on a json file.
+* [X] Instead of mapping requests ➡️ responses , fix the responses in an array (e.g. first request made will use the first response in the array and so on).
 * [ ] Allow request recording.
 * [ ] Debug mode ([#28](https://github.com/Velhotes/Vinyl/issues/28))
 
@@ -127,7 +127,7 @@ The current version (v0.9) is currently being used successfuly in a project, so 
 
 From our point of view, DVR is too strict. If you change something in your request, even if you are expecting the same response, your tests will break. With that in mind, we intend to follow VCR's approach, where you can define what should be fixed, and what's not (e.g. only care if the `NSURL` changes, instead of the headers, body and HTTP Method). Bottom line, our approach will have flexibility and extensibility in mind.
 
-We also feel, that the DVR project has staled. As of 15/02/2016, the project has 10 issues open, 2 PR and the last commit was more than one month ago. 
+We also feel that the DVR project has stalled. As of 15/02/2016, the project has 10 issues open, 2 PRs and the last commit was more than one month ago. 
 
 ## Contributing
 
