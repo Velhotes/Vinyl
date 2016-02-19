@@ -14,8 +14,8 @@ public typealias HTTPHeaders = [String : String]
 public typealias Request = NSURLRequest
 
 public struct Track {
-   public let request: Request
-   public let response: Response
+   let request: Request
+   let response: Response
     
     init(request: Request, response: Response) {
         self.request = request

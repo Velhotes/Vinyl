@@ -12,11 +12,11 @@ public struct Vinyl {
     
     let tracks: [Track]
     
-    init(plastic: Plastic) {
+    public init(plastic: Plastic) {
         tracks = plastic.map(Track.init)
     }
     
-    init(tracks: [Track]) {
+    public init(tracks: [Track]) {
         
         self.tracks = tracks
     }
