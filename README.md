@@ -113,7 +113,7 @@ This way you won't have to throw anything away.
 
 ## Current Status
 
-We advise against its usage right now, until version 1.0 is released. Once we have our first release, we will update this README with a section on "How to Use it".
+The current version (v0.9) is currently being used successfuly in a project, so we are confident it will work for you as well. The only bit we are not supporting yet, that will be release in v1.0, is requests recording. On the meantime if you don't have any JSON pre recorded response, you should create your own `Track` manually. 
 
 ## Roadmap
 
