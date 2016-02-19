@@ -8,7 +8,7 @@
 
 import Foundation
 
-enum RequestMatcherType {
+public enum RequestMatcherType {
     case Method
     case URL
     case Path
@@ -18,11 +18,11 @@ enum RequestMatcherType {
     case Custom(RequestMatcher)
 }
 
-protocol RequestMatcher {
+public protocol RequestMatcher {
     func match(aRequest: Request, anotherRequest: Request) -> Bool
 }
 
-struct RequestMatcherRegistry {
+public struct RequestMatcherRegistry {
     
     private let registeredTypes: [RequestMatcherType]
     private let matchingChain: [RequestMatcher]

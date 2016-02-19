@@ -13,16 +13,16 @@ enum Error: ErrorType {
     case TrackNotFound
 }
 
-typealias Plastic = [[String: AnyObject]]
+public typealias Plastic = [[String: AnyObject]]
 typealias RequestCompletionHandler =  (NSData?, NSURLResponse?, NSError?) -> Void
 
-final class Turntable: NSURLSession {
+public final class Turntable: NSURLSession {
     
     var errorHandler: ErrorHandler = DefaultErrorHandler()
     private let turntableConfiguration: TurntableConfiguration
     private let player: Player
     
-    init(turntableConfiguration: TurntableConfiguration, vinyl: Vinyl) {
+   public init(turntableConfiguration: TurntableConfiguration, vinyl: Vinyl) {
         
         let trackMatchers = turntableConfiguration.trackMatchersForVinyl(vinyl)
         
@@ -32,7 +32,7 @@ final class Turntable: NSURLSession {
         super.init()
     }
     
-    convenience init(cassetteName: String, bundle: NSBundle = NSBundle(forClass: Turntable.self), turntableConfiguration: TurntableConfiguration = TurntableConfiguration()) {
+   public convenience init(cassetteName: String, bundle: NSBundle = NSBundle(forClass: Turntable.self), turntableConfiguration: TurntableConfiguration = TurntableConfiguration()) {
         
         guard let cassette: [String: AnyObject] = loadJSON(bundle, fileName: cassetteName) else {
             fatalError("💣 Cassette file \"\(cassetteName)\" not found 😩")
@@ -45,7 +45,7 @@ final class Turntable: NSURLSession {
         self.init(turntableConfiguration: turntableConfiguration, vinyl: Vinyl(plastic: plastic))
     }
     
-    convenience init(vinylName: String, bundle: NSBundle = NSBundle(forClass: Turntable.self), turntableConfiguration: TurntableConfiguration = TurntableConfiguration()) {
+   public convenience init(vinylName: String, bundle: NSBundle = NSBundle(forClass: Turntable.self), turntableConfiguration: TurntableConfiguration = TurntableConfiguration()) {
         
         guard let plastic: Plastic = loadJSON(bundle, fileName: vinylName) else {
             fatalError("💣 Vinyl file \"\(vinylName)\" not found 😩")
@@ -65,7 +65,7 @@ final class Turntable: NSURLSession {
     
     // MARK: - NSURLSession methods
     
-    override func dataTaskWithRequest(request: NSURLRequest, completionHandler: (NSData?, NSURLResponse?, NSError?) -> Void) -> NSURLSessionDataTask {
+   public override func dataTaskWithRequest(request: NSURLRequest, completionHandler: (NSData?, NSURLResponse?, NSError?) -> Void) -> NSURLSessionDataTask {
         
         do {
             return try playVinyl(request, completionHandler: completionHandler)
@@ -80,6 +80,3 @@ final class Turntable: NSURLSession {
         return URLSessionTask(completion: {})
     }
 }
-
-
-

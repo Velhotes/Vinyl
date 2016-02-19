@@ -8,14 +8,14 @@
 
 import Foundation
 
-enum MatchingStrategy {
+public enum MatchingStrategy {
     case RequestAttributes(types: [RequestMatcherType], playTracksUniquely: Bool)
     case TrackOrder
 }
 
-struct TurntableConfiguration {
+public struct TurntableConfiguration {
     
-    let matchingStrategy: MatchingStrategy
+   public let matchingStrategy: MatchingStrategy
     
     var playTracksUniquely: Bool {
         get {
@@ -26,7 +26,7 @@ struct TurntableConfiguration {
         }
     }
     
-    init(matchingStrategy: MatchingStrategy = .RequestAttributes(types: [.Method, .URL], playTracksUniquely: true)) {
+   public init(matchingStrategy: MatchingStrategy = .RequestAttributes(types: [.Method, .URL], playTracksUniquely: true)) {
         self.matchingStrategy = matchingStrategy
     }
     
