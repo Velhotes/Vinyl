@@ -22,7 +22,7 @@ public final class Turntable: NSURLSession {
     private let turntableConfiguration: TurntableConfiguration
     private let player: Player
     
-   public init(turntableConfiguration: TurntableConfiguration, vinyl: Vinyl) {
+    public init(turntableConfiguration: TurntableConfiguration, vinyl: Vinyl) {
         
         let trackMatchers = turntableConfiguration.trackMatchersForVinyl(vinyl)
         
@@ -32,7 +32,7 @@ public final class Turntable: NSURLSession {
         super.init()
     }
     
-   public convenience init(cassetteName: String, bundle: NSBundle = NSBundle(forClass: Turntable.self), turntableConfiguration: TurntableConfiguration = TurntableConfiguration()) {
+    public convenience init(cassetteName: String, bundle: NSBundle = testingBundle(), turntableConfiguration: TurntableConfiguration = TurntableConfiguration()) {
         
         guard let cassette: [String: AnyObject] = loadJSON(bundle, fileName: cassetteName) else {
             fatalError("💣 Cassette file \"\(cassetteName)\" not found 😩")
@@ -45,7 +45,7 @@ public final class Turntable: NSURLSession {
         self.init(turntableConfiguration: turntableConfiguration, vinyl: Vinyl(plastic: plastic))
     }
     
-   public convenience init(vinylName: String, bundle: NSBundle = NSBundle(forClass: Turntable.self), turntableConfiguration: TurntableConfiguration = TurntableConfiguration()) {
+    public convenience init(vinylName: String, bundle: NSBundle = testingBundle(), turntableConfiguration: TurntableConfiguration = TurntableConfiguration()) {
         
         guard let plastic: Plastic = loadJSON(bundle, fileName: vinylName) else {
             fatalError("💣 Vinyl file \"\(vinylName)\" not found 😩")
@@ -65,7 +65,7 @@ public final class Turntable: NSURLSession {
     
     // MARK: - NSURLSession methods
     
-   public override func dataTaskWithRequest(request: NSURLRequest, completionHandler: (NSData?, NSURLResponse?, NSError?) -> Void) -> NSURLSessionDataTask {
+    public override func dataTaskWithRequest(request: NSURLRequest, completionHandler: (NSData?, NSURLResponse?, NSError?) -> Void) -> NSURLSessionDataTask {
         
         do {
             return try playVinyl(request, completionHandler: completionHandler)
@@ -78,5 +78,10 @@ public final class Turntable: NSURLSession {
         }
         
         return URLSessionTask(completion: {})
+    }
+    
+    
+    public override func invalidateAndCancel() {
+        // We won't do anything for
     }
 }

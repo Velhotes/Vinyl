@@ -32,6 +32,7 @@
 		C75D79231C6E0E9D004B92A9 /* Turntable.swift in Sources */ = {isa = PBXBuildFile; fileRef = C75D79221C6E0E9D004B92A9 /* Turntable.swift */; };
 		C7995DC21C75F38F00E1D905 /* ErrorHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7995DC11C75F38F00E1D905 /* ErrorHandler.swift */; };
 		C7995DC71C75F75400E1D905 /* MockedTrackedNotFoundErrorHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7995DC61C75F75400E1D905 /* MockedTrackedNotFoundErrorHandler.swift */; };
+		C7995DCE1C7724F700E1D905 /* NSBundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7995DCD1C7724F700E1D905 /* NSBundle.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -73,6 +74,7 @@
 		C75D79221C6E0E9D004B92A9 /* Turntable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Turntable.swift; sourceTree = "<group>"; };
 		C7995DC11C75F38F00E1D905 /* ErrorHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ErrorHandler.swift; sourceTree = "<group>"; };
 		C7995DC61C75F75400E1D905 /* MockedTrackedNotFoundErrorHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockedTrackedNotFoundErrorHandler.swift; sourceTree = "<group>"; };
+		C7995DCD1C7724F700E1D905 /* NSBundle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSBundle.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -100,6 +102,7 @@
 				C70886111C7346CF002DBB2C /* NSURLQueryItem.swift */,
 				C70886161C737684002DBB2C /* NSURLRequest.swift */,
 				C708861A1C737C1B002DBB2C /* SequenceType.swift */,
+				C7995DCD1C7724F700E1D905 /* NSBundle.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -323,6 +326,7 @@
 				C708861B1C737C1B002DBB2C /* SequenceType.swift in Sources */,
 				7D93580C1C7117A80020103D /* Track.swift in Sources */,
 				C708861D1C738A19002DBB2C /* URLSessionTask.swift in Sources */,
+				C7995DCE1C7724F700E1D905 /* NSBundle.swift in Sources */,
 				C72AD2F21C6E48B500E11612 /* EncodingDecoding.swift in Sources */,
 				C7995DC21C75F38F00E1D905 /* ErrorHandler.swift in Sources */,
 				C70886171C737684002DBB2C /* NSURLRequest.swift in Sources */,
