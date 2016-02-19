@@ -13,28 +13,28 @@ class TurntableTests: XCTestCase {
     
     func test_Vinyl_single() {
         
-        let turnatable = Turntable(vinylName: "vinyl_single", bundle: NSBundle(forClass: TurntableTests.self))
+        let turnatable = Turntable(vinylName: "vinyl_single")
         
         singleCallTest(turnatable)
     }
     
     func test_DVR_single() {
 
-        let turnatable = Turntable(cassetteName: "dvr_single", bundle: NSBundle(forClass: TurntableTests.self))
+        let turnatable = Turntable(cassetteName: "dvr_single")
         
         singleCallTest(turnatable)
     }
     
     func test_Vinyl_multiple() {
         
-        let turnatable = Turntable(vinylName: "vinyl_multiple", bundle: NSBundle(forClass: TurntableTests.self))
+        let turnatable = Turntable(vinylName: "vinyl_multiple")
         
         multipleCallTest(turnatable)
     }
     
     func test_DVR_multiple() {
         
-        let turnatable = Turntable(cassetteName: "dvr_multiple", bundle: NSBundle(forClass: TurntableTests.self))
+        let turnatable = Turntable(cassetteName: "dvr_multiple")
         
         multipleCallTest(turnatable)
     }
@@ -46,7 +46,6 @@ class TurntableTests: XCTestCase {
         
         let turnatable = Turntable(
             vinylName: "vinyl_multiple",
-            bundle: NSBundle(forClass: TurntableTests.self),
             turntableConfiguration: TurntableConfiguration(matchingStrategy: .RequestAttributes(types: [.URL], playTracksUniquely: true)))
         
         let request1 = NSMutableURLRequest(URL: NSURL(string: "http://api.test1.com")!)
@@ -82,7 +81,6 @@ class TurntableTests: XCTestCase {
         
         let turnatable = Turntable(
             vinylName: "vinyl_multiple",
-            bundle: NSBundle(forClass: TurntableTests.self),
             turntableConfiguration: TurntableConfiguration(matchingStrategy: .RequestAttributes(types: [.URL], playTracksUniquely: false)))
         
         let request1 = NSMutableURLRequest(URL: NSURL(string: "http://api.test1.com")!)
@@ -123,7 +121,6 @@ class TurntableTests: XCTestCase {
         
         let turnatable = Turntable(
             vinylName: "vinyl_multiple",
-            bundle: NSBundle(forClass: TurntableTests.self),
             turntableConfiguration: TurntableConfiguration(matchingStrategy: .RequestAttributes(types: [.URL], playTracksUniquely: true)))
         
         let request1 = NSMutableURLRequest(URL: NSURL(string: "http://api.test1.com")!)
