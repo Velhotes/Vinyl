@@ -26,7 +26,7 @@ Let's start with the most basic configuration, where you already have a track (s
 let turntable = Turntable(vinylName: "vinyl_single")
 let request = NSURLRequest(URL: NSURL(string: "http://api.test.com")!)
  
-turnatable.dataTaskWithRequest(request) { (data, response, anError) in
+turntable.dataTaskWithRequest(request) { (data, response, anError) in
  // Assert your expectations    
 }.resume()
 ```
@@ -74,7 +74,7 @@ In practise it would look like this:
 ```swift
 let matching = .RequestAttributes(types: [.URL, .Query], playTracksUniquely: true)
 let configuration = TurntableConfiguration( matchingStrategy:  matching)
-let turnatable = Turntable( vinylName: "vinyl_simple", turntableConfiguration: configuration)
+let turntable = Turntable( vinylName: "vinyl_simple", turntableConfiguration: configuration)
 ```
 In this case we are matching by `.URL` and `.Query`. We also provide a way of making sure each track is only played once (or not), by setting the `playTracksUniquely` accordingly. 
 
@@ -83,7 +83,7 @@ If the mapping approach is not desirable, you can make it behave like a queue: t
 ```swift
 let matching = .TrackOrder
 let configuration = TurntableConfiguration( matchingStrategy:  matching)
-let turnatable = Turntable( vinylName: "vinyl_simple", turntableConfiguration: configuration)
+let turntable = Turntable( vinylName: "vinyl_simple", turntableConfiguration: configuration)
 ```
 Finally we allow you to create a track by hand, instead of relying on a JSON file:
 
@@ -91,7 +91,7 @@ Finally we allow you to create a track by hand, instead of relying on a JSON fil
 let track = TrackFactory.createValidTrack(NSURL(string: "http://feelGoodINC.com")!, body: data, headers: headers)
 
 let vinyl = Vinyl(tracks: [track])
-let turnatable = Turntable(vinyl: vinyl, turntableConfiguration: configuration)
+let turntable = Turntable(vinyl: vinyl, turntableConfiguration: configuration)
 ```
 
 #### Coming from DVR
@@ -106,7 +106,7 @@ let session = Session(cassetteName: "dvr_single")
 You can just use a `Turntable` instead:
 
 ```swift
-let turnatable = Turntable(cassetteName: "dvr_single")
+let turntable = Turntable(cassetteName: "dvr_single")
 ```
 
 This way you won't have to throw anything away.
