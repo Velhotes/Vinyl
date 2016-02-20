@@ -3,6 +3,8 @@ osx_image: xcode7.1
 env:
   - SCHEME=Vinyl
 script:
-  - xctool -project Vinyl.xcodeproj -scheme $SCHEME test sdk iphonesimulator CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO
+  - xctool -project Vinyl.xcodeproj -scheme $SCHEME test sdk iphonesimulator CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO GCC_INSTRUMENT_PROGRAM_FLOW_ARCS=YES GCC_GENERATE_TEST_COVERAGE_FILES=YES
 notifications:
   slack: ios:0sE9PZaoizGktMBoE1LB9uWo
+after_success:
+- bash <(curl -s https://codecov.io/bash)
