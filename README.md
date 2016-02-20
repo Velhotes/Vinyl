@@ -124,7 +124,7 @@ That way you won't have to throw anything away.
 
 The current version ([0.9](https://github.com/Velhotes/Vinyl/releases/tag/0.9.0)) is currently being used in a project successfully. This gives us some degree of confidence it will work for you as well. **Nevertheless don't forget this is a pre-release version**. If there is something that isn't working for you, or you are finding its usage cumbersome, please [let us know](https://github.com/Velhotes/Vinyl/issues/new). 
 
-For the 1.0 release, we are planning to have the ability to record requests. In the meantime if you don't have any JSON pre recorded response, you should create your own `Track` manually. 
+For the 1.0 release, we are planning to have the ability to record requests. In the meantime if you don't have any JSON pre recorded response, you should create your own `Track` manually (either by code, or with a JSON file). 
 
 ## Roadmap
 
