@@ -4,7 +4,9 @@ env:
   - SCHEME=Vinyl
 script:
   - xctool -project Vinyl.xcodeproj -scheme $SCHEME test sdk iphonesimulator CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO GCC_INSTRUMENT_PROGRAM_FLOW_ARCS=YES GCC_GENERATE_TEST_COVERAGE_FILES=YES
+before_install: 
+   - gem install slather -N 
+   
+after_success: slather
 notifications:
   slack: ios:0sE9PZaoizGktMBoE1LB9uWo
-after_success:
-- bash <(curl -s https://codecov.io/bash)
