@@ -62,9 +62,14 @@ public final class Turntable: NSURLSession {
         
         return URLSessionTask(completion: { completionHandler(completion) })
     }
-    
+
     // MARK: - NSURLSession methods
     
+    public override func dataTaskWithURL(url: NSURL, completionHandler: (NSData?, NSURLResponse?, NSError?) -> Void) -> NSURLSessionDataTask {
+        let request = NSURLRequest(URL: url)
+        return dataTaskWithRequest(request, completionHandler: completionHandler)
+    }
+
     public override func dataTaskWithRequest(request: NSURLRequest, completionHandler: (NSData?, NSURLResponse?, NSError?) -> Void) -> NSURLSessionDataTask {
         
         do {

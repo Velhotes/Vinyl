@@ -83,10 +83,8 @@ class TurntableTests: XCTestCase {
             vinylName: "vinyl_multiple",
             turntableConfiguration: TurntableConfiguration(matchingStrategy: .RequestAttributes(types: [.URL], playTracksUniquely: false)))
         
-        let request1 = NSMutableURLRequest(URL: NSURL(string: "http://api.test1.com")!)
-        let request2 = NSMutableURLRequest(URL: NSURL(string: "http://api.test2.com")!)
-        let request3 = NSMutableURLRequest(URL: NSURL(string: "http://api.test2.com")!)
-        let request4 = NSMutableURLRequest(URL: NSURL(string: "http://api.test2.com")!)
+        let url1String = "http://api.test1.com"
+        let url2String = "http://api.test2.com"
         
         var numberOfCalls = 0
         let checker: (NSData?, NSURLResponse?, NSError?) -> () = { (data, response, anError) in
@@ -97,9 +95,9 @@ class TurntableTests: XCTestCase {
             
             switch numberOfCalls {
             case 1:
-                XCTAssertEqual(httpResponse.URL!.absoluteString, "http://api.test1.com")
+                XCTAssertEqual(httpResponse.URL!.absoluteString, url1String)
             case 2...4:
-                XCTAssertEqual(httpResponse.URL!.absoluteString, "http://api.test2.com")
+                XCTAssertEqual(httpResponse.URL!.absoluteString, url2String)
                 if numberOfCalls == 4 {
                     expectation.fulfill()
                 }
@@ -107,10 +105,10 @@ class TurntableTests: XCTestCase {
             }
         }
         
-        turnatable.dataTaskWithRequest(request1, completionHandler: checker).resume()
-        turnatable.dataTaskWithRequest(request2, completionHandler: checker).resume()
-        turnatable.dataTaskWithRequest(request3, completionHandler: checker).resume()
-        turnatable.dataTaskWithRequest(request4, completionHandler: checker).resume()
+        turnatable.dataTaskWithURL(NSURL(string: url1String)!, completionHandler: checker).resume()
+        turnatable.dataTaskWithURL(NSURL(string: url2String)!, completionHandler: checker).resume()
+        turnatable.dataTaskWithURL(NSURL(string: url2String)!, completionHandler: checker).resume()
+        turnatable.dataTaskWithURL(NSURL(string: url2String)!, completionHandler: checker).resume()
     }
     
     
@@ -123,8 +121,8 @@ class TurntableTests: XCTestCase {
             vinylName: "vinyl_multiple",
             turntableConfiguration: TurntableConfiguration(matchingStrategy: .RequestAttributes(types: [.URL], playTracksUniquely: true)))
         
-        let request1 = NSMutableURLRequest(URL: NSURL(string: "http://api.test1.com")!)
-        let request2 = NSMutableURLRequest(URL: NSURL(string: "http://api.test2.com")!)
+        let url1String = "http://api.test1.com"
+        let url2String = "http://api.test2.com"
         
         let mockedTrackedNotFound = MockedTrackedNotFoundErrorHandler { expectation.fulfill() }
         turnatable.errorHandler = mockedTrackedNotFound
@@ -136,10 +134,10 @@ class TurntableTests: XCTestCase {
             
             switch numberOfCalls {
             case 0:
-                XCTAssertEqual(httpResponse.URL!.absoluteString, "http://api.test1.com")
+                XCTAssertEqual(httpResponse.URL!.absoluteString, url1String)
                 numberOfCalls += 1
             case 1:
-                XCTAssertEqual(httpResponse.URL!.absoluteString, "http://api.test2.com")
+                XCTAssertEqual(httpResponse.URL!.absoluteString, url2String)
                 numberOfCalls += 1
             case 2:
                 fatalError("This shouldn't be reached")
@@ -147,11 +145,11 @@ class TurntableTests: XCTestCase {
             }
         }
         
-        turnatable.dataTaskWithRequest(request1, completionHandler: checker).resume()
-        turnatable.dataTaskWithRequest(request2, completionHandler: checker).resume()
-        turnatable.dataTaskWithRequest(request2, completionHandler: checker).resume()
-        turnatable.dataTaskWithRequest(request2, completionHandler: checker).resume()
-        turnatable.dataTaskWithRequest(request2, completionHandler: checker).resume()
+        turnatable.dataTaskWithURL(NSURL(string: url1String)!, completionHandler: checker).resume()
+        turnatable.dataTaskWithURL(NSURL(string: url2String)!, completionHandler: checker).resume()
+        turnatable.dataTaskWithURL(NSURL(string: url2String)!, completionHandler: checker).resume()
+        turnatable.dataTaskWithURL(NSURL(string: url2String)!, completionHandler: checker).resume()
+        turnatable.dataTaskWithURL(NSURL(string: url2String)!, completionHandler: checker).resume()
     }
     
     //MARK: Aux methods
@@ -161,9 +159,9 @@ class TurntableTests: XCTestCase {
         let expectation = self.expectationWithDescription("Expected callback to have the correct URL")
         defer { self.waitForExpectationsWithTimeout(4, handler: nil) }
         
-        let request = NSURLRequest(URL: NSURL(string: "http://api.test.com")!)
+        let urlString = "http://api.test.com"
         
-        turnatable.dataTaskWithRequest(request) { (data, response, anError) in
+        turnatable.dataTaskWithURL(NSURL(string: urlString)!) { (data, response, anError) in
             
             XCTAssertNil(anError)
             
@@ -171,7 +169,7 @@ class TurntableTests: XCTestCase {
             
             let body = "hello".dataUsingEncoding(NSUTF8StringEncoding)!
                         
-            XCTAssertEqual(httpResponse.URL!.absoluteString, "http://api.test.com")
+            XCTAssertEqual(httpResponse.URL!.absoluteString, urlString)
             XCTAssertEqual(httpResponse.statusCode, 200)
             XCTAssertTrue(data!.isEqualToData(body))
             XCTAssertNotNil(httpResponse.allHeaderFields)
@@ -185,8 +183,8 @@ class TurntableTests: XCTestCase {
         let expectation = self.expectationWithDescription("Expected callback to have the correct URL")
         defer { self.waitForExpectationsWithTimeout(4, handler: nil) }
         
-        let request1 = NSURLRequest(URL: NSURL(string: "http://api.test1.com")!)
-        let request2 = NSURLRequest(URL: NSURL(string: "http://api.test2.com")!)
+        let url1String = "http://api.test1.com"
+        let url2String = "http://api.test2.com"
         
         var numberOfCalls = 0
         let checker: (NSData?, NSURLResponse?, NSError?) -> () = { (data, response, anError) in
@@ -195,17 +193,17 @@ class TurntableTests: XCTestCase {
             
             switch numberOfCalls {
             case 0:
-                XCTAssertEqual(httpResponse.URL!.absoluteString, "http://api.test1.com")
+                XCTAssertEqual(httpResponse.URL!.absoluteString, url1String)
                 numberOfCalls += 1
             case 1:
-                XCTAssertEqual(httpResponse.URL!.absoluteString, "http://api.test2.com")
+                XCTAssertEqual(httpResponse.URL!.absoluteString, url2String)
                 expectation.fulfill()
             default: break
             }
         }
         
-        turnatable.dataTaskWithRequest(request1, completionHandler: checker).resume()
-        turnatable.dataTaskWithRequest(request2, completionHandler: checker).resume()
+        turnatable.dataTaskWithURL(NSURL(string: url1String)!, completionHandler: checker).resume()
+        turnatable.dataTaskWithURL(NSURL(string: url2String)!, completionHandler: checker).resume()
     }
     
     // MARK: - Track Order strategy
