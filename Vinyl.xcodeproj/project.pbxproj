@@ -14,6 +14,9 @@
 		7DC5704D1C72A1AB00BA1458 /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DC5704C1C72A1AB00BA1458 /* Player.swift */; };
 		7DC5704F1C72A1FD00BA1458 /* TrackMatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DC5704E1C72A1FD00BA1458 /* TrackMatcher.swift */; };
 		7DC570511C72ACA100BA1458 /* RequestMatcherRegistryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DC570501C72ACA100BA1458 /* RequestMatcherRegistryTests.swift */; };
+		82D8B7721C78E39900D8E037 /* SwiftCheck.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 82D8B7711C78E39900D8E037 /* SwiftCheck.framework */; };
+		82D8B7741C78E3FF00D8E037 /* Arbitrary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82D8B7731C78E3FF00D8E037 /* Arbitrary.swift */; };
+		82D8B7761C78E51B00D8E037 /* SwiftCheck.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 82D8B7711C78E39900D8E037 /* SwiftCheck.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C70886121C7346CF002DBB2C /* NSURLQueryItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = C70886111C7346CF002DBB2C /* NSURLQueryItem.swift */; };
 		C70886151C735136002DBB2C /* FuncComposition.swift in Sources */ = {isa = PBXBuildFile; fileRef = C70886141C735136002DBB2C /* FuncComposition.swift */; };
 		C70886171C737684002DBB2C /* NSURLRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = C70886161C737684002DBB2C /* NSURLRequest.swift */; };
@@ -45,6 +48,19 @@
 		};
 /* End PBXContainerItemProxy section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		82D8B7751C78E51400D8E037 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				82D8B7761C78E51B00D8E037 /* SwiftCheck.framework in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		7D22F3011C75351B00A81608 /* TurntableConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TurntableConfiguration.swift; sourceTree = "<group>"; };
 		7D22F3031C754F5C00A81608 /* Response.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Response.swift; sourceTree = "<group>"; };
@@ -53,6 +69,8 @@
 		7DC5704C1C72A1AB00BA1458 /* Player.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
 		7DC5704E1C72A1FD00BA1458 /* TrackMatcher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrackMatcher.swift; sourceTree = "<group>"; };
 		7DC570501C72ACA100BA1458 /* RequestMatcherRegistryTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RequestMatcherRegistryTests.swift; sourceTree = "<group>"; };
+		82D8B7711C78E39900D8E037 /* SwiftCheck.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftCheck.framework; path = Carthage/Build/iOS/SwiftCheck.framework; sourceTree = SOURCE_ROOT; };
+		82D8B7731C78E3FF00D8E037 /* Arbitrary.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Arbitrary.swift; sourceTree = "<group>"; };
 		C70886111C7346CF002DBB2C /* NSURLQueryItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSURLQueryItem.swift; sourceTree = "<group>"; };
 		C70886141C735136002DBB2C /* FuncComposition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FuncComposition.swift; sourceTree = "<group>"; };
 		C70886161C737684002DBB2C /* NSURLRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSURLRequest.swift; sourceTree = "<group>"; };
@@ -90,6 +108,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C75D79111C6DFE30004B92A9 /* Vinyl.framework in Frameworks */,
+				82D8B7721C78E39900D8E037 /* SwiftCheck.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -190,6 +209,8 @@
 				C72AD2F31C6E4B7800E11612 /* TurntableTests.swift */,
 				7DC570501C72ACA100BA1458 /* RequestMatcherRegistryTests.swift */,
 				C70886201C73FBBF002DBB2C /* TrackTests.swift */,
+				82D8B7731C78E3FF00D8E037 /* Arbitrary.swift */,
+				82D8B7711C78E39900D8E037 /* SwiftCheck.framework */,
 				C75D79171C6DFE30004B92A9 /* Info.plist */,
 			);
 			path = VinylTests;
@@ -248,6 +269,7 @@
 			buildPhases = (
 				C75D790C1C6DFE30004B92A9 /* Sources */,
 				C75D790D1C6DFE30004B92A9 /* Frameworks */,
+				82D8B7751C78E51400D8E037 /* CopyFiles */,
 				C75D790E1C6DFE30004B92A9 /* Resources */,
 			);
 			buildRules = (
@@ -350,6 +372,7 @@
 				C70886211C73FBBF002DBB2C /* TrackTests.swift in Sources */,
 				C72AD2F41C6E4B7800E11612 /* TurntableTests.swift in Sources */,
 				7DC570511C72ACA100BA1458 /* RequestMatcherRegistryTests.swift in Sources */,
+				82D8B7741C78E3FF00D8E037 /* Arbitrary.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -491,6 +514,10 @@
 		C75D791E1C6DFE30004B92A9 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				INFOPLIST_FILE = VinylTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = velhotes.VinylTests;
@@ -501,6 +528,10 @@
 		C75D791F1C6DFE30004B92A9 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				INFOPLIST_FILE = VinylTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = velhotes.VinylTests;
