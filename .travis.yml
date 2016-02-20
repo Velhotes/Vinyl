@@ -2,6 +2,8 @@ language: objective-c
 osx_image: xcode7.1
 env:
   - SCHEME=Vinyl
+install:
+  - git submodule update --init --recursive
 script:
   - xctool -project Vinyl.xcodeproj -scheme $SCHEME test sdk iphonesimulator CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO GCC_INSTRUMENT_PROGRAM_FLOW_ARCS=YES GCC_GENERATE_TEST_COVERAGE_FILES=YES
 notifications:

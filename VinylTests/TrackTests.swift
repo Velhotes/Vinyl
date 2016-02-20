@@ -8,40 +8,43 @@
 
 import XCTest
 @testable import Vinyl
+import SwiftCheck
 
 class TrackTests: XCTestCase {
-
-    func test_badTrackCreation() {
+    func testProperties() {
+        property("Bad tracks contain no body") <- forAllNoShrink(urlStringGen) { url in
+            let track = TrackFactory.createBadTrack(NSURL(string: url)!, statusCode: 400)
+            return track.response.urlResponse.statusCode == 400
+                && track.response.urlResponse.URL?.absoluteString == url
+                && track.request.URL?.absoluteString == url
+                && track.response.body == nil 
+        }
         
-        let track = TrackFactory.createBadTrack(NSURL(string: "http://badRecord.com")!, statusCode: 400)
+        property("Bad tracks created with an error reflect that error") <- forAllNoShrink(urlStringGen) { url in
+            return forAll { (domain : String, code : Positive<Int>) in
+                let error = NSError(domain: domain, code: code.getPositive, userInfo: nil)
+                let track = TrackFactory.createBadTrack(NSURL(string: url)!, statusCode: code.getPositive, error: error)
+                return track.response.urlResponse.statusCode == code.getPositive
+                    && track.response.error == error
+                    && track.response.urlResponse.URL?.absoluteString == url
+                    && track.request.URL?.absoluteString == url
+                    && track.response.body == nil 
+            }
+        }
         
-        XCTAssertTrue(track.response.urlResponse.statusCode == 400)
-        XCTAssertTrue(track.response.urlResponse.URL?.absoluteString == "http://badRecord.com")
-        XCTAssertTrue(track.request.URL?.absoluteString == "http://badRecord.com")
-    }
-    
-    func test_badTrackCreation_withError() {
-        
-        let error = NSError(domain: "Test Domain", code: 1, userInfo: nil)
-        let track = TrackFactory.createBadTrack(NSURL(string: "http://badRecord.com")!, statusCode: 400, error: error)
-        
-        XCTAssertTrue(track.response.urlResponse.statusCode == 400)
-        XCTAssertTrue(track.response.error == error)
-        XCTAssertTrue(track.response.urlResponse.URL?.absoluteString == "http://badRecord.com")
-        XCTAssertTrue(track.request.URL?.absoluteString == "http://badRecord.com")
-    }
-
-    func test_AwesomeTrackCreation() {
-        
-        let data = "Hello World".dataUsingEncoding(NSUTF8StringEncoding)!
-        let headers = ["awesomeness": "max"]
-        
-        let track = TrackFactory.createValidTrack(NSURL(string: "http://feelGoodINC.com")!, body: data, headers: headers)
-        
-        XCTAssertTrue(track.response.urlResponse.statusCode == 200)
-        XCTAssertTrue(track.response.body!.isEqualToData(data))
-        XCTAssertTrue(track.response.urlResponse.allHeaderFields as! HTTPHeaders == headers)
-        XCTAssertTrue(track.response.urlResponse.URL?.absoluteString == "http://feelGoodINC.com")
-        XCTAssertTrue(track.request.URL?.absoluteString == "http://feelGoodINC.com")
+        property("Well made tracks are well made") <- forAllNoShrink(
+              urlStringGen
+            , String.arbitrary
+            , HTTPHeaders.arbitrary
+        ) { (url, body, headers) in
+            let data = body.dataUsingEncoding(NSUTF8StringEncoding)!
+            let track = TrackFactory.createValidTrack(NSURL(string: url)!, body: data, headers: headers)
+            
+            return track.response.urlResponse.statusCode == 200
+                && track.response.body!.isEqualToData(data)
+                && track.response.urlResponse.allHeaderFields as! HTTPHeaders == headers
+                && track.response.urlResponse.URL?.absoluteString == url
+                && track.request.URL?.absoluteString == url
+        }
     }
 }
