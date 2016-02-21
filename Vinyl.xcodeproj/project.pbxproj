@@ -7,38 +7,127 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		7D22F3021C75351B00A81608 /* TurntableConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D22F3011C75351B00A81608 /* TurntableConfiguration.swift */; };
-		7D22F3041C754F5C00A81608 /* Response.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D22F3031C754F5C00A81608 /* Response.swift */; };
-		7D48F0D31C7159F10044DC32 /* RequestMatcherRegistry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D48F0D21C7159F10044DC32 /* RequestMatcherRegistry.swift */; };
-		7D93580C1C7117A80020103D /* Track.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D93580B1C7117A80020103D /* Track.swift */; };
-		7DC5704D1C72A1AB00BA1458 /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DC5704C1C72A1AB00BA1458 /* Player.swift */; };
-		7DC5704F1C72A1FD00BA1458 /* TrackMatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DC5704E1C72A1FD00BA1458 /* TrackMatcher.swift */; };
-		7DC570511C72ACA100BA1458 /* RequestMatcherRegistryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DC570501C72ACA100BA1458 /* RequestMatcherRegistryTests.swift */; };
-		82D8B7741C78E3FF00D8E037 /* Arbitrary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82D8B7731C78E3FF00D8E037 /* Arbitrary.swift */; };
+		7DBD4C891C79CA24008C5487 /* Vinyl.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7DBD4C7F1C79CA24008C5487 /* Vinyl.framework */; };
+		7DBD4C961C79CAB0008C5487 /* SwiftCheck.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 82D8B7811C78FE2400D8E037 /* SwiftCheck.framework */; };
+		7DBD4C971C79CACE008C5487 /* MockedTrackedNotFoundErrorHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7995DC61C75F75400E1D905 /* MockedTrackedNotFoundErrorHandler.swift */; };
+		7DBD4C981C79CACE008C5487 /* TurntableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C72AD2F31C6E4B7800E11612 /* TurntableTests.swift */; };
+		7DBD4C991C79CACE008C5487 /* RequestMatcherRegistryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DC570501C72ACA100BA1458 /* RequestMatcherRegistryTests.swift */; };
+		7DBD4C9A1C79CACE008C5487 /* TrackTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C70886201C73FBBF002DBB2C /* TrackTests.swift */; };
+		7DBD4C9B1C79CACE008C5487 /* Arbitrary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82D8B7731C78E3FF00D8E037 /* Arbitrary.swift */; };
+		7DBD4C9F1C79CB06008C5487 /* SwiftCheck.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 82D8B7811C78FE2400D8E037 /* SwiftCheck.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		7DBD4CA01C79CB18008C5487 /* dvr_multiple.json in Resources */ = {isa = PBXBuildFile; fileRef = C70886341C74D470002DBB2C /* dvr_multiple.json */; };
+		7DBD4CA11C79CB18008C5487 /* dvr_single.json in Resources */ = {isa = PBXBuildFile; fileRef = C70886351C74D470002DBB2C /* dvr_single.json */; };
+		7DBD4CA21C79CB18008C5487 /* vinyl_multiple.json in Resources */ = {isa = PBXBuildFile; fileRef = C70886301C74D452002DBB2C /* vinyl_multiple.json */; };
+		7DBD4CA31C79CB18008C5487 /* vinyl_single.json in Resources */ = {isa = PBXBuildFile; fileRef = C70886311C74D452002DBB2C /* vinyl_single.json */; };
+		7DBD4CB31C79CC4D008C5487 /* Vinyl.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7DBD4CA91C79CC4C008C5487 /* Vinyl.framework */; };
+		7DBD4CC21C79CCE2008C5487 /* ErrorHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7995DC11C75F38F00E1D905 /* ErrorHandler.swift */; };
+		7DBD4CC31C79CCE2008C5487 /* FuncComposition.swift in Sources */ = {isa = PBXBuildFile; fileRef = C70886141C735136002DBB2C /* FuncComposition.swift */; };
+		7DBD4CC41C79CCE2008C5487 /* NSURLQueryItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = C70886111C7346CF002DBB2C /* NSURLQueryItem.swift */; };
+		7DBD4CC51C79CCE2008C5487 /* NSURLRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = C70886161C737684002DBB2C /* NSURLRequest.swift */; };
+		7DBD4CC61C79CCE2008C5487 /* SequenceType.swift in Sources */ = {isa = PBXBuildFile; fileRef = C708861A1C737C1B002DBB2C /* SequenceType.swift */; };
+		7DBD4CC71C79CCE2008C5487 /* NSBundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7995DCD1C7724F700E1D905 /* NSBundle.swift */; };
+		7DBD4CC81C79CCE2008C5487 /* EncodingDecoding.swift in Sources */ = {isa = PBXBuildFile; fileRef = C72AD2F11C6E48B500E11612 /* EncodingDecoding.swift */; };
+		7DBD4CC91C79CCE2008C5487 /* JSONHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C72AD2EB1C6E275000E11612 /* JSONHelper.swift */; };
+		7DBD4CCA1C79CCE2008C5487 /* Turntable.swift in Sources */ = {isa = PBXBuildFile; fileRef = C75D79221C6E0E9D004B92A9 /* Turntable.swift */; };
+		7DBD4CCB1C79CCE2008C5487 /* TurntableConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D22F3011C75351B00A81608 /* TurntableConfiguration.swift */; };
+		7DBD4CCC1C79CCE2008C5487 /* URLSessionTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = C708861C1C738A19002DBB2C /* URLSessionTask.swift */; };
+		7DBD4CCD1C79CCE2008C5487 /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DC5704C1C72A1AB00BA1458 /* Player.swift */; };
+		7DBD4CCE1C79CCE2008C5487 /* TrackMatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DC5704E1C72A1FD00BA1458 /* TrackMatcher.swift */; };
+		7DBD4CCF1C79CCE2008C5487 /* Vinyl.swift in Sources */ = {isa = PBXBuildFile; fileRef = C75D79201C6E0B32004B92A9 /* Vinyl.swift */; };
+		7DBD4CD01C79CCE2008C5487 /* Track.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D93580B1C7117A80020103D /* Track.swift */; };
+		7DBD4CD11C79CCE2008C5487 /* Response.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D22F3031C754F5C00A81608 /* Response.swift */; };
+		7DBD4CD21C79CCE2008C5487 /* RequestMatcherRegistry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D48F0D21C7159F10044DC32 /* RequestMatcherRegistry.swift */; };
+		7DBD4CD31C79CCF4008C5487 /* ErrorHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7995DC11C75F38F00E1D905 /* ErrorHandler.swift */; };
+		7DBD4CD41C79CCF4008C5487 /* FuncComposition.swift in Sources */ = {isa = PBXBuildFile; fileRef = C70886141C735136002DBB2C /* FuncComposition.swift */; };
+		7DBD4CD51C79CCF4008C5487 /* NSURLQueryItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = C70886111C7346CF002DBB2C /* NSURLQueryItem.swift */; };
+		7DBD4CD61C79CCF4008C5487 /* NSURLRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = C70886161C737684002DBB2C /* NSURLRequest.swift */; };
+		7DBD4CD71C79CCF4008C5487 /* SequenceType.swift in Sources */ = {isa = PBXBuildFile; fileRef = C708861A1C737C1B002DBB2C /* SequenceType.swift */; };
+		7DBD4CD81C79CCF4008C5487 /* NSBundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7995DCD1C7724F700E1D905 /* NSBundle.swift */; };
+		7DBD4CD91C79CCF4008C5487 /* EncodingDecoding.swift in Sources */ = {isa = PBXBuildFile; fileRef = C72AD2F11C6E48B500E11612 /* EncodingDecoding.swift */; };
+		7DBD4CDA1C79CCF4008C5487 /* JSONHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C72AD2EB1C6E275000E11612 /* JSONHelper.swift */; };
+		7DBD4CDB1C79CCF4008C5487 /* Turntable.swift in Sources */ = {isa = PBXBuildFile; fileRef = C75D79221C6E0E9D004B92A9 /* Turntable.swift */; };
+		7DBD4CDC1C79CCF4008C5487 /* TurntableConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D22F3011C75351B00A81608 /* TurntableConfiguration.swift */; };
+		7DBD4CDD1C79CCF4008C5487 /* URLSessionTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = C708861C1C738A19002DBB2C /* URLSessionTask.swift */; };
+		7DBD4CDE1C79CCF4008C5487 /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DC5704C1C72A1AB00BA1458 /* Player.swift */; };
+		7DBD4CDF1C79CCF4008C5487 /* TrackMatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DC5704E1C72A1FD00BA1458 /* TrackMatcher.swift */; };
+		7DBD4CE01C79CCF4008C5487 /* Vinyl.swift in Sources */ = {isa = PBXBuildFile; fileRef = C75D79201C6E0B32004B92A9 /* Vinyl.swift */; };
+		7DBD4CE11C79CCF4008C5487 /* Track.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D93580B1C7117A80020103D /* Track.swift */; };
+		7DBD4CE21C79CCF4008C5487 /* Response.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D22F3031C754F5C00A81608 /* Response.swift */; };
+		7DBD4CE31C79CCF4008C5487 /* RequestMatcherRegistry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D48F0D21C7159F10044DC32 /* RequestMatcherRegistry.swift */; };
+		7DBD4CE41C79CCFA008C5487 /* ErrorHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7995DC11C75F38F00E1D905 /* ErrorHandler.swift */; };
+		7DBD4CE51C79CCFA008C5487 /* FuncComposition.swift in Sources */ = {isa = PBXBuildFile; fileRef = C70886141C735136002DBB2C /* FuncComposition.swift */; };
+		7DBD4CE61C79CCFA008C5487 /* NSURLQueryItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = C70886111C7346CF002DBB2C /* NSURLQueryItem.swift */; };
+		7DBD4CE71C79CCFA008C5487 /* NSURLRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = C70886161C737684002DBB2C /* NSURLRequest.swift */; };
+		7DBD4CE81C79CCFA008C5487 /* SequenceType.swift in Sources */ = {isa = PBXBuildFile; fileRef = C708861A1C737C1B002DBB2C /* SequenceType.swift */; };
+		7DBD4CE91C79CCFA008C5487 /* NSBundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7995DCD1C7724F700E1D905 /* NSBundle.swift */; };
+		7DBD4CEA1C79CCFA008C5487 /* EncodingDecoding.swift in Sources */ = {isa = PBXBuildFile; fileRef = C72AD2F11C6E48B500E11612 /* EncodingDecoding.swift */; };
+		7DBD4CEB1C79CCFA008C5487 /* JSONHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C72AD2EB1C6E275000E11612 /* JSONHelper.swift */; };
+		7DBD4CEC1C79CCFA008C5487 /* Turntable.swift in Sources */ = {isa = PBXBuildFile; fileRef = C75D79221C6E0E9D004B92A9 /* Turntable.swift */; };
+		7DBD4CED1C79CCFA008C5487 /* TurntableConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D22F3011C75351B00A81608 /* TurntableConfiguration.swift */; };
+		7DBD4CEE1C79CCFA008C5487 /* URLSessionTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = C708861C1C738A19002DBB2C /* URLSessionTask.swift */; };
+		7DBD4CEF1C79CCFA008C5487 /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DC5704C1C72A1AB00BA1458 /* Player.swift */; };
+		7DBD4CF01C79CCFA008C5487 /* TrackMatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DC5704E1C72A1FD00BA1458 /* TrackMatcher.swift */; };
+		7DBD4CF11C79CCFA008C5487 /* Vinyl.swift in Sources */ = {isa = PBXBuildFile; fileRef = C75D79201C6E0B32004B92A9 /* Vinyl.swift */; };
+		7DBD4CF21C79CCFA008C5487 /* Track.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D93580B1C7117A80020103D /* Track.swift */; };
+		7DBD4CF31C79CCFA008C5487 /* Response.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D22F3031C754F5C00A81608 /* Response.swift */; };
+		7DBD4CF41C79CCFA008C5487 /* RequestMatcherRegistry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D48F0D21C7159F10044DC32 /* RequestMatcherRegistry.swift */; };
+		7DBD4CF71C79CD61008C5487 /* MockedTrackedNotFoundErrorHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7995DC61C75F75400E1D905 /* MockedTrackedNotFoundErrorHandler.swift */; };
+		7DBD4CF81C79CD61008C5487 /* TurntableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C72AD2F31C6E4B7800E11612 /* TurntableTests.swift */; };
+		7DBD4CF91C79CD61008C5487 /* RequestMatcherRegistryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DC570501C72ACA100BA1458 /* RequestMatcherRegistryTests.swift */; };
+		7DBD4CFA1C79CD61008C5487 /* TrackTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C70886201C73FBBF002DBB2C /* TrackTests.swift */; };
+		7DBD4CFB1C79CD61008C5487 /* Arbitrary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82D8B7731C78E3FF00D8E037 /* Arbitrary.swift */; };
+		7DBD4CFC1C79CD6B008C5487 /* MockedTrackedNotFoundErrorHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7995DC61C75F75400E1D905 /* MockedTrackedNotFoundErrorHandler.swift */; };
+		7DBD4CFD1C79CD6B008C5487 /* TurntableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C72AD2F31C6E4B7800E11612 /* TurntableTests.swift */; };
+		7DBD4CFE1C79CD6B008C5487 /* RequestMatcherRegistryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DC570501C72ACA100BA1458 /* RequestMatcherRegistryTests.swift */; };
+		7DBD4CFF1C79CD6B008C5487 /* TrackTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C70886201C73FBBF002DBB2C /* TrackTests.swift */; };
+		7DBD4D001C79CD6B008C5487 /* Arbitrary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82D8B7731C78E3FF00D8E037 /* Arbitrary.swift */; };
+		7DBD4D011C79CD7D008C5487 /* SwiftCheck.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 82D8B7811C78FE2400D8E037 /* SwiftCheck.framework */; };
+		7DBD4D051C79CD97008C5487 /* SwiftCheck.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 82D8B7891C78FE2400D8E037 /* SwiftCheck.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		7DBD4D061C79CDAF008C5487 /* dvr_multiple.json in Resources */ = {isa = PBXBuildFile; fileRef = C70886341C74D470002DBB2C /* dvr_multiple.json */; };
+		7DBD4D071C79CDAF008C5487 /* dvr_single.json in Resources */ = {isa = PBXBuildFile; fileRef = C70886351C74D470002DBB2C /* dvr_single.json */; };
+		7DBD4D081C79CDAF008C5487 /* vinyl_multiple.json in Resources */ = {isa = PBXBuildFile; fileRef = C70886301C74D452002DBB2C /* vinyl_multiple.json */; };
+		7DBD4D091C79CDAF008C5487 /* vinyl_single.json in Resources */ = {isa = PBXBuildFile; fileRef = C70886311C74D452002DBB2C /* vinyl_single.json */; };
+		7DBD4D0B1C79CEE6008C5487 /* Vinyl.h in Headers */ = {isa = PBXBuildFile; fileRef = 7DBD4D0A1C79CEE6008C5487 /* Vinyl.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		7DBD4D0C1C79CEEB008C5487 /* Vinyl.h in Headers */ = {isa = PBXBuildFile; fileRef = 7DBD4D0A1C79CEE6008C5487 /* Vinyl.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		7DBD4D0D1C79CEED008C5487 /* Vinyl.h in Headers */ = {isa = PBXBuildFile; fileRef = 7DBD4D0A1C79CEE6008C5487 /* Vinyl.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		82D8B78E1C78FE3100D8E037 /* SwiftCheck.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 82D8B7851C78FE2400D8E037 /* SwiftCheck.framework */; };
 		82D8B78F1C78FE3800D8E037 /* SwiftCheck.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 82D8B7851C78FE2400D8E037 /* SwiftCheck.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		C70886121C7346CF002DBB2C /* NSURLQueryItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = C70886111C7346CF002DBB2C /* NSURLQueryItem.swift */; };
-		C70886151C735136002DBB2C /* FuncComposition.swift in Sources */ = {isa = PBXBuildFile; fileRef = C70886141C735136002DBB2C /* FuncComposition.swift */; };
-		C70886171C737684002DBB2C /* NSURLRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = C70886161C737684002DBB2C /* NSURLRequest.swift */; };
-		C708861B1C737C1B002DBB2C /* SequenceType.swift in Sources */ = {isa = PBXBuildFile; fileRef = C708861A1C737C1B002DBB2C /* SequenceType.swift */; };
-		C708861D1C738A19002DBB2C /* URLSessionTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = C708861C1C738A19002DBB2C /* URLSessionTask.swift */; };
-		C70886211C73FBBF002DBB2C /* TrackTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C70886201C73FBBF002DBB2C /* TrackTests.swift */; };
 		C70886321C74D452002DBB2C /* vinyl_multiple.json in Resources */ = {isa = PBXBuildFile; fileRef = C70886301C74D452002DBB2C /* vinyl_multiple.json */; };
 		C70886331C74D452002DBB2C /* vinyl_single.json in Resources */ = {isa = PBXBuildFile; fileRef = C70886311C74D452002DBB2C /* vinyl_single.json */; };
 		C70886361C74D470002DBB2C /* dvr_multiple.json in Resources */ = {isa = PBXBuildFile; fileRef = C70886341C74D470002DBB2C /* dvr_multiple.json */; };
 		C70886371C74D470002DBB2C /* dvr_single.json in Resources */ = {isa = PBXBuildFile; fileRef = C70886351C74D470002DBB2C /* dvr_single.json */; };
-		C72AD2EC1C6E275000E11612 /* JSONHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C72AD2EB1C6E275000E11612 /* JSONHelper.swift */; };
-		C72AD2F21C6E48B500E11612 /* EncodingDecoding.swift in Sources */ = {isa = PBXBuildFile; fileRef = C72AD2F11C6E48B500E11612 /* EncodingDecoding.swift */; };
-		C72AD2F41C6E4B7800E11612 /* TurntableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C72AD2F31C6E4B7800E11612 /* TurntableTests.swift */; };
 		C75D79111C6DFE30004B92A9 /* Vinyl.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C75D79061C6DFE30004B92A9 /* Vinyl.framework */; };
-		C75D79211C6E0B32004B92A9 /* Vinyl.swift in Sources */ = {isa = PBXBuildFile; fileRef = C75D79201C6E0B32004B92A9 /* Vinyl.swift */; };
-		C75D79231C6E0E9D004B92A9 /* Turntable.swift in Sources */ = {isa = PBXBuildFile; fileRef = C75D79221C6E0E9D004B92A9 /* Turntable.swift */; };
-		C7995DC21C75F38F00E1D905 /* ErrorHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7995DC11C75F38F00E1D905 /* ErrorHandler.swift */; };
-		C7995DC71C75F75400E1D905 /* MockedTrackedNotFoundErrorHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7995DC61C75F75400E1D905 /* MockedTrackedNotFoundErrorHandler.swift */; };
-		C7995DCE1C7724F700E1D905 /* NSBundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7995DCD1C7724F700E1D905 /* NSBundle.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		7DBD4C8A1C79CA24008C5487 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C75D78FD1C6DFE30004B92A9 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 7DBD4C7E1C79CA24008C5487;
+			remoteInfo = "Vinyl-Mac";
+		};
+		7DBD4C9C1C79CADD008C5487 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 82D8B7771C78FE2400D8E037 /* SwiftCheck.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 844FCC8C198B320500EB242A;
+			remoteInfo = SwiftCheck;
+		};
+		7DBD4CB41C79CC4D008C5487 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C75D78FD1C6DFE30004B92A9 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 7DBD4CA81C79CC4C008C5487;
+			remoteInfo = "Vinyl-tvOS";
+		};
+		7DBD4CF51C79CD52008C5487 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 82D8B7771C78FE2400D8E037 /* SwiftCheck.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 8240CCB01C3A123600EF4D29;
+			remoteInfo = "SwiftCheck-tvOS";
+		};
 		82D8B7801C78FE2400D8E037 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 82D8B7771C78FE2400D8E037 /* SwiftCheck.xcodeproj */;
@@ -98,6 +187,26 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
+		7DBD4C9E1C79CAEF008C5487 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				7DBD4C9F1C79CB06008C5487 /* SwiftCheck.framework in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		7DBD4D021C79CD83008C5487 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				7DBD4D051C79CD97008C5487 /* SwiftCheck.framework in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		82D8B7751C78E51400D8E037 /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -115,6 +224,11 @@
 		7D22F3031C754F5C00A81608 /* Response.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Response.swift; sourceTree = "<group>"; };
 		7D48F0D21C7159F10044DC32 /* RequestMatcherRegistry.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RequestMatcherRegistry.swift; sourceTree = "<group>"; };
 		7D93580B1C7117A80020103D /* Track.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Track.swift; sourceTree = "<group>"; };
+		7DBD4C7F1C79CA24008C5487 /* Vinyl.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Vinyl.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		7DBD4C881C79CA24008C5487 /* Vinyl-MacTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Vinyl-MacTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		7DBD4CA91C79CC4C008C5487 /* Vinyl.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Vinyl.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		7DBD4CB21C79CC4D008C5487 /* Vinyl-tvOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Vinyl-tvOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		7DBD4D0A1C79CEE6008C5487 /* Vinyl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Vinyl.h; sourceTree = "<group>"; };
 		7DC5704C1C72A1AB00BA1458 /* Player.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
 		7DC5704E1C72A1FD00BA1458 /* TrackMatcher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrackMatcher.swift; sourceTree = "<group>"; };
 		7DC570501C72ACA100BA1458 /* RequestMatcherRegistryTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RequestMatcherRegistryTests.swift; sourceTree = "<group>"; };
@@ -135,7 +249,7 @@
 		C72AD2F31C6E4B7800E11612 /* TurntableTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TurntableTests.swift; sourceTree = "<group>"; };
 		C75D79061C6DFE30004B92A9 /* Vinyl.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Vinyl.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C75D790B1C6DFE30004B92A9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		C75D79101C6DFE30004B92A9 /* VinylTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = VinylTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		C75D79101C6DFE30004B92A9 /* Vinyl-iOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Vinyl-iOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C75D79171C6DFE30004B92A9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C75D79201C6E0B32004B92A9 /* Vinyl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Vinyl.swift; sourceTree = "<group>"; };
 		C75D79221C6E0E9D004B92A9 /* Turntable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Turntable.swift; sourceTree = "<group>"; };
@@ -145,6 +259,38 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		7DBD4C7B1C79CA24008C5487 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		7DBD4C851C79CA24008C5487 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7DBD4C961C79CAB0008C5487 /* SwiftCheck.framework in Frameworks */,
+				7DBD4C891C79CA24008C5487 /* Vinyl.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		7DBD4CA51C79CC4C008C5487 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		7DBD4CAF1C79CC4D008C5487 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7DBD4D011C79CD7D008C5487 /* SwiftCheck.framework in Frameworks */,
+				7DBD4CB31C79CC4D008C5487 /* Vinyl.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		C75D79021C6DFE30004B92A9 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -236,7 +382,11 @@
 			isa = PBXGroup;
 			children = (
 				C75D79061C6DFE30004B92A9 /* Vinyl.framework */,
-				C75D79101C6DFE30004B92A9 /* VinylTests.xctest */,
+				C75D79101C6DFE30004B92A9 /* Vinyl-iOSTests.xctest */,
+				7DBD4C7F1C79CA24008C5487 /* Vinyl.framework */,
+				7DBD4C881C79CA24008C5487 /* Vinyl-MacTests.xctest */,
+				7DBD4CA91C79CC4C008C5487 /* Vinyl.framework */,
+				7DBD4CB21C79CC4D008C5487 /* Vinyl-tvOSTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -244,6 +394,7 @@
 		C75D79081C6DFE30004B92A9 /* Vinyl */ = {
 			isa = PBXGroup;
 			children = (
+				7DBD4D0A1C79CEE6008C5487 /* Vinyl.h */,
 				C75D790B1C6DFE30004B92A9 /* Info.plist */,
 				C7995DC01C75F38F00E1D905 /* ErrorHandler */,
 				C70886131C73512F002DBB2C /* Composition */,
@@ -297,19 +448,112 @@
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
+		7DBD4C7C1C79CA24008C5487 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7DBD4D0C1C79CEEB008C5487 /* Vinyl.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		7DBD4CA61C79CC4C008C5487 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7DBD4D0D1C79CEED008C5487 /* Vinyl.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		C75D79031C6DFE30004B92A9 /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7DBD4D0B1C79CEE6008C5487 /* Vinyl.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
-		C75D79051C6DFE30004B92A9 /* Vinyl */ = {
+		7DBD4C7E1C79CA24008C5487 /* Vinyl-Mac */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = C75D791A1C6DFE30004B92A9 /* Build configuration list for PBXNativeTarget "Vinyl" */;
+			buildConfigurationList = 7DBD4C901C79CA24008C5487 /* Build configuration list for PBXNativeTarget "Vinyl-Mac" */;
+			buildPhases = (
+				7DBD4C7A1C79CA24008C5487 /* Sources */,
+				7DBD4C7B1C79CA24008C5487 /* Frameworks */,
+				7DBD4C7C1C79CA24008C5487 /* Headers */,
+				7DBD4C7D1C79CA24008C5487 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Vinyl-Mac";
+			productName = "Vinyl-Mac";
+			productReference = 7DBD4C7F1C79CA24008C5487 /* Vinyl.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		7DBD4C871C79CA24008C5487 /* Vinyl-MacTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 7DBD4C931C79CA24008C5487 /* Build configuration list for PBXNativeTarget "Vinyl-MacTests" */;
+			buildPhases = (
+				7DBD4C841C79CA24008C5487 /* Sources */,
+				7DBD4C851C79CA24008C5487 /* Frameworks */,
+				7DBD4C9E1C79CAEF008C5487 /* CopyFiles */,
+				7DBD4C861C79CA24008C5487 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				7DBD4C9D1C79CADD008C5487 /* PBXTargetDependency */,
+				7DBD4C8B1C79CA24008C5487 /* PBXTargetDependency */,
+			);
+			name = "Vinyl-MacTests";
+			productName = "Vinyl-MacTests";
+			productReference = 7DBD4C881C79CA24008C5487 /* Vinyl-MacTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		7DBD4CA81C79CC4C008C5487 /* Vinyl-tvOS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 7DBD4CBA1C79CC4D008C5487 /* Build configuration list for PBXNativeTarget "Vinyl-tvOS" */;
+			buildPhases = (
+				7DBD4CA41C79CC4C008C5487 /* Sources */,
+				7DBD4CA51C79CC4C008C5487 /* Frameworks */,
+				7DBD4CA61C79CC4C008C5487 /* Headers */,
+				7DBD4CA71C79CC4C008C5487 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Vinyl-tvOS";
+			productName = "Vinyl-tvOS";
+			productReference = 7DBD4CA91C79CC4C008C5487 /* Vinyl.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		7DBD4CB11C79CC4D008C5487 /* Vinyl-tvOSTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 7DBD4CBD1C79CC4D008C5487 /* Build configuration list for PBXNativeTarget "Vinyl-tvOSTests" */;
+			buildPhases = (
+				7DBD4CAE1C79CC4D008C5487 /* Sources */,
+				7DBD4CAF1C79CC4D008C5487 /* Frameworks */,
+				7DBD4D021C79CD83008C5487 /* CopyFiles */,
+				7DBD4CB01C79CC4D008C5487 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				7DBD4CF61C79CD52008C5487 /* PBXTargetDependency */,
+				7DBD4CB51C79CC4D008C5487 /* PBXTargetDependency */,
+			);
+			name = "Vinyl-tvOSTests";
+			productName = "Vinyl-tvOSTests";
+			productReference = 7DBD4CB21C79CC4D008C5487 /* Vinyl-tvOSTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		C75D79051C6DFE30004B92A9 /* Vinyl-iOS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C75D791A1C6DFE30004B92A9 /* Build configuration list for PBXNativeTarget "Vinyl-iOS" */;
 			buildPhases = (
 				C75D79011C6DFE30004B92A9 /* Sources */,
 				C75D79021C6DFE30004B92A9 /* Frameworks */,
@@ -320,14 +564,14 @@
 			);
 			dependencies = (
 			);
-			name = Vinyl;
+			name = "Vinyl-iOS";
 			productName = Vinyl;
 			productReference = C75D79061C6DFE30004B92A9 /* Vinyl.framework */;
 			productType = "com.apple.product-type.framework";
 		};
-		C75D790F1C6DFE30004B92A9 /* VinylTests */ = {
+		C75D790F1C6DFE30004B92A9 /* Vinyl-iOSTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = C75D791D1C6DFE30004B92A9 /* Build configuration list for PBXNativeTarget "VinylTests" */;
+			buildConfigurationList = C75D791D1C6DFE30004B92A9 /* Build configuration list for PBXNativeTarget "Vinyl-iOSTests" */;
 			buildPhases = (
 				C75D790C1C6DFE30004B92A9 /* Sources */,
 				C75D790D1C6DFE30004B92A9 /* Frameworks */,
@@ -340,9 +584,9 @@
 				82D8B78D1C78FE2900D8E037 /* PBXTargetDependency */,
 				C75D79131C6DFE30004B92A9 /* PBXTargetDependency */,
 			);
-			name = VinylTests;
+			name = "Vinyl-iOSTests";
 			productName = VinylTests;
-			productReference = C75D79101C6DFE30004B92A9 /* VinylTests.xctest */;
+			productReference = C75D79101C6DFE30004B92A9 /* Vinyl-iOSTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
@@ -355,6 +599,18 @@
 				LastUpgradeCheck = 0720;
 				ORGANIZATIONNAME = Velhotes;
 				TargetAttributes = {
+					7DBD4C7E1C79CA24008C5487 = {
+						CreatedOnToolsVersion = 7.2.1;
+					};
+					7DBD4C871C79CA24008C5487 = {
+						CreatedOnToolsVersion = 7.2.1;
+					};
+					7DBD4CA81C79CC4C008C5487 = {
+						CreatedOnToolsVersion = 7.2.1;
+					};
+					7DBD4CB11C79CC4D008C5487 = {
+						CreatedOnToolsVersion = 7.2.1;
+					};
 					C75D79051C6DFE30004B92A9 = {
 						CreatedOnToolsVersion = 7.2.1;
 					};
@@ -381,8 +637,12 @@
 			);
 			projectRoot = "";
 			targets = (
-				C75D79051C6DFE30004B92A9 /* Vinyl */,
-				C75D790F1C6DFE30004B92A9 /* VinylTests */,
+				C75D79051C6DFE30004B92A9 /* Vinyl-iOS */,
+				C75D790F1C6DFE30004B92A9 /* Vinyl-iOSTests */,
+				7DBD4C7E1C79CA24008C5487 /* Vinyl-Mac */,
+				7DBD4C871C79CA24008C5487 /* Vinyl-MacTests */,
+				7DBD4CA81C79CC4C008C5487 /* Vinyl-tvOS */,
+				7DBD4CB11C79CC4D008C5487 /* Vinyl-tvOSTests */,
 			);
 		};
 /* End PBXProject section */
@@ -433,6 +693,42 @@
 /* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
+		7DBD4C7D1C79CA24008C5487 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		7DBD4C861C79CA24008C5487 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7DBD4CA01C79CB18008C5487 /* dvr_multiple.json in Resources */,
+				7DBD4CA11C79CB18008C5487 /* dvr_single.json in Resources */,
+				7DBD4CA21C79CB18008C5487 /* vinyl_multiple.json in Resources */,
+				7DBD4CA31C79CB18008C5487 /* vinyl_single.json in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		7DBD4CA71C79CC4C008C5487 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		7DBD4CB01C79CC4D008C5487 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7DBD4D061C79CDAF008C5487 /* dvr_multiple.json in Resources */,
+				7DBD4D071C79CDAF008C5487 /* dvr_single.json in Resources */,
+				7DBD4D081C79CDAF008C5487 /* vinyl_multiple.json in Resources */,
+				7DBD4D091C79CDAF008C5487 /* vinyl_single.json in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		C75D79041C6DFE30004B92A9 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -444,37 +740,109 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C70886371C74D470002DBB2C /* dvr_single.json in Resources */,
-				C70886331C74D452002DBB2C /* vinyl_single.json in Resources */,
 				C70886361C74D470002DBB2C /* dvr_multiple.json in Resources */,
+				C70886371C74D470002DBB2C /* dvr_single.json in Resources */,
 				C70886321C74D452002DBB2C /* vinyl_multiple.json in Resources */,
+				C70886331C74D452002DBB2C /* vinyl_single.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		7DBD4C7A1C79CA24008C5487 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7DBD4CC21C79CCE2008C5487 /* ErrorHandler.swift in Sources */,
+				7DBD4CC31C79CCE2008C5487 /* FuncComposition.swift in Sources */,
+				7DBD4CC41C79CCE2008C5487 /* NSURLQueryItem.swift in Sources */,
+				7DBD4CC51C79CCE2008C5487 /* NSURLRequest.swift in Sources */,
+				7DBD4CC61C79CCE2008C5487 /* SequenceType.swift in Sources */,
+				7DBD4CC71C79CCE2008C5487 /* NSBundle.swift in Sources */,
+				7DBD4CC81C79CCE2008C5487 /* EncodingDecoding.swift in Sources */,
+				7DBD4CC91C79CCE2008C5487 /* JSONHelper.swift in Sources */,
+				7DBD4CCA1C79CCE2008C5487 /* Turntable.swift in Sources */,
+				7DBD4CCB1C79CCE2008C5487 /* TurntableConfiguration.swift in Sources */,
+				7DBD4CCC1C79CCE2008C5487 /* URLSessionTask.swift in Sources */,
+				7DBD4CCD1C79CCE2008C5487 /* Player.swift in Sources */,
+				7DBD4CCE1C79CCE2008C5487 /* TrackMatcher.swift in Sources */,
+				7DBD4CCF1C79CCE2008C5487 /* Vinyl.swift in Sources */,
+				7DBD4CD01C79CCE2008C5487 /* Track.swift in Sources */,
+				7DBD4CD11C79CCE2008C5487 /* Response.swift in Sources */,
+				7DBD4CD21C79CCE2008C5487 /* RequestMatcherRegistry.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		7DBD4C841C79CA24008C5487 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7DBD4C971C79CACE008C5487 /* MockedTrackedNotFoundErrorHandler.swift in Sources */,
+				7DBD4C981C79CACE008C5487 /* TurntableTests.swift in Sources */,
+				7DBD4C991C79CACE008C5487 /* RequestMatcherRegistryTests.swift in Sources */,
+				7DBD4C9A1C79CACE008C5487 /* TrackTests.swift in Sources */,
+				7DBD4C9B1C79CACE008C5487 /* Arbitrary.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		7DBD4CA41C79CC4C008C5487 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7DBD4CE41C79CCFA008C5487 /* ErrorHandler.swift in Sources */,
+				7DBD4CE51C79CCFA008C5487 /* FuncComposition.swift in Sources */,
+				7DBD4CE61C79CCFA008C5487 /* NSURLQueryItem.swift in Sources */,
+				7DBD4CE71C79CCFA008C5487 /* NSURLRequest.swift in Sources */,
+				7DBD4CE81C79CCFA008C5487 /* SequenceType.swift in Sources */,
+				7DBD4CE91C79CCFA008C5487 /* NSBundle.swift in Sources */,
+				7DBD4CEA1C79CCFA008C5487 /* EncodingDecoding.swift in Sources */,
+				7DBD4CEB1C79CCFA008C5487 /* JSONHelper.swift in Sources */,
+				7DBD4CEC1C79CCFA008C5487 /* Turntable.swift in Sources */,
+				7DBD4CED1C79CCFA008C5487 /* TurntableConfiguration.swift in Sources */,
+				7DBD4CEE1C79CCFA008C5487 /* URLSessionTask.swift in Sources */,
+				7DBD4CEF1C79CCFA008C5487 /* Player.swift in Sources */,
+				7DBD4CF01C79CCFA008C5487 /* TrackMatcher.swift in Sources */,
+				7DBD4CF11C79CCFA008C5487 /* Vinyl.swift in Sources */,
+				7DBD4CF21C79CCFA008C5487 /* Track.swift in Sources */,
+				7DBD4CF31C79CCFA008C5487 /* Response.swift in Sources */,
+				7DBD4CF41C79CCFA008C5487 /* RequestMatcherRegistry.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		7DBD4CAE1C79CC4D008C5487 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7DBD4CF71C79CD61008C5487 /* MockedTrackedNotFoundErrorHandler.swift in Sources */,
+				7DBD4CF81C79CD61008C5487 /* TurntableTests.swift in Sources */,
+				7DBD4CF91C79CD61008C5487 /* RequestMatcherRegistryTests.swift in Sources */,
+				7DBD4CFA1C79CD61008C5487 /* TrackTests.swift in Sources */,
+				7DBD4CFB1C79CD61008C5487 /* Arbitrary.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		C75D79011C6DFE30004B92A9 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C72AD2EC1C6E275000E11612 /* JSONHelper.swift in Sources */,
-				C708861B1C737C1B002DBB2C /* SequenceType.swift in Sources */,
-				7D93580C1C7117A80020103D /* Track.swift in Sources */,
-				C708861D1C738A19002DBB2C /* URLSessionTask.swift in Sources */,
-				C7995DCE1C7724F700E1D905 /* NSBundle.swift in Sources */,
-				C72AD2F21C6E48B500E11612 /* EncodingDecoding.swift in Sources */,
-				C7995DC21C75F38F00E1D905 /* ErrorHandler.swift in Sources */,
-				C70886171C737684002DBB2C /* NSURLRequest.swift in Sources */,
-				C75D79211C6E0B32004B92A9 /* Vinyl.swift in Sources */,
-				7D22F3041C754F5C00A81608 /* Response.swift in Sources */,
-				7D22F3021C75351B00A81608 /* TurntableConfiguration.swift in Sources */,
-				7DC5704D1C72A1AB00BA1458 /* Player.swift in Sources */,
-				C70886121C7346CF002DBB2C /* NSURLQueryItem.swift in Sources */,
-				C75D79231C6E0E9D004B92A9 /* Turntable.swift in Sources */,
-				7DC5704F1C72A1FD00BA1458 /* TrackMatcher.swift in Sources */,
-				C70886151C735136002DBB2C /* FuncComposition.swift in Sources */,
-				7D48F0D31C7159F10044DC32 /* RequestMatcherRegistry.swift in Sources */,
+				7DBD4CD31C79CCF4008C5487 /* ErrorHandler.swift in Sources */,
+				7DBD4CD41C79CCF4008C5487 /* FuncComposition.swift in Sources */,
+				7DBD4CD51C79CCF4008C5487 /* NSURLQueryItem.swift in Sources */,
+				7DBD4CD61C79CCF4008C5487 /* NSURLRequest.swift in Sources */,
+				7DBD4CD71C79CCF4008C5487 /* SequenceType.swift in Sources */,
+				7DBD4CD81C79CCF4008C5487 /* NSBundle.swift in Sources */,
+				7DBD4CD91C79CCF4008C5487 /* EncodingDecoding.swift in Sources */,
+				7DBD4CDA1C79CCF4008C5487 /* JSONHelper.swift in Sources */,
+				7DBD4CDB1C79CCF4008C5487 /* Turntable.swift in Sources */,
+				7DBD4CDC1C79CCF4008C5487 /* TurntableConfiguration.swift in Sources */,
+				7DBD4CDD1C79CCF4008C5487 /* URLSessionTask.swift in Sources */,
+				7DBD4CDE1C79CCF4008C5487 /* Player.swift in Sources */,
+				7DBD4CDF1C79CCF4008C5487 /* TrackMatcher.swift in Sources */,
+				7DBD4CE01C79CCF4008C5487 /* Vinyl.swift in Sources */,
+				7DBD4CE11C79CCF4008C5487 /* Track.swift in Sources */,
+				7DBD4CE21C79CCF4008C5487 /* Response.swift in Sources */,
+				7DBD4CE31C79CCF4008C5487 /* RequestMatcherRegistry.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -482,17 +850,37 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C7995DC71C75F75400E1D905 /* MockedTrackedNotFoundErrorHandler.swift in Sources */,
-				C70886211C73FBBF002DBB2C /* TrackTests.swift in Sources */,
-				C72AD2F41C6E4B7800E11612 /* TurntableTests.swift in Sources */,
-				7DC570511C72ACA100BA1458 /* RequestMatcherRegistryTests.swift in Sources */,
-				82D8B7741C78E3FF00D8E037 /* Arbitrary.swift in Sources */,
+				7DBD4CFC1C79CD6B008C5487 /* MockedTrackedNotFoundErrorHandler.swift in Sources */,
+				7DBD4CFD1C79CD6B008C5487 /* TurntableTests.swift in Sources */,
+				7DBD4CFE1C79CD6B008C5487 /* RequestMatcherRegistryTests.swift in Sources */,
+				7DBD4CFF1C79CD6B008C5487 /* TrackTests.swift in Sources */,
+				7DBD4D001C79CD6B008C5487 /* Arbitrary.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		7DBD4C8B1C79CA24008C5487 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 7DBD4C7E1C79CA24008C5487 /* Vinyl-Mac */;
+			targetProxy = 7DBD4C8A1C79CA24008C5487 /* PBXContainerItemProxy */;
+		};
+		7DBD4C9D1C79CADD008C5487 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = SwiftCheck;
+			targetProxy = 7DBD4C9C1C79CADD008C5487 /* PBXContainerItemProxy */;
+		};
+		7DBD4CB51C79CC4D008C5487 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 7DBD4CA81C79CC4C008C5487 /* Vinyl-tvOS */;
+			targetProxy = 7DBD4CB41C79CC4D008C5487 /* PBXContainerItemProxy */;
+		};
+		7DBD4CF61C79CD52008C5487 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "SwiftCheck-tvOS";
+			targetProxy = 7DBD4CF51C79CD52008C5487 /* PBXContainerItemProxy */;
+		};
 		82D8B78D1C78FE2900D8E037 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = "SwiftCheck-iOS";
@@ -500,12 +888,160 @@
 		};
 		C75D79131C6DFE30004B92A9 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = C75D79051C6DFE30004B92A9 /* Vinyl */;
+			target = C75D79051C6DFE30004B92A9 /* Vinyl-iOS */;
 			targetProxy = C75D79121C6DFE30004B92A9 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
+		7DBD4C911C79CA24008C5487 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "-";
+				COMBINE_HIDPI_IMAGES = YES;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_VERSION = A;
+				INFOPLIST_FILE = Vinyl/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				PRODUCT_BUNDLE_IDENTIFIER = velhotes.Vinyl;
+				PRODUCT_NAME = Vinyl;
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		7DBD4C921C79CA24008C5487 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "-";
+				COMBINE_HIDPI_IMAGES = YES;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_VERSION = A;
+				INFOPLIST_FILE = Vinyl/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				PRODUCT_BUNDLE_IDENTIFIER = velhotes.Vinyl;
+				PRODUCT_NAME = Vinyl;
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
+		7DBD4C941C79CA24008C5487 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "-";
+				COMBINE_HIDPI_IMAGES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/Mac",
+				);
+				INFOPLIST_FILE = VinylTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				PRODUCT_BUNDLE_IDENTIFIER = velhotes.VinylTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		7DBD4C951C79CA24008C5487 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "-";
+				COMBINE_HIDPI_IMAGES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/Mac",
+				);
+				INFOPLIST_FILE = VinylTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				PRODUCT_BUNDLE_IDENTIFIER = velhotes.VinylTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		7DBD4CBB1C79CC4D008C5487 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = Vinyl/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = velhotes.Vinyl;
+				PRODUCT_NAME = Vinyl;
+				SDKROOT = appletvos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = 3;
+				TVOS_DEPLOYMENT_TARGET = 9.1;
+			};
+			name = Debug;
+		};
+		7DBD4CBC1C79CC4D008C5487 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = Vinyl/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = velhotes.Vinyl;
+				PRODUCT_NAME = Vinyl;
+				SDKROOT = appletvos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = 3;
+				TVOS_DEPLOYMENT_TARGET = 9.1;
+			};
+			name = Release;
+		};
+		7DBD4CBE1C79CC4D008C5487 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/tvOS",
+				);
+				INFOPLIST_FILE = VinylTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = velhotes.VinylTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = appletvos;
+				TVOS_DEPLOYMENT_TARGET = 9.1;
+			};
+			name = Debug;
+		};
+		7DBD4CBF1C79CC4D008C5487 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/tvOS",
+				);
+				INFOPLIST_FILE = VinylTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = velhotes.VinylTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = appletvos;
+				TVOS_DEPLOYMENT_TARGET = 9.1;
+			};
+			name = Release;
+		};
 		C75D79181C6DFE30004B92A9 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -609,7 +1145,7 @@
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = velhotes.Vinyl;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = Vinyl;
 				SKIP_INSTALL = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
@@ -627,7 +1163,7 @@
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = velhotes.Vinyl;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = Vinyl;
 				SKIP_INSTALL = YES;
 			};
 			name = Release;
@@ -663,6 +1199,42 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		7DBD4C901C79CA24008C5487 /* Build configuration list for PBXNativeTarget "Vinyl-Mac" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				7DBD4C911C79CA24008C5487 /* Debug */,
+				7DBD4C921C79CA24008C5487 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		7DBD4C931C79CA24008C5487 /* Build configuration list for PBXNativeTarget "Vinyl-MacTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				7DBD4C941C79CA24008C5487 /* Debug */,
+				7DBD4C951C79CA24008C5487 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		7DBD4CBA1C79CC4D008C5487 /* Build configuration list for PBXNativeTarget "Vinyl-tvOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				7DBD4CBB1C79CC4D008C5487 /* Debug */,
+				7DBD4CBC1C79CC4D008C5487 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		7DBD4CBD1C79CC4D008C5487 /* Build configuration list for PBXNativeTarget "Vinyl-tvOSTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				7DBD4CBE1C79CC4D008C5487 /* Debug */,
+				7DBD4CBF1C79CC4D008C5487 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		C75D79001C6DFE30004B92A9 /* Build configuration list for PBXProject "Vinyl" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -672,7 +1244,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		C75D791A1C6DFE30004B92A9 /* Build configuration list for PBXNativeTarget "Vinyl" */ = {
+		C75D791A1C6DFE30004B92A9 /* Build configuration list for PBXNativeTarget "Vinyl-iOS" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				C75D791B1C6DFE30004B92A9 /* Debug */,
@@ -681,7 +1253,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		C75D791D1C6DFE30004B92A9 /* Build configuration list for PBXNativeTarget "VinylTests" */ = {
+		C75D791D1C6DFE30004B92A9 /* Build configuration list for PBXNativeTarget "Vinyl-iOSTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				C75D791E1C6DFE30004B92A9 /* Debug */,

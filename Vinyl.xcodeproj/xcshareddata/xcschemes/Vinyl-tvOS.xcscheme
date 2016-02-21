@@ -14,9 +14,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "C75D79051C6DFE30004B92A9"
+               BlueprintIdentifier = "7DBD4CA81C79CC4C008C5487"
                BuildableName = "Vinyl.framework"
-               BlueprintName = "Vinyl"
+               BlueprintName = "Vinyl-tvOS"
                ReferencedContainer = "container:Vinyl.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -32,9 +32,9 @@
             skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "C75D790F1C6DFE30004B92A9"
-               BuildableName = "VinylTests.xctest"
-               BlueprintName = "VinylTests"
+               BlueprintIdentifier = "7DBD4CB11C79CC4D008C5487"
+               BuildableName = "Vinyl-tvOSTests.xctest"
+               BlueprintName = "Vinyl-tvOSTests"
                ReferencedContainer = "container:Vinyl.xcodeproj">
             </BuildableReference>
          </TestableReference>
@@ -42,9 +42,9 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "C75D79051C6DFE30004B92A9"
+            BlueprintIdentifier = "7DBD4CA81C79CC4C008C5487"
             BuildableName = "Vinyl.framework"
-            BlueprintName = "Vinyl"
+            BlueprintName = "Vinyl-tvOS"
             ReferencedContainer = "container:Vinyl.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -64,9 +64,9 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "C75D79051C6DFE30004B92A9"
+            BlueprintIdentifier = "7DBD4CA81C79CC4C008C5487"
             BuildableName = "Vinyl.framework"
-            BlueprintName = "Vinyl"
+            BlueprintName = "Vinyl-tvOS"
             ReferencedContainer = "container:Vinyl.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -82,9 +82,9 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "C75D79051C6DFE30004B92A9"
+            BlueprintIdentifier = "7DBD4CA81C79CC4C008C5487"
             BuildableName = "Vinyl.framework"
-            BlueprintName = "Vinyl"
+            BlueprintName = "Vinyl-tvOS"
             ReferencedContainer = "container:Vinyl.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
