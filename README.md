@@ -85,7 +85,7 @@ In practise it would look like this:
 ```swift
 let matching = .RequestAttributes(types: [.Body, .Query], playTracksUniquely: true)
 let configuration = TurntableConfiguration( matchingStrategy:  matching)
-let turntable = Turntable( vinylName: "vinyl_simple", turntableConfiguration: configuration)
+let turntable = Turntable( vinylName: "vinyl_simple", configuration: configuration)
 ```
 In this case we are matching by `.Body` and `.Query`. We also provide a way of making sure each track is only played once (or not), by setting the `playTracksUniquely` accordingly. 
 
@@ -94,16 +94,36 @@ If the mapping approach is not desirable, you can make it behave like a queue: t
 ```swift
 let matching = .TrackOrder
 let configuration = TurntableConfiguration( matchingStrategy:  matching)
-let turntable = Turntable( vinylName: "vinyl_simple", turntableConfiguration: configuration)
+let turntable = Turntable( vinylName: "vinyl_simple", configuration: configuration)
 ```
-Finally we allow you to create a track by hand, instead of relying on a JSON file:
+We also allow creating a track by hand, instead of relying on a JSON file:
 
 ```swift
 let track = TrackFactory.createValidTrack(NSURL(string: "http://feelGoodINC.com")!, body: data, headers: headers)
 
 let vinyl = Vinyl(tracks: [track])
-let turntable = Turntable(vinyl: vinyl, turntableConfiguration: configuration)
+let turntable = Turntable(vinyl: vinyl, configuration: configuration)
 ```
+
+If you have a custom configuration that you would like to see shared among your tests, we recommend the following:
+
+```swift
+class FooTests: XCTestCase {
+   let turntable = Turntable(configuration: TurntableConfiguration( matchingStrategy:  .TrackOrder))
+
+   func test_1() {
+    turntable.loadVinyl("vinyl_1")
+    // Use the turntable
+   }
+
+   func test_2() {
+    turntable.loadVinyl("vinyl_1")
+    // Use the turntable
+   }
+}
+```
+
+This approach cuts the unnecessary boilerplate (you will also feel like a  ✨🎶Dj 🎶✨)
 
 #### Coming from DVR
 
