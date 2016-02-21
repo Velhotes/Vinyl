@@ -14,7 +14,7 @@ let lowerStringGen =
     .map(String.init)
 
 let urlStringGen : Gen<String> = sequence([ 
-    Gen.pure("http://"),
+    Gen<String>.fromElementsOf(["http://", "https://"]),
     lowerStringGen,
     Gen.pure(".com"),
 ].reverse()).map { $0.reduce("", combine: +) }
@@ -24,14 +24,17 @@ let urlPathGen : Gen<String> =
     .proliferate
     .map { $0.reduce("", combine: +) }
 
-let pathParameterGen : Gen<String> = sequence([
-    Gen.pure("?param1="),
-    lowerStringGen,
-    Gen.pure("&param2="),
-    lowerStringGen,
-    Gen.pure("&param3="),
-    lowerStringGen,
+let pathParameterGenerator : Gen<String> = sequence([
+	lowerStringGen,
+	Gen.pure("="),
+	lowerStringGen,
 ].reverse()).map { $0.reduce("", combine: +) }
+
+let pathParameterGen : Gen<String> = Gen.sized { sz in
+	return pathParameterGenerator.proliferateSized(sz + 1)
+} .map { xs in 
+	return xs.reduce("?") { $0 == "?" ? "?" + $1 : $0 + "&" + $1 } 
+}
 
 private func curry<A, B, C>(f : (A, B) -> C) -> A -> B -> C {
     return { a in { b in f(a, b) } }
