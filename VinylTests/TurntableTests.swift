@@ -19,7 +19,7 @@ class TurntableTests: XCTestCase {
     }
     
     func test_DVR_single() {
-
+        
         let turnatable = Turntable(cassetteName: "dvr_single")
         
         singleCallTest(turnatable)
@@ -152,6 +152,41 @@ class TurntableTests: XCTestCase {
         turnatable.dataTaskWithURL(NSURL(string: url2String)!, completionHandler: checker).resume()
     }
     
+    func test_playVinyl() {
+        
+        let turntableConfiguration = TurntableConfiguration()
+        let turntable = Turntable(configuration: turntableConfiguration)
+        
+        let tracks = [
+            TrackFactory.createValidTrack(
+                NSURL(string: "http://api.test.com")!,
+                body: "hello".dataUsingEncoding(NSUTF8StringEncoding),
+                headers: [:])
+        ]
+        
+        let vinyl = Vinyl(tracks: tracks)
+        turntable.loadVinyl(vinyl)
+        singleCallTest(turntable)
+    }
+    
+    func test_playVinylFile() {
+        
+        let turntableConfiguration = TurntableConfiguration()
+        let turntable = Turntable(configuration: turntableConfiguration)
+        
+        turntable.loadVinyl("vinyl_single")
+        singleCallTest(turntable)
+    }
+    
+    func test_playCassetteFile() {
+        
+        let turntableConfiguration = TurntableConfiguration()
+        let turntable = Turntable(configuration: turntableConfiguration)
+        
+        turntable.loadCassettee("dvr_single")
+        singleCallTest(turntable)
+    }
+    
     //MARK: Aux methods
     
     private func singleCallTest(turnatable: Turntable) {
@@ -168,14 +203,14 @@ class TurntableTests: XCTestCase {
             guard let httpResponse = response as? NSHTTPURLResponse else { fatalError("\(response) should be a NSHTTPURLResponse") }
             
             let body = "hello".dataUsingEncoding(NSUTF8StringEncoding)!
-                        
+            
             XCTAssertEqual(httpResponse.URL!.absoluteString, urlString)
             XCTAssertEqual(httpResponse.statusCode, 200)
             XCTAssertTrue(data!.isEqualToData(body))
             XCTAssertNotNil(httpResponse.allHeaderFields)
             
             expectation.fulfill()
-        }.resume()
+            }.resume()
     }
     
     private func multipleCallTest(turnatable: Turntable) {
@@ -262,7 +297,7 @@ class TurntableTests: XCTestCase {
         let turnatable = Turntable(
             vinyl: Vinyl(tracks: tracks),
             turntableConfiguration: TurntableConfiguration(matchingStrategy: .TrackOrder))
-            
+        
         turnatable.dataTaskWithRequest(request1, completionHandler: checker).resume()
         turnatable.dataTaskWithRequest(request2, completionHandler: checker).resume()
         turnatable.dataTaskWithRequest(request3, completionHandler: checker).resume()
