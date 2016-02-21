@@ -13,30 +13,30 @@ class TurntableTests: XCTestCase {
     
     func test_Vinyl_single() {
         
-        let turnatable = Turntable(vinylName: "vinyl_single")
+        let turntable = Turntable(vinylName: "vinyl_single")
         
-        singleCallTest(turnatable)
+        singleCallTest(turntable)
     }
     
     func test_DVR_single() {
-
-        let turnatable = Turntable(cassetteName: "dvr_single")
         
-        singleCallTest(turnatable)
+        let turntable = Turntable(cassetteName: "dvr_single")
+        
+        singleCallTest(turntable)
     }
     
     func test_Vinyl_multiple() {
         
-        let turnatable = Turntable(vinylName: "vinyl_multiple")
+        let turntable = Turntable(vinylName: "vinyl_multiple")
         
-        multipleCallTest(turnatable)
+        multipleCallTest(turntable)
     }
     
     func test_DVR_multiple() {
         
-        let turnatable = Turntable(cassetteName: "dvr_multiple")
+        let turntable = Turntable(cassetteName: "dvr_multiple")
         
-        multipleCallTest(turnatable)
+        multipleCallTest(turntable)
     }
     
     func test_Vinyl_multiple_differentMethods() {
@@ -44,7 +44,7 @@ class TurntableTests: XCTestCase {
         let expectation = self.expectationWithDescription("Expected callback to have the correct URL")
         defer { self.waitForExpectationsWithTimeout(4, handler: nil) }
         
-        let turnatable = Turntable(
+        let turntable = Turntable(
             vinylName: "vinyl_multiple",
             turntableConfiguration: TurntableConfiguration(matchingStrategy: .RequestAttributes(types: [.URL], playTracksUniquely: true)))
         
@@ -70,8 +70,8 @@ class TurntableTests: XCTestCase {
             }
         }
         
-        turnatable.dataTaskWithRequest(request1, completionHandler: checker).resume()
-        turnatable.dataTaskWithRequest(request2, completionHandler: checker).resume()
+        turntable.dataTaskWithRequest(request1, completionHandler: checker).resume()
+        turntable.dataTaskWithRequest(request2, completionHandler: checker).resume()
     }
     
     func test_Vinyl_multiple_andNotUniquely() {
@@ -79,7 +79,7 @@ class TurntableTests: XCTestCase {
         let expectation = self.expectationWithDescription("Expected callback to have the correct URL")
         defer { self.waitForExpectationsWithTimeout(4, handler: nil) }
         
-        let turnatable = Turntable(
+        let turntable = Turntable(
             vinylName: "vinyl_multiple",
             turntableConfiguration: TurntableConfiguration(matchingStrategy: .RequestAttributes(types: [.URL], playTracksUniquely: false)))
         
@@ -105,10 +105,10 @@ class TurntableTests: XCTestCase {
             }
         }
         
-        turnatable.dataTaskWithURL(NSURL(string: url1String)!, completionHandler: checker).resume()
-        turnatable.dataTaskWithURL(NSURL(string: url2String)!, completionHandler: checker).resume()
-        turnatable.dataTaskWithURL(NSURL(string: url2String)!, completionHandler: checker).resume()
-        turnatable.dataTaskWithURL(NSURL(string: url2String)!, completionHandler: checker).resume()
+        turntable.dataTaskWithURL(NSURL(string: url1String)!, completionHandler: checker).resume()
+        turntable.dataTaskWithURL(NSURL(string: url2String)!, completionHandler: checker).resume()
+        turntable.dataTaskWithURL(NSURL(string: url2String)!, completionHandler: checker).resume()
+        turntable.dataTaskWithURL(NSURL(string: url2String)!, completionHandler: checker).resume()
     }
     
     
@@ -117,7 +117,7 @@ class TurntableTests: XCTestCase {
         let expectation = self.expectationWithDescription("Expected callback to have the correct URL")
         defer { self.waitForExpectationsWithTimeout(4, handler: nil) }
         
-        let turnatable = Turntable(
+        let turntable = Turntable(
             vinylName: "vinyl_multiple",
             turntableConfiguration: TurntableConfiguration(matchingStrategy: .RequestAttributes(types: [.URL], playTracksUniquely: true)))
         
@@ -125,7 +125,7 @@ class TurntableTests: XCTestCase {
         let url2String = "http://api.test2.com"
         
         let mockedTrackedNotFound = MockedTrackedNotFoundErrorHandler { expectation.fulfill() }
-        turnatable.errorHandler = mockedTrackedNotFound
+        turntable.errorHandler = mockedTrackedNotFound
         
         var numberOfCalls = 0
         let checker: (NSData?, NSURLResponse?, NSError?) -> () = { (data, response, anError) in
@@ -145,40 +145,75 @@ class TurntableTests: XCTestCase {
             }
         }
         
-        turnatable.dataTaskWithURL(NSURL(string: url1String)!, completionHandler: checker).resume()
-        turnatable.dataTaskWithURL(NSURL(string: url2String)!, completionHandler: checker).resume()
-        turnatable.dataTaskWithURL(NSURL(string: url2String)!, completionHandler: checker).resume()
-        turnatable.dataTaskWithURL(NSURL(string: url2String)!, completionHandler: checker).resume()
-        turnatable.dataTaskWithURL(NSURL(string: url2String)!, completionHandler: checker).resume()
+        turntable.dataTaskWithURL(NSURL(string: url1String)!, completionHandler: checker).resume()
+        turntable.dataTaskWithURL(NSURL(string: url2String)!, completionHandler: checker).resume()
+        turntable.dataTaskWithURL(NSURL(string: url2String)!, completionHandler: checker).resume()
+        turntable.dataTaskWithURL(NSURL(string: url2String)!, completionHandler: checker).resume()
+        turntable.dataTaskWithURL(NSURL(string: url2String)!, completionHandler: checker).resume()
+    }
+    
+    func test_playVinyl() {
+        
+        let turntableConfiguration = TurntableConfiguration()
+        let turntable = Turntable(configuration: turntableConfiguration)
+        
+        let tracks = [
+            TrackFactory.createValidTrack(
+                NSURL(string: "http://api.test.com")!,
+                body: "hello".dataUsingEncoding(NSUTF8StringEncoding),
+                headers: [:])
+        ]
+        
+        let vinyl = Vinyl(tracks: tracks)
+        turntable.loadVinyl(vinyl)
+        singleCallTest(turntable)
+    }
+    
+    func test_playVinylFile() {
+        
+        let turntableConfiguration = TurntableConfiguration()
+        let turntable = Turntable(configuration: turntableConfiguration)
+        
+        turntable.loadVinyl("vinyl_single")
+        singleCallTest(turntable)
+    }
+    
+    func test_playCassetteFile() {
+        
+        let turntableConfiguration = TurntableConfiguration()
+        let turntable = Turntable(configuration: turntableConfiguration)
+        
+        turntable.loadCassettee("dvr_single")
+        singleCallTest(turntable)
     }
     
     //MARK: Aux methods
     
-    private func singleCallTest(turnatable: Turntable) {
+    private func singleCallTest(turntable: Turntable) {
         
         let expectation = self.expectationWithDescription("Expected callback to have the correct URL")
         defer { self.waitForExpectationsWithTimeout(4, handler: nil) }
         
         let urlString = "http://api.test.com"
         
-        turnatable.dataTaskWithURL(NSURL(string: urlString)!) { (data, response, anError) in
+        turntable.dataTaskWithURL(NSURL(string: urlString)!) { (data, response, anError) in
             
             XCTAssertNil(anError)
             
             guard let httpResponse = response as? NSHTTPURLResponse else { fatalError("\(response) should be a NSHTTPURLResponse") }
             
             let body = "hello".dataUsingEncoding(NSUTF8StringEncoding)!
-                        
+            
             XCTAssertEqual(httpResponse.URL!.absoluteString, urlString)
             XCTAssertEqual(httpResponse.statusCode, 200)
             XCTAssertTrue(data!.isEqualToData(body))
             XCTAssertNotNil(httpResponse.allHeaderFields)
             
             expectation.fulfill()
-        }.resume()
+            }.resume()
     }
     
-    private func multipleCallTest(turnatable: Turntable) {
+    private func multipleCallTest(turntable: Turntable) {
         
         let expectation = self.expectationWithDescription("Expected callback to have the correct URL")
         defer { self.waitForExpectationsWithTimeout(4, handler: nil) }
@@ -202,8 +237,8 @@ class TurntableTests: XCTestCase {
             }
         }
         
-        turnatable.dataTaskWithURL(NSURL(string: url1String)!, completionHandler: checker).resume()
-        turnatable.dataTaskWithURL(NSURL(string: url2String)!, completionHandler: checker).resume()
+        turntable.dataTaskWithURL(NSURL(string: url1String)!, completionHandler: checker).resume()
+        turntable.dataTaskWithURL(NSURL(string: url2String)!, completionHandler: checker).resume()
     }
     
     // MARK: - Track Order strategy
@@ -259,12 +294,12 @@ class TurntableTests: XCTestCase {
             }
         }
         
-        let turnatable = Turntable(
+        let turntable = Turntable(
             vinyl: Vinyl(tracks: tracks),
             turntableConfiguration: TurntableConfiguration(matchingStrategy: .TrackOrder))
-            
-        turnatable.dataTaskWithRequest(request1, completionHandler: checker).resume()
-        turnatable.dataTaskWithRequest(request2, completionHandler: checker).resume()
-        turnatable.dataTaskWithRequest(request3, completionHandler: checker).resume()
+        
+        turntable.dataTaskWithRequest(request1, completionHandler: checker).resume()
+        turntable.dataTaskWithRequest(request2, completionHandler: checker).resume()
+        turntable.dataTaskWithRequest(request3, completionHandler: checker).resume()
     }
 }
