@@ -175,7 +175,7 @@ class TurntableTests: XCTestCase {
             XCTAssertNotNil(httpResponse.allHeaderFields)
             
             expectation.fulfill()
-            }.resume()
+        }.resume()
     }
     
     private func multipleCallTest(turnatable: Turntable) {

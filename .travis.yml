@@ -2,6 +2,8 @@ language: objective-c
 osx_image: xcode7.1
 env:
   - SCHEME=Vinyl
+install:
+  - git submodule update --init --recursive
 script:
   - xcodebuild test -project Vinyl.xcodeproj -scheme $SCHEME -sdk iphonesimulator -destination 'platform=iOS Simulator,name=iPhone 6s' -enableCodeCoverage YES | xcpretty
 after_success:
