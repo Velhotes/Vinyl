@@ -126,6 +126,36 @@ class FooTests: XCTestCase {
 
 This approach cuts the unnecessary boilerplate (you will also feel like a  ✨🎶Dj 🎶✨)
 
+#### Coming from [Alamofire](https://github.com/Alamofire/Alamofire)
+
+Instead of using the [default manager](https://github.com/Alamofire/Alamofire/blob/master/Source/Manager.swift#L36), initialize a new one via:
+
+```swift
+public init?(session: NSURLSession, delegate: SessionDelegate, serverTrustPolicyManager: ServerTrustPolicyManager? = nil) {
+  self.delegate = delegate
+  self.session = session
+
+  guard delegate === session.delegate else { return nil }
+
+  commonInit(serverTrustPolicyManager: serverTrustPolicyManager)
+ }
+```
+
+Your network layer, could then be in the form of:
+
+```swift
+class Network {
+  private let manager: Manager
+  
+  init(session: NSURLSession) {
+  
+   self.manager = Manager(session, delegate: SessionDelegate())
+  }
+}
+```
+
+This way it's becomes quite easy to test your components using Vinyl. This might be too cumbersome for some users, so don't forget that you still have the `NSURLProtocol` approach (with [OHHTTPStubs](https://github.com/AliSoftware/OHHTTPStubs) and [Mockingjay](https://github.com/kylef/Mockingjay)).
+
 #### Coming from DVR
 
 If your tests are already working with DVR, you will probably have pre-recorded cassettes. Vinyl provides a compatibility mode that allows you to re-use those cassettes. 
