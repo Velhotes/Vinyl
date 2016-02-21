@@ -5,6 +5,7 @@
 Vinyl
 -----
 
+[![Version](https://img.shields.io/badge/version-0.9.0-blue.svg)](https://github.com/Velhotes/Vinyl/releases/latest)
 [![Build Status](https://travis-ci.org/Velhotes/Vinyl.svg?branch=master)](https://travis-ci.org/Velhotes/Vinyl)
 [![codecov.io](https://codecov.io/github/Velhotes/Vinyl/coverage.svg?branch=master)](https://codecov.io/github/Velhotes/Vinyl?branch=master)
 <a href="https://github.com/Carthage/Carthage"><img src="https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat"></a>
