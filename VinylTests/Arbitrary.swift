@@ -8,30 +8,35 @@
 
 import SwiftCheck
 
+/// Generates an array of lowercase alphabetic `Character`s.
 let lowerStringGen = 
     Gen<Character>.fromElementsIn("a"..."z")
     .proliferateNonEmpty
     .map(String.init)
 
+/// Generates a URL of the form `(http|https)://<domain>.com`.
 let urlStringGen : Gen<String> = sequence([ 
     Gen<String>.fromElementsOf(["http://", "https://"]),
     lowerStringGen,
     Gen.pure(".com"),
 ].reverse()).map { $0.reduce("", combine: +) }
 
+/// Generates a path of the form `<some>/<path>/<to>/.../<somewhere>`.
 let urlPathGen : Gen<String> = 
     (curry(+) <^> Gen.pure("/") <*> lowerStringGen)
     .proliferate
     .map { $0.reduce("", combine: +) }
 
-let pathParameterGenerator : Gen<String> = sequence([
+/// Generates an array of parameters of the form `<param>=<arg>`,
+let parameterGen : Gen<String> = sequence([
 	lowerStringGen,
 	Gen.pure("="),
 	lowerStringGen,
 ].reverse()).map { $0.reduce("", combine: +) }
 
+/// Generates a set of parameters. 
 let pathParameterGen : Gen<String> = Gen.sized { sz in
-	return pathParameterGenerator.proliferateSized(sz + 1)
+	return parameterGen.proliferateSized(sz + 1)
 } .map { xs in 
 	return xs.reduce("?") { $0 == "?" ? "?" + $1 : $0 + "&" + $1 } 
 }

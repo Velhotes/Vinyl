@@ -47,7 +47,7 @@ class RequestMatcherRegistryTests: XCTestCase {
         }
         
         property("Requests with mixed values shouldn't match") <- forAllNoShrink(
-            urlStringGen
+              urlStringGen
             , Positive<Int>.arbitrary
         ) { (url, size) in
             return forAllNoShrink(
