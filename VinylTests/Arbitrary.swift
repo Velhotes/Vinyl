@@ -14,10 +14,6 @@ Gen<Character>.fromElementsIn("a"..."z")
     .proliferateNonEmpty
     .map(String.init)
 
-let intGen =
-Gen<Int>.fromElementsIn(1...9)
-    .proliferateNonEmpty
-
 /// Generates a URL of the form `(http|https)://<domain>.com`.
 let urlStringGen : Gen<String> = sequence([
     Gen<String>.fromElementsOf(["http://", "https://"]),
