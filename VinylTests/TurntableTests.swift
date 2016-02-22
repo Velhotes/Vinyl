@@ -183,7 +183,7 @@ class TurntableTests: XCTestCase {
         let turntableConfiguration = TurntableConfiguration()
         let turntable = Turntable(configuration: turntableConfiguration)
         
-        turntable.loadCassettee("dvr_single")
+        turntable.loadCassette("dvr_single")
         singleCallTest(turntable)
     }
     
