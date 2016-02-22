@@ -96,7 +96,7 @@ extension Turntable {
         self.player = Turntable.createPlayer(vinyl, configuration: turntableConfiguration)
     }
     
-    public func loadCassettee(cassetteName: String,  bundle: NSBundle = testingBundle()) {
+    public func loadCassette(cassetteName: String,  bundle: NSBundle = testingBundle()) {
         
         let vinyl = Vinyl(plastic: Turntable.createCassettePlastic(cassetteName, bundle: bundle))
         self.player = Turntable.createPlayer(vinyl, configuration: turntableConfiguration)
