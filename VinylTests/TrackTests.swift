@@ -74,13 +74,12 @@ class TrackTests: XCTestCase {
             , HTTPHeaders.arbitrary
             ) { (url, body, headers) in
                 
-                print(basicJSONDic)
                 guard let data = try? NSJSONSerialization.dataWithJSONObject(body, options: .PrettyPrinted) else { return true}
                 let track = TrackFactory.createValidTrackFromJSON(NSURL(string: url)!, json:body, headers: headers)
                 
                 return isValidTrack(track, data: data, headers: headers, url: url)
         }
-    }   
+    }
 }
 
 func isValidTrack(track: Track, data: NSData, headers: HTTPHeaders, url: String) -> Bool {
