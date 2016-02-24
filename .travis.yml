@@ -11,5 +11,17 @@ script:
   - make $PLATFORM
 after_success:
   - bash <(curl -s https://codecov.io/bash)
+before_deploy:
+  - carthage build --no-skip-current
+  - carthage archive Vinyl
 notifications:
   slack: ios:0sE9PZaoizGktMBoE1LB9uWo
+deploy:
+  provider: releases
+  api_key:
+    secure: h3yxd58lXZGtD4PPozUUW/cc9Ywe7IgSn3O2fz5bhqj5ZTEH/w783qohVAGBqDvZEB/w3ewE61K/JBOwJphAxyHRQgM630KVHPM3MI0QKiLYZa6vjLMTtwLqmnakGj+oi1gKOf1vTNvuT4QxgG9v6JLmFDE3OwdSnyZ0igixtE8cLRleEqe9ACLJ2le3BGZveIF0FH3tQXafatTV73LjvyRkP8vyKfEeUKqSi2y9n7ut8LD77BOo1ONf0vJmQe+wqrk/P6+GB80MEl1THvXpgljXY3rgDvYqmHsIBFxSxsydLjkxkF2/mdJlAdiGlSx2yfe9ul7R+VKYQx8btXMEK3YgvVjhisuvtIEBvCP06L2+kAcyC27aNXT/1O9L9MIPQmS0BWFb+9lYxjpLfrjuAOg4B6NfEmXBqmIBgD64/9hV6VeKhJ1lB7DQBQK2+PJTqjKyjqiBfumI9v/tFZBEsb89J2rU+vunacRylWrJB5kTB3YferFzAArV7D18z2raaov0GHA9q2fpFRXHR2//mID43XdfRIs6mkKI+wkJQUaVTA3B2RKon34/z8VNKBhFFivPZ/XesDcd3eFhgEuyO+UYBL9F+dfqpzxQ6WNmtvWNELJNGfN86f1p1BuMExQs47nSg5NiqoXWfC+pCPnEZ4dt7RJOUlzMzghzdZnJn8s=
+  file: Vinyl.framework.zip
+  skip_cleanup: true
+  on:
+    repo: Velhotes/Vinyl
+    tags: true
