@@ -79,6 +79,18 @@ class TrackTests: XCTestCase {
                 
                 return isValidTrack(track, data: data, headers: headers, url: url)
         }
+
+        property("Tracks hashValue") <- forAllNoShrink(
+            urlStringGen
+            , basicJSONDic
+            , HTTPHeaders.arbitrary
+            ) { (url, body, headers) in
+
+                let track = TrackFactory.createValidTrackFromJSON(NSURL(string: url)!, json:body, headers: headers)
+
+                return track.hashValue == (track.request.hashValue ^ track.response.hashValue)
+        }
+
     }
 }
 
