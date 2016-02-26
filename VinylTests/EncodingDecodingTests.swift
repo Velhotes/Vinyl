@@ -11,9 +11,49 @@ import XCTest
 
 class EncodingDecodingTests: XCTestCase {
 
+    func test_textBodyEncoding() {
+
+        let headers = ["Content-Type":"text/plain"]
+
+        let bodyPlainText = "BodyData"
+        let bodyData = (bodyPlainText as NSString).dataUsingEncoding(NSUTF8StringEncoding)
+
+        if let encodedBody = encodeBody(bodyData, headers: headers) as? String {
+            XCTAssertEqual(bodyPlainText, encodedBody)
+        } else {
+            XCTFail()
+        }
+    }
+
+    func test_textBodyDecoding() {
+
+        let headers = ["Content-Type":"text/plain"]
+
+        let bodyPlainText = "BodyData"
+        let bodyData = (bodyPlainText as NSString).dataUsingEncoding(NSUTF8StringEncoding)
+
+        if let encodedBodyData = decodeBody(bodyPlainText, headers: headers) {
+            XCTAssertEqual(bodyData, encodedBodyData)
+        } else {
+            XCTFail()
+        }
+    }
+
+    func test_textBodyDecodingWithoutContentType() {
+
+        let bodyPlainText = "BodyData"
+        let bodyData = (bodyPlainText as NSString).dataUsingEncoding(NSUTF8StringEncoding)
+
+        if let encodedBodyData = decodeBody(bodyPlainText, headers: [:]) {
+            XCTAssertEqual(bodyData, encodedBodyData)
+        } else {
+            XCTFail()
+        }
+    }
+
     func test_nilBodyEncoding() {
         XCTAssertNil(encodeBody(.None, headers: [:]))
-        XCTAssertNil(encodeBody(.None, headers: ["Content-Type":"text/"]))
+        XCTAssertNil(encodeBody(.None, headers: ["Content-Type":"text/plain"]))
 
         let bodyData = ("BodyData" as NSString).dataUsingEncoding(NSUTF8StringEncoding)
         XCTAssertNil(encodeBody(bodyData, headers: [:]))
