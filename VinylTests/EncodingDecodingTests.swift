@@ -51,6 +51,34 @@ class EncodingDecodingTests: XCTestCase {
         }
     }
 
+    func test_base64BodyEncoding() {
+
+        let headers = ["Content-Type":"application/base64"]
+
+        let bodyPlainText = "BodyData"
+        let bodyData = NSData(base64EncodedString: bodyPlainText, options: [])
+
+        if let encodedBody = encodeBody(bodyData, headers: headers) as? String {
+            XCTAssertEqual(bodyPlainText, encodedBody)
+        } else {
+            XCTFail()
+        }
+
+    }
+
+    func test_base64BodyDecoding() {
+        let headers = ["Content-Type":"application/base64"]
+
+        let bodyPlainText = "BodyData"
+        let bodyData = NSData(base64EncodedString: bodyPlainText, options: [])
+
+        if let encodedBodyData = decodeBody(bodyPlainText, headers: headers) {
+            XCTAssertEqual(bodyData, encodedBodyData)
+        } else {
+            XCTFail()
+        }
+    }
+
     func test_nilBodyEncoding() {
         XCTAssertNil(encodeBody(.None, headers: [:]))
         XCTAssertNil(encodeBody(.None, headers: ["Content-Type":"text/plain"]))
