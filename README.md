@@ -24,6 +24,11 @@ Vinyl should be used when you design your app's architecture with [Dependency In
 ```
 github "Velhotes/Vinyl" "0.9"
 ```
+#### Swift Package Manager
+
+```swift
+.Package(url: "https://github.com/Velhotes/Vinyl.git", Version(0,9,0)..<Version(1,0,0))
+```
 
 #### Intro
 Vinyl uses the same nomenclature that you would see in real life, when playing a vinyl:
