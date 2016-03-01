@@ -61,6 +61,21 @@ public final class Turntable: NSURLSession {
         return URLSessionTask(completion: { completionHandler(completion) })
     }
     
+    private func playVinyl(request: NSURLRequest, fromData bodyData: NSData?, completionHandler: RequestCompletionHandler) throws -> NSURLSessionUploadTask {
+        
+        guard let player = self.player else {
+            fatalError("Did you forget to load the Vinyl? 🎶")
+        }
+        
+        guard let uploadRequest = request.mutableCopy() as? NSMutableURLRequest else {
+            fatalError("💥")
+        }
+        uploadRequest.HTTPBody = bodyData
+        let completion = try player.playTrack(forRequest: uploadRequest)
+        
+        return URLSessionUploadTask(completion: { completionHandler(completion) })
+    }
+
     // MARK: - NSURLSession methods
     
     public override func dataTaskWithURL(url: NSURL, completionHandler: (NSData?, NSURLResponse?, NSError?) -> Void) -> NSURLSessionDataTask {
@@ -81,6 +96,21 @@ public final class Turntable: NSURLSession {
         }
         
         return URLSessionTask(completion: {})
+    }
+    
+    public override func uploadTaskWithRequest(request: NSURLRequest, fromData bodyData: NSData?, completionHandler: (NSData?, NSURLResponse?, NSError?) -> Void) -> NSURLSessionUploadTask {
+        
+        do {
+            return try playVinyl(request, fromData: bodyData, completionHandler: completionHandler)
+        }
+        catch Error.TrackNotFound {
+            errorHandler.handleTrackNotFound(request, playTracksUniquely: turntableConfiguration.playTracksUniquely)
+        }
+        catch {
+            errorHandler.handleUnknownError()
+        }
+        
+        return URLSessionUploadTask(completion: {})
     }
     
     public override func invalidateAndCancel() {
