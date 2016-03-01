@@ -1,0 +1,25 @@
+[
+  {
+    "request": {
+        "url": "http://api.test.com",
+        "method": "POST",
+        "headers": {
+        	"Content-Type": "application/json"
+        },
+        "body": {
+        	"username": "ziggy",
+        	"password": "stardust"
+        }
+    },
+    "response": {
+        "url": "http://api.test.com",
+        "status": 200,
+        "headers": {
+        	"Content-Type": "application/json"
+        },
+        "body": {
+        	"token": "thespidersfrommars"
+        }
+    }
+  }
+]
