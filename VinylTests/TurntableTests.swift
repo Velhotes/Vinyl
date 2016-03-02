@@ -152,6 +152,38 @@ class TurntableTests: XCTestCase {
         turntable.dataTaskWithURL(NSURL(string: url2String)!, completionHandler: checker).resume()
     }
     
+    func test_Vinyl_upload() {
+        
+        let expectation = self.expectationWithDescription("Expected callback to have the correct response and data")
+        defer { self.waitForExpectationsWithTimeout(4, handler: nil) }
+        
+        let turntable = Turntable(
+            vinylName: "vinyl_upload",
+            turntableConfiguration: TurntableConfiguration(matchingStrategy: .RequestAttributes(types: [.Method, .URL, .Body], playTracksUniquely: true)))
+        
+        let urlString = "http://api.test.com"
+        let request = NSMutableURLRequest(URL: NSURL(string: urlString)!)
+        request.HTTPMethod = "POST"
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        let data = try! NSJSONSerialization.dataWithJSONObject(["username": "ziggy", "password": "stardust"], options: [])
+        
+        turntable.uploadTaskWithRequest(request, fromData: data, completionHandler: { (data, response, error) in
+            XCTAssertNil(error)
+            
+            guard let httpResponse = response as? NSHTTPURLResponse else { fatalError("\(response) should be a NSHTTPURLResponse") }
+            
+            let body: AnyObject = ["token": "thespidersfrommars"]
+            let responseBody = try! NSJSONSerialization.JSONObjectWithData(data!, options: [])
+            
+            XCTAssertEqual(httpResponse.URL!.absoluteString, urlString)
+            XCTAssertEqual(httpResponse.statusCode, 200)
+            XCTAssertTrue(responseBody.isEqual(body))
+            XCTAssertNotNil(httpResponse.allHeaderFields)
+            
+            expectation.fulfill()
+        }).resume()
+    }
+    
     func test_playVinyl() {
         
         let turntableConfiguration = TurntableConfiguration()

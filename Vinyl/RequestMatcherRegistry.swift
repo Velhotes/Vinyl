@@ -123,7 +123,12 @@ private struct BodyRequestMatcher: RequestMatcher {
 
         switch (aRequest.HTTPBody, anotherRequest.HTTPBody) {
         case (.None, .None): return true
-        case (.Some(let lhsData), .Some(let rhsData)): return lhsData.isEqualToData(rhsData)
+        case (.Some(let lhsData), .Some(let rhsData)):
+            guard let lhsHeaders = aRequest.allHTTPHeaderFields,
+                rhsHeaders = anotherRequest.allHTTPHeaderFields,
+            lhsBody = encodeBody(lhsData, headers: lhsHeaders),
+            rhsBody = encodeBody(rhsData, headers: rhsHeaders) else { return lhsData == rhsData }
+            return lhsBody.isEqual(rhsBody)
         default: return false
         }
     }

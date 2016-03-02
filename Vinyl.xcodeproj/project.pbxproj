@@ -97,6 +97,12 @@
 		C70886361C74D470002DBB2C /* dvr_multiple.json in Resources */ = {isa = PBXBuildFile; fileRef = C70886341C74D470002DBB2C /* dvr_multiple.json */; };
 		C70886371C74D470002DBB2C /* dvr_single.json in Resources */ = {isa = PBXBuildFile; fileRef = C70886351C74D470002DBB2C /* dvr_single.json */; };
 		C75D79111C6DFE30004B92A9 /* Vinyl.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C75D79061C6DFE30004B92A9 /* Vinyl.framework */; };
+		E530E6111C864B3300D9B590 /* URLSessionUploadTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = E530E6101C864B3300D9B590 /* URLSessionUploadTask.swift */; };
+		E530E6121C864B3300D9B590 /* URLSessionUploadTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = E530E6101C864B3300D9B590 /* URLSessionUploadTask.swift */; };
+		E530E6131C864B3300D9B590 /* URLSessionUploadTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = E530E6101C864B3300D9B590 /* URLSessionUploadTask.swift */; };
+		E530E6181C864E1800D9B590 /* vinyl_upload.json in Resources */ = {isa = PBXBuildFile; fileRef = E530E6171C864E1800D9B590 /* vinyl_upload.json */; };
+		E530E6191C864E1800D9B590 /* vinyl_upload.json in Resources */ = {isa = PBXBuildFile; fileRef = E530E6171C864E1800D9B590 /* vinyl_upload.json */; };
+		E530E61A1C864E1800D9B590 /* vinyl_upload.json in Resources */ = {isa = PBXBuildFile; fileRef = E530E6171C864E1800D9B590 /* vinyl_upload.json */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -256,6 +262,8 @@
 		C7995DC11C75F38F00E1D905 /* ErrorHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ErrorHandler.swift; sourceTree = "<group>"; };
 		C7995DC61C75F75400E1D905 /* MockedTrackedNotFoundErrorHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockedTrackedNotFoundErrorHandler.swift; sourceTree = "<group>"; };
 		C7995DCD1C7724F700E1D905 /* NSBundle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSBundle.swift; sourceTree = "<group>"; };
+		E530E6101C864B3300D9B590 /* URLSessionUploadTask.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = URLSessionUploadTask.swift; sourceTree = "<group>"; };
+		E530E6171C864E1800D9B590 /* vinyl_upload.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = vinyl_upload.json; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -349,6 +357,7 @@
 				C70886351C74D470002DBB2C /* dvr_single.json */,
 				C70886301C74D452002DBB2C /* vinyl_multiple.json */,
 				C70886311C74D452002DBB2C /* vinyl_single.json */,
+				E530E6171C864E1800D9B590 /* vinyl_upload.json */,
 			);
 			path = Fixtures;
 			sourceTree = "<group>";
@@ -404,6 +413,7 @@
 				C75D79221C6E0E9D004B92A9 /* Turntable.swift */,
 				7D22F3011C75351B00A81608 /* TurntableConfiguration.swift */,
 				C708861C1C738A19002DBB2C /* URLSessionTask.swift */,
+				E530E6101C864B3300D9B590 /* URLSessionUploadTask.swift */,
 				7DC5704C1C72A1AB00BA1458 /* Player.swift */,
 				7DC5704E1C72A1FD00BA1458 /* TrackMatcher.swift */,
 				C75D79201C6E0B32004B92A9 /* Vinyl.swift */,
@@ -706,6 +716,7 @@
 			files = (
 				7DBD4CA01C79CB18008C5487 /* dvr_multiple.json in Resources */,
 				7DBD4CA11C79CB18008C5487 /* dvr_single.json in Resources */,
+				E530E6191C864E1800D9B590 /* vinyl_upload.json in Resources */,
 				7DBD4CA21C79CB18008C5487 /* vinyl_multiple.json in Resources */,
 				7DBD4CA31C79CB18008C5487 /* vinyl_single.json in Resources */,
 			);
@@ -724,6 +735,7 @@
 			files = (
 				7DBD4D061C79CDAF008C5487 /* dvr_multiple.json in Resources */,
 				7DBD4D071C79CDAF008C5487 /* dvr_single.json in Resources */,
+				E530E61A1C864E1800D9B590 /* vinyl_upload.json in Resources */,
 				7DBD4D081C79CDAF008C5487 /* vinyl_multiple.json in Resources */,
 				7DBD4D091C79CDAF008C5487 /* vinyl_single.json in Resources */,
 			);
@@ -742,6 +754,7 @@
 			files = (
 				C70886361C74D470002DBB2C /* dvr_multiple.json in Resources */,
 				C70886371C74D470002DBB2C /* dvr_single.json in Resources */,
+				E530E6181C864E1800D9B590 /* vinyl_upload.json in Resources */,
 				C70886321C74D452002DBB2C /* vinyl_multiple.json in Resources */,
 				C70886331C74D452002DBB2C /* vinyl_single.json in Resources */,
 			);
@@ -756,6 +769,7 @@
 			files = (
 				7DBD4CC21C79CCE2008C5487 /* ErrorHandler.swift in Sources */,
 				7DBD4CC31C79CCE2008C5487 /* FuncComposition.swift in Sources */,
+				E530E6121C864B3300D9B590 /* URLSessionUploadTask.swift in Sources */,
 				7DBD4CC41C79CCE2008C5487 /* NSURLQueryItem.swift in Sources */,
 				7DBD4CC51C79CCE2008C5487 /* NSURLRequest.swift in Sources */,
 				7DBD4CC61C79CCE2008C5487 /* SequenceType.swift in Sources */,
@@ -792,6 +806,7 @@
 			files = (
 				7DBD4CE41C79CCFA008C5487 /* ErrorHandler.swift in Sources */,
 				7DBD4CE51C79CCFA008C5487 /* FuncComposition.swift in Sources */,
+				E530E6131C864B3300D9B590 /* URLSessionUploadTask.swift in Sources */,
 				7DBD4CE61C79CCFA008C5487 /* NSURLQueryItem.swift in Sources */,
 				7DBD4CE71C79CCFA008C5487 /* NSURLRequest.swift in Sources */,
 				7DBD4CE81C79CCFA008C5487 /* SequenceType.swift in Sources */,
@@ -828,6 +843,7 @@
 			files = (
 				7DBD4CD31C79CCF4008C5487 /* ErrorHandler.swift in Sources */,
 				7DBD4CD41C79CCF4008C5487 /* FuncComposition.swift in Sources */,
+				E530E6111C864B3300D9B590 /* URLSessionUploadTask.swift in Sources */,
 				7DBD4CD51C79CCF4008C5487 /* NSURLQueryItem.swift in Sources */,
 				7DBD4CD61C79CCF4008C5487 /* NSURLRequest.swift in Sources */,
 				7DBD4CD71C79CCF4008C5487 /* SequenceType.swift in Sources */,
