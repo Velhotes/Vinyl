@@ -334,4 +334,39 @@ class TurntableTests: XCTestCase {
         turntable.dataTaskWithRequest(request2, completionHandler: checker).resume()
         turntable.dataTaskWithRequest(request3, completionHandler: checker).resume()
     }
+    
+    //MARK: - Delegate queue
+    
+    func test_Vinyl_defaultQueue() {
+        
+        let expectation = self.expectationWithDescription("Expected callback to be called on background thread")
+        defer { self.waitForExpectationsWithTimeout(4, handler: nil) }
+        
+        let turntable = Turntable(vinylName: "vinyl_single")
+        
+        let urlString = "http://api.test.com"
+        
+        turntable.dataTaskWithURL(NSURL(string: urlString)!) { (data, response, anError) in
+            
+            XCTAssertFalse(NSThread.isMainThread())
+            expectation.fulfill()
+            }.resume()
+    }
+    
+    func test_Vinyl_mainQueue() {
+        
+        let expectation = self.expectationWithDescription("Expected callback to be called on main thread")
+        defer { self.waitForExpectationsWithTimeout(4, handler: nil) }
+        
+        let turntable = Turntable(vinylName: "vinyl_single", delegateQueue: NSOperationQueue.mainQueue())
+        
+        let urlString = "http://api.test.com"
+        
+        turntable.dataTaskWithURL(NSURL(string: urlString)!) { (data, response, anError) in
+            
+            XCTAssertTrue(NSThread.isMainThread())
+            expectation.fulfill()
+            }.resume()
+    }
+    
 }
