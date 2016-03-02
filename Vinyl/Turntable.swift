@@ -21,31 +21,36 @@ public final class Turntable: NSURLSession {
     var errorHandler: ErrorHandler = DefaultErrorHandler()
     private let turntableConfiguration: TurntableConfiguration
     private var player: Player?
+    private let operationQueue: NSOperationQueue
     
-    public init(configuration: TurntableConfiguration) {
+    public init(configuration: TurntableConfiguration, delegateQueue: NSOperationQueue? = nil) {
         
         self.turntableConfiguration = configuration
+        if let delegateQueue = delegateQueue {
+            self.operationQueue = delegateQueue
+        } else {
+            self.operationQueue = NSOperationQueue()
+            self.operationQueue.maxConcurrentOperationCount = 1
+        }
         super.init()
     }
     
-    public init(vinyl: Vinyl, turntableConfiguration: TurntableConfiguration) {
+    public convenience init(vinyl: Vinyl, turntableConfiguration: TurntableConfiguration, delegateQueue: NSOperationQueue? = nil) {
         
-        self.turntableConfiguration = turntableConfiguration
+        self.init(configuration: turntableConfiguration, delegateQueue: delegateQueue)
         self.player = Turntable.createPlayer(vinyl, configuration: turntableConfiguration)
-        
-        super.init()
     }
     
-    public convenience init(cassetteName: String, bundle: NSBundle = testingBundle(), turntableConfiguration: TurntableConfiguration = TurntableConfiguration()) {
+    public convenience init(cassetteName: String, bundle: NSBundle = testingBundle(), turntableConfiguration: TurntableConfiguration = TurntableConfiguration(), delegateQueue: NSOperationQueue? = nil) {
         
         let vinyl = Vinyl(plastic: Turntable.createCassettePlastic(cassetteName, bundle: bundle))
-        self.init(vinyl: vinyl, turntableConfiguration: turntableConfiguration)
+        self.init(vinyl: vinyl, turntableConfiguration: turntableConfiguration, delegateQueue: delegateQueue)
     }
     
-    public convenience init(vinylName: String, bundle: NSBundle = testingBundle(), turntableConfiguration: TurntableConfiguration = TurntableConfiguration()) {
+    public convenience init(vinylName: String, bundle: NSBundle = testingBundle(), turntableConfiguration: TurntableConfiguration = TurntableConfiguration(), delegateQueue: NSOperationQueue? = nil) {
         
         let plastic = Turntable.createVinylPlastic(vinylName, bundle: bundle)
-        self.init(vinyl: Vinyl(plastic: plastic), turntableConfiguration: turntableConfiguration)
+        self.init(vinyl: Vinyl(plastic: plastic), turntableConfiguration: turntableConfiguration, delegateQueue: delegateQueue)
     }
     
     // MARK: - Private methods
@@ -58,7 +63,7 @@ public final class Turntable: NSURLSession {
         
         let completion = try player.playTrack(forRequest: request)
         
-        return URLSessionTask(completion: { completionHandler(completion) })
+        return URLSessionTask(completion: { self.operationQueue.addOperationWithBlock { completionHandler(completion) } })
     }
     
     private func playVinyl(request: NSURLRequest, fromData bodyData: NSData?, completionHandler: RequestCompletionHandler) throws -> NSURLSessionUploadTask {
@@ -73,7 +78,7 @@ public final class Turntable: NSURLSession {
         uploadRequest.HTTPBody = bodyData
         let completion = try player.playTrack(forRequest: uploadRequest)
         
-        return URLSessionUploadTask(completion: { completionHandler(completion) })
+        return URLSessionUploadTask(completion: { self.operationQueue.addOperationWithBlock { completionHandler(completion) } })
     }
 
     // MARK: - NSURLSession methods
