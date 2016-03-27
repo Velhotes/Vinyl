@@ -19,12 +19,12 @@ struct Player {
         }
     }
     
-    func playTrack(forRequest request: Request) throws -> (NSData?, NSURLResponse?, NSError?) {
+    func playTrack(forRequest request: Request) throws -> (data: NSData?, response: NSURLResponse?, error: NSError?) {
         
         guard let track = self.seekTrackForRequest(request) else {
             throw Error.TrackNotFound
         }
         
-        return (track.response.body, track.response.urlResponse, track.response.error)
+        return (data: track.response.body, response: track.response.urlResponse, error: track.response.error)
     }
 }
