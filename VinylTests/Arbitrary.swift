@@ -6,6 +6,7 @@
 //  Copyright © 2016 Velhotes. All rights reserved.
 //
 
+import Foundation
 import SwiftCheck
 
 /// Generates an array of lowercase alphabetic `Character`s.
@@ -19,7 +20,8 @@ let urlStringGen : Gen<String> = sequence([
     Gen<String>.fromElementsOf(["http://", "https://"]),
     lowerStringGen,
     Gen.pure(".com"),
-    ].reverse()).map { $0.reduce("", combine: +) }
+    ])
+    .map { $0.reduce("", combine: +) }
 
 // Generates a JSON string of the form '"string"'
 let jsonString: Gen<String> = lowerStringGen.map { "\"" + $0 + "\""}
@@ -43,8 +45,7 @@ let basicJSONDic : Gen<AnyObject> = sequence([
     Gen.pure("{"),
     jsonStringPairs,
     Gen.pure("}")
-    ].reverse()
-    )
+    ])
     .map { $0.reduce("", combine: +) }
     .map { $0.dataUsingEncoding(NSUTF8StringEncoding)! }
     .map { try! NSJSONSerialization.JSONObjectWithData($0, options: .AllowFragments) }
@@ -60,7 +61,8 @@ let parameterGen : Gen<String> = sequence([
     lowerStringGen,
     Gen.pure("="),
     lowerStringGen,
-    ].reverse()).map { $0.reduce("", combine: +) }
+    ])
+    .map { $0.reduce("", combine: +) }
 
 /// Generates a set of parameters.
 let pathParameterGen : Gen<String> = Gen.sized { sz in

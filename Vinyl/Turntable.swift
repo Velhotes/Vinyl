@@ -63,7 +63,11 @@ public final class Turntable: NSURLSession {
         
         let completion = try player.playTrack(forRequest: request)
         
-        return URLSessionTask(completion: { self.operationQueue.addOperationWithBlock { completionHandler(completion) } })
+        return URLSessionTask {
+            self.operationQueue.addOperationWithBlock {
+                completionHandler(completion.data, completion.response, completion.error)
+            }
+        }
     }
     
     private func playVinyl(request: NSURLRequest, fromData bodyData: NSData?, completionHandler: RequestCompletionHandler) throws -> NSURLSessionUploadTask {
@@ -78,7 +82,11 @@ public final class Turntable: NSURLSession {
         uploadRequest.HTTPBody = bodyData
         let completion = try player.playTrack(forRequest: uploadRequest)
         
-        return URLSessionUploadTask(completion: { self.operationQueue.addOperationWithBlock { completionHandler(completion) } })
+        return URLSessionUploadTask {
+            self.operationQueue.addOperationWithBlock {
+                completionHandler(completion.data, completion.response, completion.error)
+            }
+        }
     }
 
     // MARK: - NSURLSession methods
