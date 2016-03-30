@@ -8,7 +8,7 @@
 
 import Foundation
 
-public final class URLSessionUploadTask: NSURLSessionUploadTask {
+public final class URLSessionUploadTask: NSURLSessionUploadTask, URLSessionTaskType {
     
     private let completion: Void -> Void
     
