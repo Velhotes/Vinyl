@@ -1,5 +1,5 @@
 //
-//  URLSessionTask.swift
+//  URLSessionDataTask.swift
 //  Vinyl
 //
 //  Created by Rui Peres on 16/02/2016.
@@ -8,7 +8,7 @@
 
 import Foundation
 
-public final class URLSessionTask: NSURLSessionDataTask {
+public final class URLSessionDataTask: NSURLSessionDataTask, URLSessionTaskType {
     
     private let completion: Void -> Void
     

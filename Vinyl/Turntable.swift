@@ -25,12 +25,12 @@ public final class Turntable: NSURLSession {
     
     public init(configuration: TurntableConfiguration, delegateQueue: NSOperationQueue? = nil) {
         
-        self.turntableConfiguration = configuration
+        turntableConfiguration = configuration
         if let delegateQueue = delegateQueue {
-            self.operationQueue = delegateQueue
+            operationQueue = delegateQueue
         } else {
-            self.operationQueue = NSOperationQueue()
-            self.operationQueue.maxConcurrentOperationCount = 1
+            operationQueue = NSOperationQueue()
+            operationQueue.maxConcurrentOperationCount = 1
         }
         super.init()
     }
@@ -38,7 +38,7 @@ public final class Turntable: NSURLSession {
     public convenience init(vinyl: Vinyl, turntableConfiguration: TurntableConfiguration, delegateQueue: NSOperationQueue? = nil) {
         
         self.init(configuration: turntableConfiguration, delegateQueue: delegateQueue)
-        self.player = Turntable.createPlayer(vinyl, configuration: turntableConfiguration)
+        player = Turntable.createPlayer(vinyl, configuration: turntableConfiguration)
     }
     
     public convenience init(cassetteName: String, bundle: NSBundle = testingBundle(), turntableConfiguration: TurntableConfiguration = TurntableConfiguration(), delegateQueue: NSOperationQueue? = nil) {
@@ -54,42 +54,41 @@ public final class Turntable: NSURLSession {
     }
     
     // MARK: - Private methods
-    
-    private func playVinyl(request: NSURLRequest, completionHandler: RequestCompletionHandler) throws -> NSURLSessionDataTask {
-        
-        guard let player = self.player else {
+
+    private func playVinyl<URLSessionTask: URLSessionTaskType>(request request: NSURLRequest, fromData bodyData: NSData? = nil, completionHandler: RequestCompletionHandler) throws -> URLSessionTask {
+
+        guard let player = player else {
             fatalError("Did you forget to load the Vinyl? 🎶")
         }
-        
-        let completion = try player.playTrack(forRequest: request)
-        
+
+        let completion = try player.playTrack(forRequest: transformRequest(request, bodyData: bodyData))
+
         return URLSessionTask {
             self.operationQueue.addOperationWithBlock {
                 completionHandler(completion.data, completion.response, completion.error)
             }
         }
     }
-    
-    private func playVinyl(request: NSURLRequest, fromData bodyData: NSData?, completionHandler: RequestCompletionHandler) throws -> NSURLSessionUploadTask {
-        
-        guard let player = self.player else {
-            fatalError("Did you forget to load the Vinyl? 🎶")
+
+    private func transformRequest(request: NSURLRequest, bodyData: NSData? = nil) -> NSURLRequest {
+        guard let bodyData = bodyData else {
+            return request
         }
-        
-        guard let uploadRequest = request.mutableCopy() as? NSMutableURLRequest else {
-            fatalError("💥")
+
+        guard let mutableRequest = request.mutableCopy() as? NSMutableURLRequest else {
+            fatalError("💥 Houston, we have a problem 🚀")
         }
-        uploadRequest.HTTPBody = bodyData
-        let completion = try player.playTrack(forRequest: uploadRequest)
-        
-        return URLSessionUploadTask {
-            self.operationQueue.addOperationWithBlock {
-                completionHandler(completion.data, completion.response, completion.error)
-            }
-        }
+
+        mutableRequest.HTTPBody = bodyData
+
+        return mutableRequest
     }
 
-    // MARK: - NSURLSession methods
+}
+
+// MARK: - NSURLSession methods
+
+extension Turntable {
     
     public override func dataTaskWithURL(url: NSURL, completionHandler: (NSData?, NSURLResponse?, NSError?) -> Void) -> NSURLSessionDataTask {
         let request = NSURLRequest(URL: url)
@@ -99,7 +98,7 @@ public final class Turntable: NSURLSession {
     public override func dataTaskWithRequest(request: NSURLRequest, completionHandler: (NSData?, NSURLResponse?, NSError?) -> Void) -> NSURLSessionDataTask {
         
         do {
-            return try playVinyl(request, completionHandler: completionHandler)
+            return try playVinyl(request: request, completionHandler: completionHandler) as URLSessionDataTask
         }
         catch Error.TrackNotFound {
             errorHandler.handleTrackNotFound(request, playTracksUniquely: turntableConfiguration.playTracksUniquely)
@@ -108,13 +107,13 @@ public final class Turntable: NSURLSession {
             errorHandler.handleUnknownError()
         }
         
-        return URLSessionTask(completion: {})
+        return URLSessionDataTask(completion: {})
     }
     
     public override func uploadTaskWithRequest(request: NSURLRequest, fromData bodyData: NSData?, completionHandler: (NSData?, NSURLResponse?, NSError?) -> Void) -> NSURLSessionUploadTask {
         
         do {
-            return try playVinyl(request, fromData: bodyData, completionHandler: completionHandler)
+            return try playVinyl(request: request, fromData: bodyData, completionHandler: completionHandler) as URLSessionUploadTask
         }
         catch Error.TrackNotFound {
             errorHandler.handleTrackNotFound(request, playTracksUniquely: turntableConfiguration.playTracksUniquely)
@@ -131,24 +130,28 @@ public final class Turntable: NSURLSession {
     }
 }
 
+// MARK: - Loading Methods
+
 extension Turntable {
     
     public func loadVinyl(vinylName: String,  bundle: NSBundle = testingBundle()) {
         
         let vinyl = Vinyl(plastic: Turntable.createVinylPlastic(vinylName, bundle: bundle))
-        self.player = Turntable.createPlayer(vinyl, configuration: turntableConfiguration)
+        player = Turntable.createPlayer(vinyl, configuration: turntableConfiguration)
     }
     
     public func loadCassette(cassetteName: String,  bundle: NSBundle = testingBundle()) {
         
         let vinyl = Vinyl(plastic: Turntable.createCassettePlastic(cassetteName, bundle: bundle))
-        self.player = Turntable.createPlayer(vinyl, configuration: turntableConfiguration)
+        player = Turntable.createPlayer(vinyl, configuration: turntableConfiguration)
     }
     
     public func loadVinyl(vinyl: Vinyl) {
-        self.player = Turntable.createPlayer(vinyl, configuration: turntableConfiguration)
+        player = Turntable.createPlayer(vinyl, configuration: turntableConfiguration)
     }
 }
+
+// MARK: - Bootstrap methods
 
 extension Turntable {
     
