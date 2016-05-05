@@ -27,7 +27,7 @@ github "Velhotes/Vinyl" "0.10.0"
 #### Swift Package Manager
 
 ```swift
-.Package(url: "https://github.com/Velhotes/Vinyl.git", Version(0,9,0)..<Version(1,0,0))
+.Package(url: "https://github.com/Velhotes/Vinyl.git", majorVersion:0, minor:9)
 ```
 
 #### Intro
