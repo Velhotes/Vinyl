@@ -374,4 +374,17 @@ class TurntableTests: XCTestCase {
         let turntable = Turntable(vinylName: "vinyl_single", delegateQueue: NSOperationQueue.mainQueue())
         XCTAssertNil(turntable.delegate)
     }
+
+    func test_Vinyl_Delegate_Messages() {
+
+        let expectation = self.expectationWithDescription(#function)
+        defer { self.waitForExpectationsWithTimeout(4, handler: nil) }
+
+        let delegate = XCTestNSURLSessionDataDelegate(expectation: expectation)
+        let turntable = Turntable(vinylName: "vinyl_single", delegate: delegate)
+        let urlString = "http://api.test.com"
+
+        let task = turntable.dataTaskWithURL(NSURL(string: urlString)!)
+        task.resume()
+    }
 }
