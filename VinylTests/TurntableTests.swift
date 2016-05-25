@@ -369,4 +369,9 @@ class TurntableTests: XCTestCase {
             }.resume()
     }
     
+    func test_Vinyl_Delegate() {
+        
+        let turntable = Turntable(vinylName: "vinyl_single", delegateQueue: NSOperationQueue.mainQueue())
+        XCTAssertNil(turntable.delegate)
+    }
 }

@@ -84,6 +84,9 @@ public final class Turntable: NSURLSession {
         return mutableRequest
     }
 
+    public override var delegate: NSURLSessionDelegate? {
+        return nil
+    }
 }
 
 // MARK: - NSURLSession methods
