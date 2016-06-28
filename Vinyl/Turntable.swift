@@ -35,7 +35,7 @@ public final class Turntable: NSURLSession {
         super.init()
     }
     
-    public convenience init(vinyl: Vinyl, turntableConfiguration: TurntableConfiguration, delegateQueue: NSOperationQueue? = nil) {
+    public convenience init(vinyl: Vinyl, turntableConfiguration: TurntableConfiguration = TurntableConfiguration(), delegateQueue: NSOperationQueue? = nil) {
         
         self.init(configuration: turntableConfiguration, delegateQueue: delegateQueue)
         player = Turntable.createPlayer(vinyl, configuration: turntableConfiguration)
