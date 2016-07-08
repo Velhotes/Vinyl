@@ -312,11 +312,11 @@ class TurntableTests: XCTestCase {
                 
                 XCTAssertTrue(httpResponse.statusCode == 200)
                 
-                if let responseHeaders = httpResponse.allHeaderFields as? HTTPHeaders, let originalHeaders = track.response.urlResponse.allHeaderFields as? HTTPHeaders {
+                if let responseHeaders = httpResponse.allHeaderFields as? HTTPHeaders, let originalHeaders = track.response.urlResponse?.allHeaderFields as? HTTPHeaders {
                     XCTAssertTrue(responseHeaders == originalHeaders)
                 }
                 
-                XCTAssertTrue(httpResponse.URL == track.response.urlResponse.URL)
+                XCTAssertTrue(httpResponse.URL == track.response.urlResponse?.URL)
                 
                 tracks.removeAtIndex(tracks.indexOf(track)!)
             }

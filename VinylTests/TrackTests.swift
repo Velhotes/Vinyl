@@ -14,8 +14,8 @@ class TrackTests: XCTestCase {
     func testProperties() {
         property("Bad tracks contain no body") <- forAllNoShrink(urlStringGen) { url in
             let track = TrackFactory.createBadTrack(NSURL(string: url)!, statusCode: 400)
-            return track.response.urlResponse.statusCode == 400
-                && track.response.urlResponse.URL?.absoluteString == url
+            return track.response.urlResponse?.statusCode == 400
+                && track.response.urlResponse?.URL?.absoluteString == url
                 && track.request.URL?.absoluteString == url
                 && track.response.body == nil
         }
@@ -25,9 +25,21 @@ class TrackTests: XCTestCase {
                 let error = NSError(domain: domain, code: code.getPositive, userInfo: nil)
                 let track = TrackFactory.createBadTrack(NSURL(string: url)!, statusCode: code.getPositive, error: error)
                 
-                return track.response.urlResponse.statusCode == code.getPositive
+                return track.response.urlResponse?.statusCode == code.getPositive
                     && track.response.error == error
-                    && track.response.urlResponse.URL?.absoluteString == url
+                    && track.response.urlResponse?.URL?.absoluteString == url
+                    && track.request.URL?.absoluteString == url
+                    && track.response.body == nil
+            }
+        }
+
+        property("Error tracks created without a status code") <- forAllNoShrink(urlStringGen) { url in
+            return forAll { (domain : String, code : Positive<Int>) in
+                let error = NSError(domain: domain, code: code.getPositive, userInfo: nil)
+                let track = TrackFactory.createErrorTrack(NSURL(string: url)!, error: error)
+
+                return track.response.urlResponse == .None
+                    && track.response.error == error
                     && track.request.URL?.absoluteString == url
                     && track.response.body == nil
             }
@@ -84,9 +96,9 @@ class TrackTests: XCTestCase {
 
 func isValidTrack(track: Track, data: NSData, headers: HTTPHeaders, url: String) -> Bool {
     
-    return track.response.urlResponse.statusCode == 200
+    return track.response.urlResponse?.statusCode == 200
         && track.response.body!.isEqualToData(data)
-        && track.response.urlResponse.allHeaderFields as! HTTPHeaders == headers
-        && track.response.urlResponse.URL?.absoluteString == url
+        && track.response.urlResponse?.allHeaderFields as! HTTPHeaders == headers
+        && track.response.urlResponse?.URL?.absoluteString == url
         && track.request.URL?.absoluteString == url
 }
