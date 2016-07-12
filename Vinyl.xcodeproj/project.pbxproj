@@ -7,8 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		7D7171AA1CABE6440080C1F4 /* URLSessionTaskType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DE666A51CAB49DA00ED063D /* URLSessionTaskType.swift */; };
-		7D7171AE1CABE6450080C1F4 /* URLSessionTaskType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DE666A51CAB49DA00ED063D /* URLSessionTaskType.swift */; };
 		7DBD4C891C79CA24008C5487 /* Vinyl.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7DBD4C7F1C79CA24008C5487 /* Vinyl.framework */; };
 		7DBD4C961C79CAB0008C5487 /* SwiftCheck.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 82D8B7811C78FE2400D8E037 /* SwiftCheck.framework */; };
 		7DBD4C971C79CACE008C5487 /* MockedTrackedNotFoundErrorHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7995DC61C75F75400E1D905 /* MockedTrackedNotFoundErrorHandler.swift */; };
@@ -92,9 +90,11 @@
 		7DBD4D0B1C79CEE6008C5487 /* Vinyl.h in Headers */ = {isa = PBXBuildFile; fileRef = 7DBD4D0A1C79CEE6008C5487 /* Vinyl.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7DBD4D0C1C79CEEB008C5487 /* Vinyl.h in Headers */ = {isa = PBXBuildFile; fileRef = 7DBD4D0A1C79CEE6008C5487 /* Vinyl.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7DBD4D0D1C79CEED008C5487 /* Vinyl.h in Headers */ = {isa = PBXBuildFile; fileRef = 7DBD4D0A1C79CEE6008C5487 /* Vinyl.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		7DE666A61CAB49DA00ED063D /* URLSessionTaskType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DE666A51CAB49DA00ED063D /* URLSessionTaskType.swift */; };
 		82D8B78E1C78FE3100D8E037 /* SwiftCheck.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 82D8B7851C78FE2400D8E037 /* SwiftCheck.framework */; };
 		82D8B78F1C78FE3800D8E037 /* SwiftCheck.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 82D8B7851C78FE2400D8E037 /* SwiftCheck.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		94A331B81D12479700E3ED6F /* XCTestNSURLSessionDataDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94A331B71D12479700E3ED6F /* XCTestNSURLSessionDataDelegate.swift */; };
+		94A331B91D12479700E3ED6F /* XCTestNSURLSessionDataDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94A331B71D12479700E3ED6F /* XCTestNSURLSessionDataDelegate.swift */; };
+		94A331BA1D12479700E3ED6F /* XCTestNSURLSessionDataDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94A331B71D12479700E3ED6F /* XCTestNSURLSessionDataDelegate.swift */; };
 		C70886321C74D452002DBB2C /* vinyl_multiple.json in Resources */ = {isa = PBXBuildFile; fileRef = C70886301C74D452002DBB2C /* vinyl_multiple.json */; };
 		C70886331C74D452002DBB2C /* vinyl_single.json in Resources */ = {isa = PBXBuildFile; fileRef = C70886311C74D452002DBB2C /* vinyl_single.json */; };
 		C70886361C74D470002DBB2C /* dvr_multiple.json in Resources */ = {isa = PBXBuildFile; fileRef = C70886341C74D470002DBB2C /* dvr_multiple.json */; };
@@ -241,9 +241,9 @@
 		7DC5704C1C72A1AB00BA1458 /* Player.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
 		7DC5704E1C72A1FD00BA1458 /* TrackMatcher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrackMatcher.swift; sourceTree = "<group>"; };
 		7DC570501C72ACA100BA1458 /* RequestMatcherRegistryTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RequestMatcherRegistryTests.swift; sourceTree = "<group>"; };
-		7DE666A51CAB49DA00ED063D /* URLSessionTaskType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = URLSessionTaskType.swift; sourceTree = "<group>"; };
 		82D8B7731C78E3FF00D8E037 /* Arbitrary.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Arbitrary.swift; sourceTree = "<group>"; };
 		82D8B7771C78FE2400D8E037 /* SwiftCheck.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = SwiftCheck.xcodeproj; path = Carthage/Checkouts/SwiftCheck/SwiftCheck.xcodeproj; sourceTree = SOURCE_ROOT; };
+		94A331B71D12479700E3ED6F /* XCTestNSURLSessionDataDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = XCTestNSURLSessionDataDelegate.swift; sourceTree = "<group>"; };
 		C70886111C7346CF002DBB2C /* NSURLQueryItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSURLQueryItem.swift; sourceTree = "<group>"; };
 		C70886141C735136002DBB2C /* FuncComposition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FuncComposition.swift; sourceTree = "<group>"; };
 		C70886161C737684002DBB2C /* NSURLRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSURLRequest.swift; sourceTree = "<group>"; };
@@ -416,7 +416,6 @@
 				C72AD2EA1C6E274700E11612 /* JSON_Helpers */,
 				C75D79221C6E0E9D004B92A9 /* Turntable.swift */,
 				7D22F3011C75351B00A81608 /* TurntableConfiguration.swift */,
-				7DE666A51CAB49DA00ED063D /* URLSessionTaskType.swift */,
 				C708861C1C738A19002DBB2C /* URLSessionDataTask.swift */,
 				E530E6101C864B3300D9B590 /* URLSessionUploadTask.swift */,
 				7DC5704C1C72A1AB00BA1458 /* Player.swift */,
@@ -456,6 +455,7 @@
 			isa = PBXGroup;
 			children = (
 				C7995DC61C75F75400E1D905 /* MockedTrackedNotFoundErrorHandler.swift */,
+				94A331B71D12479700E3ED6F /* XCTestNSURLSessionDataDelegate.swift */,
 			);
 			path = "Mocked Handlers";
 			sourceTree = "<group>";
@@ -786,7 +786,6 @@
 				7DBD4CCC1C79CCE2008C5487 /* URLSessionDataTask.swift in Sources */,
 				7DBD4CCD1C79CCE2008C5487 /* Player.swift in Sources */,
 				7DBD4CCE1C79CCE2008C5487 /* TrackMatcher.swift in Sources */,
-				7D7171AA1CABE6440080C1F4 /* URLSessionTaskType.swift in Sources */,
 				7DBD4CCF1C79CCE2008C5487 /* Vinyl.swift in Sources */,
 				7DBD4CD01C79CCE2008C5487 /* Track.swift in Sources */,
 				7DBD4CD11C79CCE2008C5487 /* Response.swift in Sources */,
@@ -801,6 +800,7 @@
 				7DBD4C971C79CACE008C5487 /* MockedTrackedNotFoundErrorHandler.swift in Sources */,
 				7DBD4C981C79CACE008C5487 /* TurntableTests.swift in Sources */,
 				7DBD4C991C79CACE008C5487 /* RequestMatcherRegistryTests.swift in Sources */,
+				94A331B91D12479700E3ED6F /* XCTestNSURLSessionDataDelegate.swift in Sources */,
 				7DBD4C9A1C79CACE008C5487 /* TrackTests.swift in Sources */,
 				7DBD4C9B1C79CACE008C5487 /* Arbitrary.swift in Sources */,
 			);
@@ -824,7 +824,6 @@
 				7DBD4CEE1C79CCFA008C5487 /* URLSessionDataTask.swift in Sources */,
 				7DBD4CEF1C79CCFA008C5487 /* Player.swift in Sources */,
 				7DBD4CF01C79CCFA008C5487 /* TrackMatcher.swift in Sources */,
-				7D7171AE1CABE6450080C1F4 /* URLSessionTaskType.swift in Sources */,
 				7DBD4CF11C79CCFA008C5487 /* Vinyl.swift in Sources */,
 				7DBD4CF21C79CCFA008C5487 /* Track.swift in Sources */,
 				7DBD4CF31C79CCFA008C5487 /* Response.swift in Sources */,
@@ -839,6 +838,7 @@
 				7DBD4CF71C79CD61008C5487 /* MockedTrackedNotFoundErrorHandler.swift in Sources */,
 				7DBD4CF81C79CD61008C5487 /* TurntableTests.swift in Sources */,
 				7DBD4CF91C79CD61008C5487 /* RequestMatcherRegistryTests.swift in Sources */,
+				94A331BA1D12479700E3ED6F /* XCTestNSURLSessionDataDelegate.swift in Sources */,
 				7DBD4CFA1C79CD61008C5487 /* TrackTests.swift in Sources */,
 				7DBD4CFB1C79CD61008C5487 /* Arbitrary.swift in Sources */,
 			);
@@ -862,7 +862,6 @@
 				7DBD4CDD1C79CCF4008C5487 /* URLSessionDataTask.swift in Sources */,
 				7DBD4CDE1C79CCF4008C5487 /* Player.swift in Sources */,
 				7DBD4CDF1C79CCF4008C5487 /* TrackMatcher.swift in Sources */,
-				7DE666A61CAB49DA00ED063D /* URLSessionTaskType.swift in Sources */,
 				7DBD4CE01C79CCF4008C5487 /* Vinyl.swift in Sources */,
 				7DBD4CE11C79CCF4008C5487 /* Track.swift in Sources */,
 				7DBD4CE21C79CCF4008C5487 /* Response.swift in Sources */,
@@ -877,6 +876,7 @@
 				7DBD4CFC1C79CD6B008C5487 /* MockedTrackedNotFoundErrorHandler.swift in Sources */,
 				7DBD4CFD1C79CD6B008C5487 /* TurntableTests.swift in Sources */,
 				7DBD4CFE1C79CD6B008C5487 /* RequestMatcherRegistryTests.swift in Sources */,
+				94A331B81D12479700E3ED6F /* XCTestNSURLSessionDataDelegate.swift in Sources */,
 				7DBD4CFF1C79CD6B008C5487 /* TrackTests.swift in Sources */,
 				7DBD4D001C79CD6B008C5487 /* Arbitrary.swift in Sources */,
 			);
