@@ -26,7 +26,7 @@ public struct Track {
         
         self.response = response
         
-        let urlString = response.urlResponse.URL?.absoluteString
+        let urlString = response.urlResponse?.URL?.absoluteString
         let url = NSURL(string: urlString!)!
         
         self.request = NSURLRequest(URL: url)
@@ -89,6 +89,13 @@ public struct TrackFactory {
     public static func createBadTrack(url: NSURL, statusCode: Int, error: NSError? = nil, headers: HTTPHeaders = [:]) -> Track {
         
         return createTrack(url, statusCode: statusCode, body: nil, error: error, headers: headers)
+    }
+
+    public static func createErrorTrack(url: NSURL, error: NSError) -> Track {
+
+        let request = NSURLRequest(URL: url)
+        let response = Response(urlResponse: nil, body: nil, error: error)
+        return Track(request: request, response: response)
     }
     
     public static func createValidTrack(url: NSURL, body: NSData? = nil, headers: HTTPHeaders = [:]) -> Track {

@@ -26,10 +26,10 @@ extension NSURLRequest {
         
         if let headers = encodedRequest["headers"] as? HTTPHeaders {
             request.allHTTPHeaderFields = headers
-        }
-        
-        if let body = encodedRequest["body"] as? NSData {
-            request.HTTPBody = body
+            
+            if let body = decodeBody(encodedRequest["body"], headers: headers) {
+                request.HTTPBody = body
+            }
         }
         
         return request

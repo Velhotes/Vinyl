@@ -9,11 +9,11 @@
 import Foundation
 
 struct Response {
-    let urlResponse: NSHTTPURLResponse
+    let urlResponse: NSHTTPURLResponse?
     let body: NSData?
     let error: NSError?
     
-    init(urlResponse: NSHTTPURLResponse, body: NSData? = nil, error: NSError? = nil) {
+    init(urlResponse: NSHTTPURLResponse?, body: NSData? = nil, error: NSError? = nil) {
         self.urlResponse = urlResponse
         self.body = body
         self.error = error
@@ -48,7 +48,7 @@ extension Response: Hashable {
         let body = self.body ?? ""
         let error = self.error ?? ""
         
-        return "\(urlResponse.hashValue):\((body)):\(error)".hashValue
+        return "\(urlResponse?.hashValue):\((body)):\(error)".hashValue
     }
     
 }

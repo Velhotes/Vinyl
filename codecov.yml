@@ -1,0 +1,14 @@
+coverage:
+  ignore:
+  - Pods/.*
+  - Applications/Xcode.app/.*
+  - vendor/.*
+  - Carthage/.*
+  - build/.*
+  - .*Tests.m
+  - .*Tests.swift
+  - VinylTests/.*
+  status:
+    patch: false
+
+comment: off

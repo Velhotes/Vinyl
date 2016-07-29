@@ -152,6 +152,38 @@ class TurntableTests: XCTestCase {
         turntable.dataTaskWithURL(NSURL(string: url2String)!, completionHandler: checker).resume()
     }
     
+    func test_Vinyl_upload() {
+        
+        let expectation = self.expectationWithDescription("Expected callback to have the correct response and data")
+        defer { self.waitForExpectationsWithTimeout(4, handler: nil) }
+        
+        let turntable = Turntable(
+            vinylName: "vinyl_upload",
+            turntableConfiguration: TurntableConfiguration(matchingStrategy: .RequestAttributes(types: [.Method, .URL, .Body], playTracksUniquely: true)))
+        
+        let urlString = "http://api.test.com"
+        let request = NSMutableURLRequest(URL: NSURL(string: urlString)!)
+        request.HTTPMethod = "POST"
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        let data = try! NSJSONSerialization.dataWithJSONObject(["username": "ziggy", "password": "stardust"], options: [])
+        
+        turntable.uploadTaskWithRequest(request, fromData: data, completionHandler: { (data, response, error) in
+            XCTAssertNil(error)
+            
+            guard let httpResponse = response as? NSHTTPURLResponse else { fatalError("\(response) should be a NSHTTPURLResponse") }
+            
+            let body: AnyObject = ["token": "thespidersfrommars"]
+            let responseBody = try! NSJSONSerialization.JSONObjectWithData(data!, options: [])
+            
+            XCTAssertEqual(httpResponse.URL!.absoluteString, urlString)
+            XCTAssertEqual(httpResponse.statusCode, 200)
+            XCTAssertTrue(responseBody.isEqual(body))
+            XCTAssertNotNil(httpResponse.allHeaderFields)
+            
+            expectation.fulfill()
+        }).resume()
+    }
+    
     func test_playVinyl() {
         
         let turntableConfiguration = TurntableConfiguration()
@@ -280,11 +312,11 @@ class TurntableTests: XCTestCase {
                 
                 XCTAssertTrue(httpResponse.statusCode == 200)
                 
-                if let responseHeaders = httpResponse.allHeaderFields as? HTTPHeaders, let originalHeaders = track.response.urlResponse.allHeaderFields as? HTTPHeaders {
+                if let responseHeaders = httpResponse.allHeaderFields as? HTTPHeaders, let originalHeaders = track.response.urlResponse?.allHeaderFields as? HTTPHeaders {
                     XCTAssertTrue(responseHeaders == originalHeaders)
                 }
                 
-                XCTAssertTrue(httpResponse.URL == track.response.urlResponse.URL)
+                XCTAssertTrue(httpResponse.URL == track.response.urlResponse?.URL)
                 
                 tracks.removeAtIndex(tracks.indexOf(track)!)
             }
@@ -301,5 +333,45 @@ class TurntableTests: XCTestCase {
         turntable.dataTaskWithRequest(request1, completionHandler: checker).resume()
         turntable.dataTaskWithRequest(request2, completionHandler: checker).resume()
         turntable.dataTaskWithRequest(request3, completionHandler: checker).resume()
+    }
+    
+    //MARK: - Delegate queue
+    
+    func test_Vinyl_defaultQueue() {
+        
+        let expectation = self.expectationWithDescription("Expected callback to be called on background thread")
+        defer { self.waitForExpectationsWithTimeout(4, handler: nil) }
+        
+        let turntable = Turntable(vinylName: "vinyl_single")
+        
+        let urlString = "http://api.test.com"
+        
+        turntable.dataTaskWithURL(NSURL(string: urlString)!) { (data, response, anError) in
+            
+            XCTAssertFalse(NSThread.isMainThread())
+            expectation.fulfill()
+            }.resume()
+    }
+    
+    func test_Vinyl_mainQueue() {
+        
+        let expectation = self.expectationWithDescription("Expected callback to be called on main thread")
+        defer { self.waitForExpectationsWithTimeout(4, handler: nil) }
+        
+        let turntable = Turntable(vinylName: "vinyl_single", delegateQueue: NSOperationQueue.mainQueue())
+        
+        let urlString = "http://api.test.com"
+        
+        turntable.dataTaskWithURL(NSURL(string: urlString)!) { (data, response, anError) in
+            
+            XCTAssertTrue(NSThread.isMainThread())
+            expectation.fulfill()
+            }.resume()
+    }
+    
+    func test_Vinyl_Delegate() {
+        
+        let turntable = Turntable(vinylName: "vinyl_single", delegateQueue: NSOperationQueue.mainQueue())
+        XCTAssertNil(turntable.delegate)
     }
 }
