@@ -48,15 +48,22 @@ public final class Turntable: NSURLSession {
     }
     
     public convenience init(vinylName: String, bundle: NSBundle = testingBundle(), turntableConfiguration: TurntableConfiguration = TurntableConfiguration(), delegateQueue: NSOperationQueue? = nil) {
+        let config: TurntableConfiguration
+        if case .MissingVinyl = turntableConfiguration.recordingMode,
+        let path = bundle.resourceURL?.path {
+            let fullPath = path + vinylName
+            config = TurntableConfiguration(matchingStrategy: turntableConfiguration.matchingStrategy, recordingMode: .MissingVinyl(pathForRecording: fullPath))
+        } else {
+            config = turntableConfiguration
+        }
         
-        let plastic = Turntable.createVinylPlastic(vinylName, bundle: bundle)
-        self.init(vinyl: Vinyl(plastic: plastic), turntableConfiguration: turntableConfiguration, delegateQueue: delegateQueue)
+        let plastic = Turntable.createVinylPlastic(vinylName, bundle: bundle, recordingMode: config.recordingMode)
+        self.init(vinyl: Vinyl(plastic: plastic), turntableConfiguration: config, delegateQueue: delegateQueue)
     }
     
     // MARK: - Private methods
 
     private func playVinyl<URLSessionTask: URLSessionTaskType>(request request: NSURLRequest, fromData bodyData: NSData? = nil, completionHandler: RequestCompletionHandler) throws -> URLSessionTask {
-
         guard let player = player else {
             fatalError("Did you forget to load the Vinyl? 🎶")
         }
@@ -139,7 +146,7 @@ extension Turntable {
     
     public func loadVinyl(vinylName: String,  bundle: NSBundle = testingBundle()) {
         
-        let vinyl = Vinyl(plastic: Turntable.createVinylPlastic(vinylName, bundle: bundle))
+        let vinyl = Vinyl(plastic: Turntable.createVinylPlastic(vinylName, bundle: bundle, recordingMode: turntableConfiguration.recordingMode))
         player = Turntable.createPlayer(vinyl, configuration: turntableConfiguration)
     }
     
@@ -177,12 +184,16 @@ extension Turntable {
         return plastic
     }
     
-    private static func createVinylPlastic(vinylName: String, bundle: NSBundle) -> Plastic {
-        
-        guard let plastic: Plastic = loadJSON(bundle, fileName: vinylName) else {
-            fatalError("💣 Vinyl file \"\(vinylName)\" not found 😩")
+    private static func createVinylPlastic(vinylName: String, bundle: NSBundle, recordingMode: RecordingMode) -> Plastic {
+        if let plastic: Plastic = loadJSON(bundle, fileName: vinylName) {
+            return plastic
         }
-        
-        return plastic
+
+        switch recordingMode {
+        case .None, .MissingTracks:
+            fatalError("💣 Vinyl file \"\(vinylName)\" not found 😩")
+        case .MissingVinyl:
+            return []
+        }
     }
 }
