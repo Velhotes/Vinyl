@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4CD295DC1D57541A00B6D705 /* Recorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CD295DB1D57541A00B6D705 /* Recorder.swift */; };
+		4CD295DD1D57541A00B6D705 /* Recorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CD295DB1D57541A00B6D705 /* Recorder.swift */; };
+		4CD295DE1D57541A00B6D705 /* Recorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CD295DB1D57541A00B6D705 /* Recorder.swift */; };
+		4CD295E31D57545A00B6D705 /* Wax.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CD295E21D57545A00B6D705 /* Wax.swift */; };
+		4CD295E41D57545A00B6D705 /* Wax.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CD295E21D57545A00B6D705 /* Wax.swift */; };
+		4CD295E51D57545A00B6D705 /* Wax.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CD295E21D57545A00B6D705 /* Wax.swift */; };
 		7D7171AA1CABE6440080C1F4 /* URLSessionTaskType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DE666A51CAB49DA00ED063D /* URLSessionTaskType.swift */; };
 		7D7171AE1CABE6450080C1F4 /* URLSessionTaskType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DE666A51CAB49DA00ED063D /* URLSessionTaskType.swift */; };
 		7DBD4C891C79CA24008C5487 /* Vinyl.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7DBD4C7F1C79CA24008C5487 /* Vinyl.framework */; };
@@ -229,6 +235,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		4CD295DB1D57541A00B6D705 /* Recorder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Recorder.swift; sourceTree = "<group>"; };
+		4CD295E21D57545A00B6D705 /* Wax.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Wax.swift; sourceTree = "<group>"; };
 		7D22F3011C75351B00A81608 /* TurntableConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TurntableConfiguration.swift; sourceTree = "<group>"; };
 		7D22F3031C754F5C00A81608 /* Response.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Response.swift; sourceTree = "<group>"; };
 		7D48F0D21C7159F10044DC32 /* RequestMatcherRegistry.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RequestMatcherRegistry.swift; sourceTree = "<group>"; };
@@ -420,8 +428,10 @@
 				C708861C1C738A19002DBB2C /* URLSessionDataTask.swift */,
 				E530E6101C864B3300D9B590 /* URLSessionUploadTask.swift */,
 				7DC5704C1C72A1AB00BA1458 /* Player.swift */,
+				4CD295DB1D57541A00B6D705 /* Recorder.swift */,
 				7DC5704E1C72A1FD00BA1458 /* TrackMatcher.swift */,
 				C75D79201C6E0B32004B92A9 /* Vinyl.swift */,
+				4CD295E21D57545A00B6D705 /* Wax.swift */,
 				7D93580B1C7117A80020103D /* Track.swift */,
 				7D22F3031C754F5C00A81608 /* Response.swift */,
 				7D48F0D21C7159F10044DC32 /* RequestMatcherRegistry.swift */,
@@ -781,12 +791,14 @@
 				7DBD4CC71C79CCE2008C5487 /* NSBundle.swift in Sources */,
 				7DBD4CC81C79CCE2008C5487 /* EncodingDecoding.swift in Sources */,
 				7DBD4CC91C79CCE2008C5487 /* JSONHelper.swift in Sources */,
+				4CD295E41D57545A00B6D705 /* Wax.swift in Sources */,
 				7DBD4CCA1C79CCE2008C5487 /* Turntable.swift in Sources */,
 				7DBD4CCB1C79CCE2008C5487 /* TurntableConfiguration.swift in Sources */,
 				7DBD4CCC1C79CCE2008C5487 /* URLSessionDataTask.swift in Sources */,
 				7DBD4CCD1C79CCE2008C5487 /* Player.swift in Sources */,
 				7DBD4CCE1C79CCE2008C5487 /* TrackMatcher.swift in Sources */,
 				7D7171AA1CABE6440080C1F4 /* URLSessionTaskType.swift in Sources */,
+				4CD295DD1D57541A00B6D705 /* Recorder.swift in Sources */,
 				7DBD4CCF1C79CCE2008C5487 /* Vinyl.swift in Sources */,
 				7DBD4CD01C79CCE2008C5487 /* Track.swift in Sources */,
 				7DBD4CD11C79CCE2008C5487 /* Response.swift in Sources */,
@@ -819,12 +831,14 @@
 				7DBD4CE91C79CCFA008C5487 /* NSBundle.swift in Sources */,
 				7DBD4CEA1C79CCFA008C5487 /* EncodingDecoding.swift in Sources */,
 				7DBD4CEB1C79CCFA008C5487 /* JSONHelper.swift in Sources */,
+				4CD295E51D57545A00B6D705 /* Wax.swift in Sources */,
 				7DBD4CEC1C79CCFA008C5487 /* Turntable.swift in Sources */,
 				7DBD4CED1C79CCFA008C5487 /* TurntableConfiguration.swift in Sources */,
 				7DBD4CEE1C79CCFA008C5487 /* URLSessionDataTask.swift in Sources */,
 				7DBD4CEF1C79CCFA008C5487 /* Player.swift in Sources */,
 				7DBD4CF01C79CCFA008C5487 /* TrackMatcher.swift in Sources */,
 				7D7171AE1CABE6450080C1F4 /* URLSessionTaskType.swift in Sources */,
+				4CD295DE1D57541A00B6D705 /* Recorder.swift in Sources */,
 				7DBD4CF11C79CCFA008C5487 /* Vinyl.swift in Sources */,
 				7DBD4CF21C79CCFA008C5487 /* Track.swift in Sources */,
 				7DBD4CF31C79CCFA008C5487 /* Response.swift in Sources */,
@@ -857,12 +871,14 @@
 				7DBD4CD81C79CCF4008C5487 /* NSBundle.swift in Sources */,
 				7DBD4CD91C79CCF4008C5487 /* EncodingDecoding.swift in Sources */,
 				7DBD4CDA1C79CCF4008C5487 /* JSONHelper.swift in Sources */,
+				4CD295E31D57545A00B6D705 /* Wax.swift in Sources */,
 				7DBD4CDB1C79CCF4008C5487 /* Turntable.swift in Sources */,
 				7DBD4CDC1C79CCF4008C5487 /* TurntableConfiguration.swift in Sources */,
 				7DBD4CDD1C79CCF4008C5487 /* URLSessionDataTask.swift in Sources */,
 				7DBD4CDE1C79CCF4008C5487 /* Player.swift in Sources */,
 				7DBD4CDF1C79CCF4008C5487 /* TrackMatcher.swift in Sources */,
 				7DE666A61CAB49DA00ED063D /* URLSessionTaskType.swift in Sources */,
+				4CD295DC1D57541A00B6D705 /* Recorder.swift in Sources */,
 				7DBD4CE01C79CCF4008C5487 /* Vinyl.swift in Sources */,
 				7DBD4CE11C79CCF4008C5487 /* Track.swift in Sources */,
 				7DBD4CE21C79CCF4008C5487 /* Response.swift in Sources */,

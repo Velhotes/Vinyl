@@ -27,4 +27,12 @@ struct Player {
         
         return (data: track.response.body, response: track.response.urlResponse, error: track.response.error)
     }
+    
+    func trackExists(forRequest request: Request) -> Bool {
+        if let _ = self.seekTrackForRequest(request) {
+            return true;
+        }
+        
+        return false;
+    }
 }

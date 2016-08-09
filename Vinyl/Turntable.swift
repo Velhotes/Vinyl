@@ -21,6 +21,8 @@ public final class Turntable: NSURLSession {
     var errorHandler: ErrorHandler = DefaultErrorHandler()
     private let turntableConfiguration: TurntableConfiguration
     private var player: Player?
+    private var recorder: Recorder?
+    private var recordingSession: NSURLSession?
     private let operationQueue: NSOperationQueue
     
     public init(configuration: TurntableConfiguration, delegateQueue: NSOperationQueue? = nil) {
@@ -32,33 +34,33 @@ public final class Turntable: NSURLSession {
             operationQueue = NSOperationQueue()
             operationQueue.maxConcurrentOperationCount = 1
         }
+        
+        if configuration.recodingEnabled {
+            recorder = Recorder(wax: Wax(tracks: []), recordingPath: configuration.recordingPath)
+            recordingSession = NSURLSession.sharedSession()
+        }
+        
         super.init()
     }
     
-    public convenience init(vinyl: Vinyl, turntableConfiguration: TurntableConfiguration = TurntableConfiguration(), delegateQueue: NSOperationQueue? = nil) {
-        
+    public convenience init(vinyl: Vinyl, turntableConfiguration: TurntableConfiguration = TurntableConfiguration(), delegateQueue: NSOperationQueue? = nil) {        
         self.init(configuration: turntableConfiguration, delegateQueue: delegateQueue)
         player = Turntable.createPlayer(vinyl, configuration: turntableConfiguration)
     }
     
     public convenience init(cassetteName: String, bundle: NSBundle = testingBundle(), turntableConfiguration: TurntableConfiguration = TurntableConfiguration(), delegateQueue: NSOperationQueue? = nil) {
-        
         let vinyl = Vinyl(plastic: Turntable.createCassettePlastic(cassetteName, bundle: bundle))
         self.init(vinyl: vinyl, turntableConfiguration: turntableConfiguration, delegateQueue: delegateQueue)
     }
     
     public convenience init(vinylName: String, bundle: NSBundle = testingBundle(), turntableConfiguration: TurntableConfiguration = TurntableConfiguration(), delegateQueue: NSOperationQueue? = nil) {
-        let config: TurntableConfiguration
-        if case .MissingVinyl = turntableConfiguration.recordingMode,
-        let path = bundle.resourceURL?.path {
-            let fullPath = path + vinylName
-            config = TurntableConfiguration(matchingStrategy: turntableConfiguration.matchingStrategy, recordingMode: .MissingVinyl(pathForRecording: fullPath))
-        } else {
-            config = turntableConfiguration
-        }
+        let plastic = Turntable.createVinylPlastic(vinylName, bundle: bundle, recordingMode: turntableConfiguration.recordingMode)
+        let vinyl = Vinyl(plastic: plastic)
+        self.init(vinyl: vinyl, turntableConfiguration: turntableConfiguration, delegateQueue: delegateQueue)
         
-        let plastic = Turntable.createVinylPlastic(vinylName, bundle: bundle, recordingMode: config.recordingMode)
-        self.init(vinyl: Vinyl(plastic: plastic), turntableConfiguration: config, delegateQueue: delegateQueue)
+        if turntableConfiguration.recodingEnabled {
+            recorder = Recorder(wax: Wax(vinyl: vinyl), recordingPath: recordingPath(fromConfiguration: turntableConfiguration, vinylName: vinylName, bundle: bundle))
+        }
     }
     
     // MARK: - Private methods
@@ -77,6 +79,22 @@ public final class Turntable: NSURLSession {
         }
     }
 
+    private func recordingHandler(request request: NSURLRequest, fromData bodyData: NSData? = nil, completionHandler: RequestCompletionHandler) -> RequestCompletionHandler {
+        guard var recorder = recorder else {
+            fatalError("No recording started.")
+        }
+        
+        return {
+            data, response, error in
+            
+            recorder.saveTrack(withRequest: self.transformRequest(request, bodyData: bodyData), urlResponse: response as? NSHTTPURLResponse, body: data, error: error)
+            
+            self.operationQueue.addOperationWithBlock {
+                completionHandler(data, response, error)
+            }
+        }
+    }
+    
     private func transformRequest(request: NSURLRequest, bodyData: NSData? = nil) -> NSURLRequest {
         guard let bodyData = bodyData else {
             return request
@@ -91,6 +109,14 @@ public final class Turntable: NSURLSession {
         return mutableRequest
     }
 
+    private func recordingPath(fromConfiguration configuration: TurntableConfiguration, vinylName: String, bundle: NSBundle) -> String? {
+        if let recordingPath = configuration.recordingPath {
+            return recordingPath
+        }
+        
+        return bundle.resourceURL?.URLByAppendingPathComponent(vinylName).URLByAppendingPathExtension("json").path
+    }
+    
     public override var delegate: NSURLSessionDelegate? {
         return nil
     }
@@ -111,7 +137,12 @@ extension Turntable {
             return try playVinyl(request: request, completionHandler: completionHandler) as URLSessionDataTask
         }
         catch Error.TrackNotFound {
-            errorHandler.handleTrackNotFound(request, playTracksUniquely: turntableConfiguration.playTracksUniquely)
+            if let session = recordingSession {
+                return session.dataTaskWithRequest(request, completionHandler: recordingHandler(request: request, completionHandler: completionHandler))
+            }
+            else {
+                errorHandler.handleTrackNotFound(request, playTracksUniquely: turntableConfiguration.playTracksUniquely)
+            }
         }
         catch {
             errorHandler.handleUnknownError()
@@ -126,7 +157,12 @@ extension Turntable {
             return try playVinyl(request: request, fromData: bodyData, completionHandler: completionHandler) as URLSessionUploadTask
         }
         catch Error.TrackNotFound {
-            errorHandler.handleTrackNotFound(request, playTracksUniquely: turntableConfiguration.playTracksUniquely)
+            if let session = recordingSession {
+                return session.uploadTaskWithRequest(request, fromData: bodyData, completionHandler: recordingHandler(request: request, fromData: bodyData, completionHandler: completionHandler))
+            }
+            else {
+                errorHandler.handleTrackNotFound(request, playTracksUniquely: turntableConfiguration.playTracksUniquely)
+            }
         }
         catch {
             errorHandler.handleUnknownError()
@@ -148,6 +184,10 @@ extension Turntable {
         
         let vinyl = Vinyl(plastic: Turntable.createVinylPlastic(vinylName, bundle: bundle, recordingMode: turntableConfiguration.recordingMode))
         player = Turntable.createPlayer(vinyl, configuration: turntableConfiguration)
+
+        if turntableConfiguration.recodingEnabled {
+            recorder = Recorder(wax: Wax(vinyl: vinyl), recordingPath: recordingPath(fromConfiguration: turntableConfiguration, vinylName: vinylName, bundle: bundle))
+        }
     }
     
     public func loadCassette(cassetteName: String,  bundle: NSBundle = testingBundle()) {
