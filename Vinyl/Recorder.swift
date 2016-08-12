@@ -8,17 +8,47 @@
 
 import Foundation
 
-struct Recorder {
-    
+class Recorder {
     var wax: Wax
     let recordingPath: String?
+    
+    init(wax: Wax, recordingPath: String?) {
+        self.wax = wax
+        self.recordingPath = recordingPath
+    }
+}
 
-    mutating func saveTrack(withRequest request: Request, response: Response) {
+extension Recorder {
+    func saveTrack(withRequest request: Request, response: Response) {
         wax.addTrack(Track(request: request, response: response))
     }
     
-    mutating func saveTrack(withRequest request: Request, urlResponse: NSHTTPURLResponse?, body: NSData? = nil, error: NSError? = nil) {
+    func saveTrack(withRequest request: Request, urlResponse: NSHTTPURLResponse?, body: NSData? = nil, error: NSError? = nil) {
         let response = Response(urlResponse: urlResponse, body: body, error: error)
         saveTrack(withRequest: request, response: response)
+    }
+}
+
+extension Recorder {
+    
+    func persist() throws {
+        guard let recordingPath = recordingPath else {
+            return
+        }
+        
+        let fileManager = NSFileManager.defaultManager()
+        guard fileManager.createFileAtPath(recordingPath, contents: nil, attributes: nil) == true,
+            let file = NSFileHandle(forWritingAtPath: recordingPath) else {
+            return
+        }
+        
+        let jsonWax = wax.tracks.map {
+            $0.encodedTrack()
+        }
+        
+        let data = try NSJSONSerialization.dataWithJSONObject(jsonWax, options: .PrettyPrinted)
+        file.writeData(data)
+        
+        file.synchronizeFile()
     }
 }

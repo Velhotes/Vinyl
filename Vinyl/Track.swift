@@ -56,6 +56,15 @@ extension Track {
             self.init(response: response)
         }
     }
+    
+    func encodedTrack() -> EncodedObject {
+        var json = EncodedObject()
+        
+        json["request"] = request.encodedObject()
+        json["response"] = response.encodedObject()
+        
+        return json
+    }
 }
 
 extension Track: Hashable {

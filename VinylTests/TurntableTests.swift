@@ -379,13 +379,12 @@ class TurntableTests: XCTestCase {
         let expectation = self.expectationWithDescription("Expected callback to be called on background thread")
         defer { self.waitForExpectationsWithTimeout(4, handler: nil) }
         
-        let turntable = Turntable(vinylName: "vinyl_recording", turntableConfiguration: TurntableConfiguration(recordingMode: .MissingVinyl(recordingPath: "~/Desktop/recording.json")))
+        let turntable = Turntable(vinylName: "vinyl_recording", turntableConfiguration: TurntableConfiguration(recordingMode: .MissingVinyl(recordingPath: "/Users/michael/Desktop/recording.json")))
         
         let urlString = "https://api.github.com"
         
         turntable.dataTaskWithURL(NSURL(string: urlString)!) { (data, response, anError) in
-            
-            XCTAssertFalse(NSThread.isMainThread())
+            turntable.stopRecording()
             expectation.fulfill()
             }.resume()
     }

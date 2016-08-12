@@ -43,7 +43,7 @@ public final class Turntable: NSURLSession {
         super.init()
     }
     
-    public convenience init(vinyl: Vinyl, turntableConfiguration: TurntableConfiguration = TurntableConfiguration(), delegateQueue: NSOperationQueue? = nil) {        
+    public convenience init(vinyl: Vinyl, turntableConfiguration: TurntableConfiguration = TurntableConfiguration(), delegateQueue: NSOperationQueue? = nil) {
         self.init(configuration: turntableConfiguration, delegateQueue: delegateQueue)
         player = Turntable.createPlayer(vinyl, configuration: turntableConfiguration)
     }
@@ -63,6 +63,11 @@ public final class Turntable: NSURLSession {
         }
     }
     
+    public func stopRecording() {
+        recordingSession = nil
+        persistRecording()
+    }
+    
     // MARK: - Private methods
 
     private func playVinyl<URLSessionTask: URLSessionTaskType>(request request: NSURLRequest, fromData bodyData: NSData? = nil, completionHandler: RequestCompletionHandler) throws -> URLSessionTask {
@@ -80,7 +85,7 @@ public final class Turntable: NSURLSession {
     }
 
     private func recordingHandler(request request: NSURLRequest, fromData bodyData: NSData? = nil, completionHandler: RequestCompletionHandler) -> RequestCompletionHandler {
-        guard var recorder = recorder else {
+        guard let recorder = recorder else {
             fatalError("No recording started.")
         }
         
@@ -115,6 +120,19 @@ public final class Turntable: NSURLSession {
         }
         
         return bundle.resourceURL?.URLByAppendingPathComponent(vinylName).URLByAppendingPathExtension("json").path
+    }
+    
+    private func persistRecording() {
+        guard let recorder = recorder else {
+            return
+        }
+        
+        do {
+            try recorder.persist()
+        }
+        catch {
+            fatalError("💣 we couldn't save the recording.")
+        }
     }
     
     public override var delegate: NSURLSessionDelegate? {

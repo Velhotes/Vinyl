@@ -34,4 +34,18 @@ extension NSURLRequest {
         
         return request
     }
+    
+    func encodedObject() -> EncodedObject {
+        var json = EncodedObject()
+        
+        json["url"] = URL?.absoluteString
+        json["method"] = HTTPMethod
+        
+        if let headers = allHTTPHeaderFields {
+            json["headers"] = headers
+            json["body"] = encodeBody(HTTPBody, headers: headers)
+        }
+        
+        return json
+    }
 }
