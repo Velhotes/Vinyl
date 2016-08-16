@@ -379,12 +379,21 @@ class TurntableTests: XCTestCase {
         let expectation = self.expectationWithDescription("Expected callback to be called on background thread")
         defer { self.waitForExpectationsWithTimeout(4, handler: nil) }
         
-        let turntable = Turntable(vinylName: "vinyl_recording", turntableConfiguration: TurntableConfiguration(recordingMode: .MissingVinyl(recordingPath: "/Users/michael/Desktop/recording.json")))
+        let dogFood = Turntable(vinylName: "vinyl_single")
         
-        let urlString = "https://api.github.com"
+        let turntable = Turntable(vinylName: "vinyl_recording",
+                                  turntableConfiguration: TurntableConfiguration(recordingMode: .MissingVinyl(recordingPath: nil)),
+                                  urlSession: dogFood)
+        
+        let urlString = "http://api.test.com"
         
         turntable.dataTaskWithURL(NSURL(string: urlString)!) { (data, response, anError) in
             turntable.stopRecording()
+            
+            let testBundle = NSBundle.allBundles().filter() { $0.bundlePath.hasSuffix(".xctest") }.first!
+            let path = testBundle.resourceURL?.URLByAppendingPathComponent("vinyl_recording").URLByAppendingPathExtension("json").path
+            XCTAssertTrue(NSFileManager.defaultManager().fileExistsAtPath(path!))
+            
             expectation.fulfill()
             }.resume()
     }

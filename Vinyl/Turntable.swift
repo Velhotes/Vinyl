@@ -25,7 +25,7 @@ public final class Turntable: NSURLSession {
     private var recordingSession: NSURLSession?
     private let operationQueue: NSOperationQueue
     
-    public init(configuration: TurntableConfiguration, delegateQueue: NSOperationQueue? = nil) {
+    public init(configuration: TurntableConfiguration, delegateQueue: NSOperationQueue? = nil, urlSession: NSURLSession? = nil) {
         
         turntableConfiguration = configuration
         if let delegateQueue = delegateQueue {
@@ -37,33 +37,41 @@ public final class Turntable: NSURLSession {
         
         if configuration.recodingEnabled {
             recorder = Recorder(wax: Wax(tracks: []), recordingPath: configuration.recordingPath)
-            recordingSession = NSURLSession.sharedSession()
+            recordingSession = urlSession ?? NSURLSession.sharedSession()
         }
         
         super.init()
     }
     
-    public convenience init(vinyl: Vinyl, turntableConfiguration: TurntableConfiguration = TurntableConfiguration(), delegateQueue: NSOperationQueue? = nil) {
-        self.init(configuration: turntableConfiguration, delegateQueue: delegateQueue)
+    public convenience init(vinyl: Vinyl, turntableConfiguration: TurntableConfiguration = TurntableConfiguration(), delegateQueue: NSOperationQueue? = nil, urlSession: NSURLSession? = nil) {
+        self.init(configuration: turntableConfiguration, delegateQueue: delegateQueue, urlSession: urlSession)
         player = Turntable.createPlayer(vinyl, configuration: turntableConfiguration)
     }
     
-    public convenience init(cassetteName: String, bundle: NSBundle = testingBundle(), turntableConfiguration: TurntableConfiguration = TurntableConfiguration(), delegateQueue: NSOperationQueue? = nil) {
+    public convenience init(cassetteName: String, bundle: NSBundle = testingBundle(), turntableConfiguration: TurntableConfiguration = TurntableConfiguration(), delegateQueue: NSOperationQueue? = nil, urlSession: NSURLSession? = nil) {
         let vinyl = Vinyl(plastic: Turntable.createCassettePlastic(cassetteName, bundle: bundle))
-        self.init(vinyl: vinyl, turntableConfiguration: turntableConfiguration, delegateQueue: delegateQueue)
+        self.init(vinyl: vinyl, turntableConfiguration: turntableConfiguration, delegateQueue: delegateQueue, urlSession: urlSession)
     }
     
-    public convenience init(vinylName: String, bundle: NSBundle = testingBundle(), turntableConfiguration: TurntableConfiguration = TurntableConfiguration(), delegateQueue: NSOperationQueue? = nil) {
+    public convenience init(vinylName: String, bundle: NSBundle = testingBundle(), turntableConfiguration: TurntableConfiguration = TurntableConfiguration(), delegateQueue: NSOperationQueue? = nil, urlSession: NSURLSession? = nil) {
         let plastic = Turntable.createVinylPlastic(vinylName, bundle: bundle, recordingMode: turntableConfiguration.recordingMode)
         let vinyl = Vinyl(plastic: plastic)
-        self.init(vinyl: vinyl, turntableConfiguration: turntableConfiguration, delegateQueue: delegateQueue)
+        self.init(vinyl: vinyl, turntableConfiguration: turntableConfiguration, delegateQueue: delegateQueue, urlSession: urlSession)
         
         if turntableConfiguration.recodingEnabled {
             recorder = Recorder(wax: Wax(vinyl: vinyl), recordingPath: recordingPath(fromConfiguration: turntableConfiguration, vinylName: vinylName, bundle: bundle))
         }
     }
     
+    deinit {
+        stopRecording()
+    }
+    
     public func stopRecording() {
+        guard let _ = recordingSession else {
+            return
+        }
+        
         recordingSession = nil
         persistRecording()
     }

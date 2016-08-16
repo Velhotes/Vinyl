@@ -48,7 +48,8 @@ extension Recorder {
         
         let data = try NSJSONSerialization.dataWithJSONObject(jsonWax, options: .PrettyPrinted)
         file.writeData(data)
-        
         file.synchronizeFile()
+        
+        print("Vinyl recorded to: \(recordingPath)")
     }
 }
