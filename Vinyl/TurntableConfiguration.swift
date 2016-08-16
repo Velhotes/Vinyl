@@ -55,7 +55,7 @@ public struct TurntableConfiguration {
         }
     }
     
-    public init(matchingStrategy: MatchingStrategy = .RequestAttributes(types: [.Method, .URL], playTracksUniquely: true), recordingMode: RecordingMode = .MissingVinyl(recordingPath: nil)) {
+    public init(matchingStrategy: MatchingStrategy = .RequestAttributes(types: [.Method, .URL], playTracksUniquely: true), recordingMode: RecordingMode = .None) {
         self.matchingStrategy = matchingStrategy
         self.recordingMode = recordingMode
     }
