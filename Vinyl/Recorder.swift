@@ -11,6 +11,7 @@ import Foundation
 class Recorder {
     var wax: Wax
     let recordingPath: String?
+    var somethingRecorded = false
     
     init(wax: Wax, recordingPath: String?) {
         self.wax = wax
@@ -21,6 +22,7 @@ class Recorder {
 extension Recorder {
     func saveTrack(withRequest request: Request, response: Response) {
         wax.addTrack(Track(request: request, response: response))
+        somethingRecorded = true
     }
     
     func saveTrack(withRequest request: Request, urlResponse: NSHTTPURLResponse?, body: NSData? = nil, error: NSError? = nil) {
@@ -32,7 +34,7 @@ extension Recorder {
 extension Recorder {
     
     func persist() throws {
-        guard let recordingPath = recordingPath else {
+        guard let recordingPath = recordingPath where somethingRecorded else {
             return
         }
         

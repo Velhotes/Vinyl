@@ -55,11 +55,15 @@ public final class Turntable: NSURLSession {
     
     public convenience init(vinylName: String, bundle: NSBundle = testingBundle(), turntableConfiguration: TurntableConfiguration = TurntableConfiguration(), delegateQueue: NSOperationQueue? = nil, urlSession: NSURLSession? = nil) {
         let plastic = Turntable.createVinylPlastic(vinylName, bundle: bundle, recordingMode: turntableConfiguration.recordingMode)
-        let vinyl = Vinyl(plastic: plastic)
+        let vinyl = Vinyl(plastic: plastic ?? [])
         self.init(vinyl: vinyl, turntableConfiguration: turntableConfiguration, delegateQueue: delegateQueue, urlSession: urlSession)
         
-        if turntableConfiguration.recodingEnabled {
+        switch turntableConfiguration.recordingMode {
+        case .MissingVinyl where plastic == nil, .MissingTracks:
             recorder = Recorder(wax: Wax(vinyl: vinyl), recordingPath: recordingPath(fromConfiguration: turntableConfiguration, vinylName: vinylName, bundle: bundle))
+        default:
+            recorder = nil
+            recordingSession = nil
         }
     }
     
@@ -207,12 +211,16 @@ extension Turntable {
 extension Turntable {
     
     public func loadVinyl(vinylName: String,  bundle: NSBundle = testingBundle()) {
-        
-        let vinyl = Vinyl(plastic: Turntable.createVinylPlastic(vinylName, bundle: bundle, recordingMode: turntableConfiguration.recordingMode))
+        let plastic = Turntable.createVinylPlastic(vinylName, bundle: bundle, recordingMode: turntableConfiguration.recordingMode)
+        let vinyl = Vinyl(plastic: plastic ?? [])
         player = Turntable.createPlayer(vinyl, configuration: turntableConfiguration)
 
-        if turntableConfiguration.recodingEnabled {
+        switch turntableConfiguration.recordingMode {
+        case .MissingVinyl where plastic == nil, .MissingTracks:
             recorder = Recorder(wax: Wax(vinyl: vinyl), recordingPath: recordingPath(fromConfiguration: turntableConfiguration, vinylName: vinylName, bundle: bundle))
+        default:
+            recorder = nil
+            recordingSession = nil
         }
     }
     
@@ -250,7 +258,7 @@ extension Turntable {
         return plastic
     }
     
-    private static func createVinylPlastic(vinylName: String, bundle: NSBundle, recordingMode: RecordingMode) -> Plastic {
+    private static func createVinylPlastic(vinylName: String, bundle: NSBundle, recordingMode: RecordingMode) -> Plastic? {
         if let plastic: Plastic = loadJSON(bundle, fileName: vinylName) {
             return plastic
         }
@@ -259,7 +267,7 @@ extension Turntable {
         case .None, .MissingTracks:
             fatalError("💣 Vinyl file \"\(vinylName)\" not found 😩")
         case .MissingVinyl:
-            return []
+            return nil
         }
     }
 }
