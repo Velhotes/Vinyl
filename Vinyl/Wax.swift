@@ -6,8 +6,6 @@
 //  Copyright © 2016 Velhotes. All rights reserved.
 //
 
-import Foundation
-
 struct Wax {
     
     var tracks: [Track] = []

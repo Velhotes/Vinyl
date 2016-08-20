@@ -8,7 +8,7 @@
 
 import Foundation
 
-class Recorder {
+final class Recorder {
     var wax: Wax
     let recordingPath: String?
     var somethingRecorded = false

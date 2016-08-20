@@ -30,9 +30,9 @@ struct Player {
     
     func trackExists(forRequest request: Request) -> Bool {
         if let _ = self.seekTrackForRequest(request) {
-            return true;
+            return true
         }
         
-        return false;
+        return false
     }
 }
