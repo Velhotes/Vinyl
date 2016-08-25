@@ -11,6 +11,8 @@ import Foundation
 enum Error: ErrorType {
     
     case TrackNotFound
+    case NoRecordingPath
+    case NothingToRecord
 }
 
 public typealias Plastic = [[String: AnyObject]]
@@ -72,12 +74,22 @@ public final class Turntable: NSURLSession {
     }
     
     public func stopRecording() {
-        guard let _ = recordingSession else {
+        guard let recorder = recorder else {
             return
         }
         
-        recordingSession = nil
-        persistRecording()
+        do {
+            try recorder.persist()
+        }
+        catch Error.NothingToRecord {
+            print("Nothing to record.")
+        }
+        catch Error.NoRecordingPath {
+            fatalError("💣 no path was configured for saving the recording.")
+        }
+        catch let error as NSError {
+            fatalError("💣 we couldn't save the recording: \(error.localizedDescription)")
+        }
     }
     
     // MARK: - Private methods
@@ -132,19 +144,6 @@ public final class Turntable: NSURLSession {
         }
         
         return bundle.resourceURL?.URLByAppendingPathComponent(vinylName).URLByAppendingPathExtension("json").path
-    }
-    
-    private func persistRecording() {
-        guard let recorder = recorder else {
-            return
-        }
-        
-        do {
-            try recorder.persist()
-        }
-        catch {
-            fatalError("💣 we couldn't save the recording.")
-        }
     }
     
     public override var delegate: NSURLSessionDelegate? {

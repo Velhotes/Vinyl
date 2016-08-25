@@ -35,7 +35,11 @@ extension Recorder {
     
     func persist() throws {
         guard let recordingPath = recordingPath where somethingRecorded else {
-            return
+            if somethingRecorded {
+                throw Error.NoRecordingPath
+            } else {
+                throw Error.NothingToRecord
+            }
         }
         
         let fileManager = NSFileManager.defaultManager()
@@ -53,5 +57,6 @@ extension Recorder {
         file.synchronizeFile()
         
         print("Vinyl recorded to: \(recordingPath)")
+        somethingRecorded = false
     }
 }

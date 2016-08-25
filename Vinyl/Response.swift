@@ -48,7 +48,6 @@ extension Response {
         
         return json
     }
-    
 }
 
 func ==(lhs: Response, rhs: Response) -> Bool {
@@ -63,6 +62,5 @@ extension Response: Hashable {
         let error = self.error ?? ""
         
         return "\(urlResponse?.hashValue):\((body)):\(error)".hashValue
-    }
-    
+    }    
 }
