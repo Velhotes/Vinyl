@@ -184,7 +184,7 @@ For the 1.0 release, we are planning to have the ability to record requests. In 
 * [X] Allow the user to configure how strict the library should be.
 * [X] Allow the user to define their own response without relying on a json file.
 * [X] Instead of mapping requests ➡️ responses , fix the responses in an array (e.g. first request made will use the first response in the array and so on).
-* [ ] Allow request recording.
+* [X] Allow request recording. ([#12](https://github.com/Velhotes/Vinyl/issues/12))
 * [ ] Debug mode ([#28](https://github.com/Velhotes/Vinyl/issues/28))
 
 ## Why not simply use DVR?
