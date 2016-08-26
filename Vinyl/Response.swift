@@ -35,6 +35,19 @@ extension Response {
         
         self.init(urlResponse: urlResponse, body: decodeBody(encodedResponse["body"], headers: headers), error: nil)
     }
+    
+    func encodedObject() -> EncodedObject {
+        var json = EncodedObject()
+        
+        if let response = urlResponse {
+            json["url"] = response.URL?.absoluteString
+            json["status"] = response.statusCode
+            json["headers"] = response.allHeaderFields
+            json["body"] = encodeBody(body, headers: response.allHeaderFields as! [String : String])
+        }
+        
+        return json
+    }
 }
 
 func ==(lhs: Response, rhs: Response) -> Bool {
@@ -49,6 +62,5 @@ extension Response: Hashable {
         let error = self.error ?? ""
         
         return "\(urlResponse?.hashValue):\((body)):\(error)".hashValue
-    }
-    
+    }    
 }

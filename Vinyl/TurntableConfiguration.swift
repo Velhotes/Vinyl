@@ -13,9 +13,16 @@ public enum MatchingStrategy {
     case TrackOrder
 }
 
+public enum RecordingMode {
+    case None
+    case MissingTracks(recordingPath: String?)
+    case MissingVinyl(recordingPath: String?)
+}
+
 public struct TurntableConfiguration {
     
-   public let matchingStrategy: MatchingStrategy
+    public let matchingStrategy: MatchingStrategy
+    public let recordingMode: RecordingMode
     
     var playTracksUniquely: Bool {
         get {
@@ -25,9 +32,34 @@ public struct TurntableConfiguration {
             }
         }
     }
+
+    var recodingEnabled: Bool {
+        get {
+            switch recordingMode {
+            case .None:
+                return false
+            default:
+                return true
+            }
+        }
+    }
     
-   public init(matchingStrategy: MatchingStrategy = .RequestAttributes(types: [.Method, .URL], playTracksUniquely: true)) {
+    var recordingPath: String? {
+        get {
+            switch recordingMode {
+            case .MissingVinyl(let path):
+                return path
+            case .MissingTracks(let path):
+                return path
+            default:
+                return .None
+            }
+        }
+    }
+    
+    public init(matchingStrategy: MatchingStrategy = .RequestAttributes(types: [.Method, .URL], playTracksUniquely: true), recordingMode: RecordingMode = .MissingVinyl(recordingPath: nil)) {
         self.matchingStrategy = matchingStrategy
+        self.recordingMode = recordingMode
     }
     
     func trackMatchersForVinyl(vinyl: Vinyl) -> [TrackMatcher] {

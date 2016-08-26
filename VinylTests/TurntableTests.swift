@@ -273,6 +273,14 @@ class TurntableTests: XCTestCase {
         turntable.dataTaskWithURL(NSURL(string: url2String)!, completionHandler: checker).resume()
     }
     
+    private func prepPathForRecording(vinylName: String) -> String {
+        let testBundle = NSBundle.allBundles().filter() { $0.bundlePath.hasSuffix(".xctest") }.first!
+        let path = testBundle.resourceURL?.URLByAppendingPathComponent(vinylName).URLByAppendingPathExtension("json").path
+        let _ = try? NSFileManager.defaultManager().removeItemAtPath(path!)
+
+        return path!
+    }
+    
     // MARK: - Track Order strategy
     
     func test_Vinyl_withTrackOrder() {
@@ -373,5 +381,97 @@ class TurntableTests: XCTestCase {
         
         let turntable = Turntable(vinylName: "vinyl_single", delegateQueue: NSOperationQueue.mainQueue())
         XCTAssertNil(turntable.delegate)
+    }
+    
+    func test_Vinyl_recording_missingVinyl_vinylMissing() {
+        let expectation = self.expectationWithDescription("Expected callback to be called on background thread")
+        defer { self.waitForExpectationsWithTimeout(4, handler: nil) }
+        
+        let recordingVinylName = "vinyl_recording"
+        let path = prepPathForRecording(recordingVinylName)
+        
+        let dogFood = Turntable(vinylName: "vinyl_single")
+        let turntable = Turntable(vinylName: recordingVinylName,
+                                  turntableConfiguration: TurntableConfiguration(recordingMode: .MissingVinyl(recordingPath: nil)),
+                                  urlSession: dogFood)
+        
+        let urlString = "http://api.test.com"
+        
+        turntable.dataTaskWithURL(NSURL(string: urlString)!) { (data, response, anError) in
+            turntable.stopRecording()
+            
+            XCTAssertTrue(NSFileManager.defaultManager().fileExistsAtPath(path))
+            
+            expectation.fulfill()
+            }.resume()
+    }
+
+    func test_Vinyl_recording_missingVinyl_vinylPresent() {
+        let expectation = self.expectationWithDescription("Expected callback to be called on background thread")
+        defer { self.waitForExpectationsWithTimeout(4, handler: nil) }
+        
+        let recordingVinylName = "vinyl_recording"
+        let path = prepPathForRecording(recordingVinylName)
+        
+        let dogFood = Turntable(vinylName: "vinyl_single")
+        let turntable = Turntable(vinylName: "vinyl_single",
+                                  turntableConfiguration: TurntableConfiguration(recordingMode: .MissingVinyl(recordingPath: nil)),
+                                  urlSession: dogFood)
+        
+        let urlString = "http://api.test.com"
+        
+        turntable.dataTaskWithURL(NSURL(string: urlString)!) { (data, response, anError) in
+            turntable.stopRecording()
+            
+            XCTAssertFalse(NSFileManager.defaultManager().fileExistsAtPath(path))
+            
+            expectation.fulfill()
+            }.resume()
+    }
+
+    func test_Vinyl_recording_missingTracks_missingTrack() {
+        let expectation = self.expectationWithDescription("Expected callback to be called on background thread")
+        defer { self.waitForExpectationsWithTimeout(4, handler: nil) }
+        
+        let recordingVinylName = "vinyl_recording"
+        let path = prepPathForRecording(recordingVinylName)
+        
+        let dogFood = Turntable(vinylName: "vinyl_multiple")
+        let turntable = Turntable(vinylName: "vinyl_single",
+                                  turntableConfiguration: TurntableConfiguration(recordingMode: .MissingTracks(recordingPath: path)),
+                                  urlSession: dogFood)
+        
+        let urlString = "http://api.test1.com"
+        
+        turntable.dataTaskWithURL(NSURL(string: urlString)!) { (data, response, anError) in
+            turntable.stopRecording()
+            
+            XCTAssertTrue(NSFileManager.defaultManager().fileExistsAtPath(path))
+            
+            expectation.fulfill()
+            }.resume()
+    }
+
+    func test_Vinyl_recording_missingTracks_existingTrack() {
+        let expectation = self.expectationWithDescription("Expected callback to be called on background thread")
+        defer { self.waitForExpectationsWithTimeout(4, handler: nil) }
+        
+        let recordingVinylName = "vinyl_recording"
+        let path = prepPathForRecording(recordingVinylName)
+        
+        let dogFood = Turntable(vinylName: "vinyl_single")
+        let turntable = Turntable(vinylName: "vinyl_single",
+                                  turntableConfiguration: TurntableConfiguration(recordingMode: .MissingTracks(recordingPath: path)),
+                                  urlSession: dogFood)
+        
+        let urlString = "http://api.test.com"
+        
+        turntable.dataTaskWithURL(NSURL(string: urlString)!) { (data, response, anError) in
+            turntable.stopRecording()
+            
+            XCTAssertFalse(NSFileManager.defaultManager().fileExistsAtPath(path))
+            
+            expectation.fulfill()
+            }.resume()
     }
 }
