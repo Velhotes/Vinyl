@@ -11,14 +11,14 @@ struct Wax {
     var tracks: [Track] = []
     
     init(vinyl: Vinyl) {
-        tracks.appendContentsOf(vinyl.tracks)
+        tracks.append(contentsOf: vinyl.tracks)
     }
     
     init(tracks: [Track]) {
-        self.tracks.appendContentsOf(tracks)
+        self.tracks.append(contentsOf: tracks)
     }
     
-    mutating func addTrack(track: Track) {
+    mutating func addTrack(_ track: Track) {
         tracks.append(track)
     }
 }

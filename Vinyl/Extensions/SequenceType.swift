@@ -8,9 +8,9 @@
 
 import Foundation
 
-extension SequenceType {
+extension Sequence {
     
-    func any(@noescape f: Self.Generator.Element -> Bool) -> Bool {
+    func any(_ f: (Self.Iterator.Element) -> Bool) -> Bool {
         
         for element in self where f(element) {
             return true
@@ -19,7 +19,7 @@ extension SequenceType {
         return false
     }
     
-    func all(@noescape f: Self.Generator.Element -> Bool) -> Bool {
+    func all(_ f: (Self.Iterator.Element) -> Bool) -> Bool {
         
         for element in self where f(element) == false {
             return false
@@ -28,7 +28,7 @@ extension SequenceType {
         return true
     }
     
-    func first(@noescape f: Self.Generator.Element -> Bool) -> Self.Generator.Element? {
+    func first(_ f: (Self.Iterator.Element) -> Bool) -> Self.Iterator.Element? {
         
         for element in self where f(element) {
             return element

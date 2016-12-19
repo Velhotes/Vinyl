@@ -9,11 +9,11 @@
 import Foundation
 
 struct Response {
-    let urlResponse: NSHTTPURLResponse?
-    let body: NSData?
-    let error: NSError?
+    let urlResponse: HTTPURLResponse?
+    let body: Data?
+    let error: Error?
     
-    init(urlResponse: NSHTTPURLResponse?, body: NSData? = nil, error: NSError? = nil) {
+    init(urlResponse: HTTPURLResponse?, body: Data? = nil, error: Error? = nil) {
         self.urlResponse = urlResponse
         self.body = body
         self.error = error
@@ -25,10 +25,10 @@ extension Response {
     init(encodedResponse: EncodedObject) {
         guard
             let urlString = encodedResponse["url"] as? String,
-            let url =  NSURL(string: urlString),
+            let url =  URL(string: urlString),
             let statusCode = encodedResponse["status"] as? Int,
             let headers = encodedResponse["headers"] as? HTTPHeaders,
-            let urlResponse = NSHTTPURLResponse(URL: url, statusCode: statusCode, HTTPVersion: nil, headerFields: headers)
+            let urlResponse = HTTPURLResponse(url: url, statusCode: statusCode, httpVersion: nil, headerFields: headers)
         else {
             fatalError("key not found 😞 for Response (check url/statusCode/headers) check \n------\n\(encodedResponse)\n------\n")
         }
@@ -40,10 +40,10 @@ extension Response {
         var json = EncodedObject()
         
         if let response = urlResponse {
-            json["url"] = response.URL?.absoluteString
-            json["status"] = response.statusCode
-            json["headers"] = response.allHeaderFields
-            json["body"] = encodeBody(body, headers: response.allHeaderFields as! [String : String])
+            json["url"] = response.url?.absoluteString as AnyObject?
+            json["status"] = response.statusCode as AnyObject?
+            json["headers"] = response.allHeaderFields as AnyObject?
+            json["body"] = encodeBody(body, headers: response.allHeaderFields as! [String : String]) as AnyObject?
         }
         
         return json
@@ -51,15 +51,15 @@ extension Response {
 }
 
 func ==(lhs: Response, rhs: Response) -> Bool {
-    return lhs.urlResponse == rhs.urlResponse && lhs.body == rhs.body && lhs.error == rhs.error
+    return lhs.urlResponse == rhs.urlResponse && lhs.body == rhs.body // && lhs.error == rhs.error
 }
 
 extension Response: Hashable {
     
     var hashValue: Int {
         
-        let body = self.body ?? ""
-        let error = self.error ?? ""
+        let body = self.body == nil ? "\(self.body)" : ""
+        let error = self.error == nil ? "\(self.error)" : ""
         
         return "\(urlResponse?.hashValue):\((body)):\(error)".hashValue
     }    

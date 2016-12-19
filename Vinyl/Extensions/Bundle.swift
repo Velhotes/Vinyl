@@ -1,5 +1,5 @@
 //
-//  NSBundle.swift
+//  Bundle.swift
 //  Vinyl
 //
 //  Created by Rui Peres on 19/02/2016.
@@ -9,9 +9,9 @@
 import Foundation
 
 // Idea taken from Venmo/DVR (thanks!)
-func testingBundle() -> NSBundle {
+func testingBundle() -> Bundle {
     
-    let bundleArray = NSBundle.allBundles().filter() { $0.bundlePath.hasSuffix(".xctest") }
+    let bundleArray = Bundle.allBundles.filter() { $0.bundlePath.hasSuffix(".xctest") }
     
     guard bundleArray.count != 0 else {
         fatalError("We were not able to find a suitable bundle, please specify it manually 🙁\nE.g:`Turntable(vinylName: \"your_vinyl\", bundle: your_bundle)`.")
