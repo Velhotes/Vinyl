@@ -10,6 +10,9 @@
 		4CC9F3841E047BF3003C5BB4 /* SwiftCheck.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4CC9F3831E047BF3003C5BB4 /* SwiftCheck.framework */; };
 		4CC9F3861E047BFD003C5BB4 /* SwiftCheck.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4CC9F3851E047BFD003C5BB4 /* SwiftCheck.framework */; };
 		4CC9F3881E047C08003C5BB4 /* SwiftCheck.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4CC9F3871E047C08003C5BB4 /* SwiftCheck.framework */; };
+		4CD17A9A1E09504D00BBED48 /* SwiftCheck.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4CC9F3831E047BF3003C5BB4 /* SwiftCheck.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		4CD17A9C1E09506D00BBED48 /* SwiftCheck.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4CC9F3851E047BFD003C5BB4 /* SwiftCheck.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		4CD17A9E1E09508000BBED48 /* SwiftCheck.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4CC9F3871E047C08003C5BB4 /* SwiftCheck.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		4CD295DC1D57541A00B6D705 /* Recorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CD295DB1D57541A00B6D705 /* Recorder.swift */; };
 		4CD295DD1D57541A00B6D705 /* Recorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CD295DB1D57541A00B6D705 /* Recorder.swift */; };
 		4CD295DE1D57541A00B6D705 /* Recorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CD295DB1D57541A00B6D705 /* Recorder.swift */; };
@@ -142,6 +145,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				4CD17A9C1E09506D00BBED48 /* SwiftCheck.framework in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -151,6 +155,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				4CD17A9E1E09508000BBED48 /* SwiftCheck.framework in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -160,6 +165,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				4CD17A9A1E09504D00BBED48 /* SwiftCheck.framework in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

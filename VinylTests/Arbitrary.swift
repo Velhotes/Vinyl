@@ -33,11 +33,15 @@ let jsonStringPair: Gen<String> = sequence([
     jsonString])
     .map { $0.reduce("", +) }
 
+// Split into two steps as otherwise causes compiler error:
+// "expression was too complex to be solved in reasonable time; consider breaking up the expression into distinct sub-expressions"
+let jsonStringPairsArray: Gen<[String]> = Gen.sized { sz in
+    return jsonStringPair.proliferate(withSize: sz + 1)
+}
 // Generates a JSON string pair of the form '"key":"value", "key1":"value1" ....'
-let jsonStringPairs: Gen<String> =  Gen.sized { sz in
-    return jsonStringPair.proliferateSized(sz + 1)
-    } .map { xs in
-        return xs.reduce("") { $0 == "" ? $1 : $0 + "," + $1 }
+let jsonStringPairs: Gen<String> = jsonStringPairsArray.map { xs in
+        return xs.reduce("") { $0 == "" ? $1 : $0 + "," + $1
+    }
 }
 
 // Generates a JSON of the form '{"key":"value", "key1":"value1" .... }'
@@ -50,11 +54,13 @@ let basicJSONDic : Gen<AnyObject> = sequence([
     .map { $0.data(using: .utf8)! }
     .map { try! JSONSerialization.jsonObject(with: $0, options: .allowFragments) as AnyObject }
 
+
 /// Generates a path of the form `<some>/<path>/<to>/.../<somewhere>`.
-let urlPathGen : Gen<String> =
-(curry(+) <^> Gen.pure("/") <*> lowerStringGen)
+let urlPathGen: Gen<String> = lowerStringGen
+    .ap(Gen.pure("/")
+        .map(curry(+)))
     .proliferate
-    .map { $0.reduce("", combine: +) }
+    .map { $0.reduce("", +) }
 
 /// Generates an array of parameters of the form `<param>=<arg>`,
 let parameterGen : Gen<String> = sequence([
@@ -64,23 +70,18 @@ let parameterGen : Gen<String> = sequence([
     ])
     .map { $0.reduce("", +) }
 
+
+// Split into two steps as otherwise causes compiler error:
+// "expression was too complex to be solved in reasonable time; consider breaking up the expression into distinct sub-expressions"
+let pathParameterGenArray: Gen<[String]> = Gen.sized { sz in
+    return parameterGen.proliferate(withSize: sz + 1)
+}
 /// Generates a set of parameters.
-let pathParameterGen : Gen<String> = Gen.sized { sz in
-    return parameterGen.proliferateSized(sz + 1)
-    } .map { xs in
-        return xs.reduce("?") { $0 == "?" ? "?" + $1 : $0 + "&" + $1 }
+let pathParameterGen: Gen<String> = pathParameterGenArray.map { xs in
+        return xs.reduce("?") { $0 == "?" ? "?" + $1 : $0 + "&" + $1
+    }
 }
 
 private func curry<A, B, C>(_ f : @escaping (A, B) -> C) -> (A) -> (B) -> C {
     return { a in { b in f(a, b) } }
-}
-
-extension Dictionary {
-    init<S : Sequence>(_ pairs : S) where S.Iterator.Element == Element {
-        self.init()
-        var g = pairs.makeIterator()
-        while let (k, v) : (Key, Value) = g.next() {
-            self[k] = v
-        }
-    }
 }

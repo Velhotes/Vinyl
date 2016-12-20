@@ -10,6 +10,18 @@ import XCTest
 @testable import Vinyl
 import SwiftCheck
 
+extension Dictionary {
+    init<S : Sequence>(_ pairs : S)  {
+        self.init()
+        
+        var g = pairs.makeIterator()
+        while let (k, v) : (Key, Value) = g.next() as! (Key, Value)? {
+            self[k] = v
+        }
+    }
+}
+
+
 class RequestMatcherRegistryTests: XCTestCase {
     func testProperties() {
         property("Requests with identical paths and query parameters should match") <- forAllNoShrink(
@@ -54,15 +66,8 @@ class RequestMatcherRegistryTests: XCTestCase {
                   lowerStringGen.proliferate(withSize: size.getPositive)
                 , lowerStringGen.proliferate(withSize: size.getPositive)
             ) { (keys, vals) in
-                var headers = HTTPHeaders(minimumCapacity: keys.count)
-                for (key, value) in zip(keys, vals.sorted { $0.caseInsensitiveCompare($1) == .orderedDescending }) {
-                    headers[key] = value
-                }
-                
-                var upperHeaders = HTTPHeaders(minimumCapacity: keys.count)
-                for (key, value) in zip(keys, vals.sorted()) {
-                    upperHeaders[key] = value
-                }
+                let headers = HTTPHeaders(zip(keys, vals.sorted { $0.caseInsensitiveCompare($1) == .orderedDescending }))
+                let upperHeaders = HTTPHeaders(zip(keys, vals.sorted()))
                 
                 let registry = RequestMatcherRegistry(types: [.headers])
                 
@@ -84,14 +89,8 @@ class RequestMatcherRegistryTests: XCTestCase {
                   lowerStringGen.proliferate(withSize: size.getPositive)
                 , lowerStringGen.proliferate(withSize: size.getPositive)
             ) { (keys, vals) in
-                var headers = HTTPHeaders(minimumCapacity: keys.count)
-                for (key, value) in zip(keys, vals) {
-                    headers[key] = value
-                }
-                var upperHeaders = HTTPHeaders(minimumCapacity: keys.count)
-                for (key, value) in zip(keys, vals) {
-                    upperHeaders[key.uppercased()] = value.uppercased()
-                }
+                let headers = HTTPHeaders(zip(keys, vals))
+                let upperHeaders = HTTPHeaders(headers.map { (l, r) in (l.uppercased(), r.uppercased()) })
                 let registry = RequestMatcherRegistry(types: [.headers])
                 
                 var aRequest = URLRequest(url: URL(string: url)!)
