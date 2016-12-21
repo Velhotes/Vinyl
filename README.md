@@ -177,11 +177,43 @@ let turntable = Turntable(cassetteName: "dvr_single")
 
 That way you won't have to throw anything away.
 
+## Recording
+
+You can also use Vinyl to record requests and responses from the network to use for future testing. This is an easy way to create Vinyls and Tracks automatically with genuine data rather than creating them manually.
+
+There are 3 recording modes:
+* `.none` - recording is disabled.
+* `.missingVinyl` - will record a new Vinyl if the named Vinyl does not exist. This is the default mode.
+* `.missingTracks` - will record new Tracks to an existing Vinyl where the Track is not found.
+
+Both `.missingVinyl` and `.missingTracks` allow you to specify a `recordingPath` for where to save the recordings. If the the path is not provided (`.nil`) then the default path is current test target's Resource Bundle, which is also the default location from which Vinyl's are loaded.
+
+#### A simple example
+
+```swift
+let recordingMode = .missingVinyl(recordingPath: nil)
+let configuration = TurntableConfiguration(recordingMode:  recordingMode)
+let turntable = Turntable(vinylName: "new_vinyl", configuration: configuration)
+let request = URLRequest(url: URL(string: "http://api.test.com")!)
+ 
+turntable.dataTask(with: request) { (data, response, anError) in
+ // Assert your expectations    
+}.resume()
+```
+
+The `recordingMode` in the example above is actually the default, but it's shown explicitly to make it clearer. With the above configuration, if "new_vinyl.json" does't exist it is created and the request will be made over the network. Both the request and response will be recorded.
+
+Recordings are saved either when the `Turntable` is deinitialized or you can explicitly call `turntable.stopRecording()` which will persist the recorded data.
+
+You can provide a `URLSession` for a `Turntable` to use for making network requests: 
+
+`let turntable = Turntable(vinylName: "new_vinyl", configuration: configuration, urlSession: aSession)`
+
+If no `URLSession` is provided, it defaults to `URLSession.shared`.
+
 ## Current Status
 
-The current version ([0.9](https://github.com/Velhotes/Vinyl/releases/tag/0.9.0)) is currently being used in a project successfully. This gives us some degree of confidence it will work for you as well. **Nevertheless don't forget this is a pre-release version**. If there is something that isn't working for you, or you are finding its usage cumbersome, please [let us know](https://github.com/Velhotes/Vinyl/issues/new). 
-
-For the 1.0 release, we are planning to have the ability to record requests. In the meantime if you don't have any JSON pre recorded response, you should create your own `Track` manually (either by code, or with a JSON file). 
+The current version ([0.9](https://github.com/Velhotes/Vinyl/releases/tag/0.9.0)) is currently being used in a project successfully. This gives us some degree of confidence it will work for you as well. **Nevertheless don't forget this is a pre-release version**. If there is something that isn't working for you, or you are finding its usage cumbersome, please [let us know](https://github.com/Velhotes/Vinyl/issues/new).  
 
 ## Roadmap
 
