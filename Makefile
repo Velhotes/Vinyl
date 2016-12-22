@@ -1,7 +1,7 @@
 all: iOS Mac tvOS
 
 iOS:
-	set -o pipefail && xcodebuild test -project Vinyl.xcodeproj -scheme Vinyl-iOS -destination "platform=iOS Simulator,name=iPhone 6" -enableCodeCoverage YES | xcpretty
+	set -o pipefail && xcodebuild test -project Vinyl.xcodeproj -scheme Vinyl-iOS -destination "platform=iOS Simulator,name=iPhone 7,OS=10.1" -enableCodeCoverage YES | xcpretty
 
 Mac:
 	set -o pipefail && xcodebuild test -project Vinyl.xcodeproj -scheme Vinyl-Mac -destination "platform=macOS" | xcpretty
