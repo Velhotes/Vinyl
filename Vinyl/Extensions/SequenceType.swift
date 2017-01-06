@@ -27,13 +27,4 @@ extension Sequence {
         
         return true
     }
-    
-    func first(_ f: (Self.Iterator.Element) -> Bool) -> Self.Iterator.Element? {
-        
-        for element in self where f(element) {
-            return element
-        }
-        
-        return nil
-    }
 }

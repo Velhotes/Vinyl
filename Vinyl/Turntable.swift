@@ -15,7 +15,7 @@ enum TurntableError: Error {
     case nothingToRecord
 }
 
-public typealias Plastic = [[String: AnyObject]]
+public typealias Plastic = [[String: Any]]
 typealias RequestCompletionHandler =  (Data?, URLResponse?, Error?) -> Void
 
 public final class Turntable: URLSession {
@@ -47,16 +47,16 @@ public final class Turntable: URLSession {
     
     public convenience init(vinyl: Vinyl, turntableConfiguration: TurntableConfiguration = TurntableConfiguration(), delegateQueue: OperationQueue? = nil, urlSession: URLSession? = nil) {
         self.init(configuration: turntableConfiguration, delegateQueue: delegateQueue, urlSession: urlSession)
-        player = Turntable.createPlayer(vinyl, configuration: turntableConfiguration)
+        player = Turntable.createPlayer(with: vinyl, configuration: turntableConfiguration)
     }
     
     public convenience init(cassetteName: String, bundle: Bundle = testingBundle(), turntableConfiguration: TurntableConfiguration = TurntableConfiguration(), delegateQueue: OperationQueue? = nil, urlSession: URLSession? = nil) {
-        let vinyl = Vinyl(plastic: Turntable.createCassettePlastic(cassetteName, bundle: bundle))
+        let vinyl = Vinyl(plastic: Turntable.createPlastic(cassette: cassetteName, bundle: bundle))
         self.init(vinyl: vinyl, turntableConfiguration: turntableConfiguration, delegateQueue: delegateQueue, urlSession: urlSession)
     }
     
     public convenience init(vinylName: String, bundle: Bundle = testingBundle(), turntableConfiguration: TurntableConfiguration = TurntableConfiguration(), delegateQueue: OperationQueue? = nil, urlSession: URLSession? = nil) {
-        let plastic = Turntable.createVinylPlastic(vinylName, bundle: bundle, recordingMode: turntableConfiguration.recordingMode)
+        let plastic = Turntable.createPlastic(vinyl: vinylName, bundle: bundle, recordingMode: turntableConfiguration.recordingMode)
         let vinyl = Vinyl(plastic: plastic ?? [])
         self.init(vinyl: vinyl, turntableConfiguration: turntableConfiguration, delegateQueue: delegateQueue, urlSession: urlSession)
         
@@ -99,7 +99,7 @@ public final class Turntable: URLSession {
             fatalError("Did you forget to load the Vinyl? 🎶")
         }
 
-        let completion = try player.playTrack(forRequest: transformRequest(request, bodyData: bodyData))
+        let completion = try player.playTrack(for: transform(request: request, bodyData: bodyData))
 
         return URLSessionTask {
             self.operationQueue.addOperation {
@@ -116,7 +116,7 @@ public final class Turntable: URLSession {
         return {
             data, response, error in
             
-            recorder.saveTrack(withRequest: self.transformRequest(request, bodyData: bodyData), urlResponse: response as? HTTPURLResponse, body: data, error: error)
+            recorder.saveTrack(with: self.transform(request: request, bodyData: bodyData), urlResponse: response as? HTTPURLResponse, body: data, error: error)
             
             self.operationQueue.addOperation {
                 completionHandler(data, response, error)
@@ -124,7 +124,7 @@ public final class Turntable: URLSession {
         }
     }
     
-    fileprivate func transformRequest(_ request: URLRequest, bodyData: Data? = nil) -> URLRequest {
+    fileprivate func transform(request: URLRequest, bodyData: Data? = nil) -> URLRequest {
         guard let bodyData = bodyData else {
             return request
         }
@@ -167,7 +167,7 @@ extension Turntable {
         }
         catch TurntableError.trackNotFound {
             if let session = recordingSession {
-                return session.dataTask(with: request, completionHandler: recordingHandler(request: request, completionHandler: completionHandler)) 
+                return session.dataTask(with: request, completionHandler: recordingHandler(request: request, completionHandler: completionHandler))
             }
             else {
                 errorHandler.handleTrackNotFound(request, playTracksUniquely: turntableConfiguration.playTracksUniquely)
@@ -209,10 +209,10 @@ extension Turntable {
 
 extension Turntable {
     
-    public func loadVinyl(_ vinylName: String,  bundle: Bundle = testingBundle()) {
-        let plastic = Turntable.createVinylPlastic(vinylName, bundle: bundle, recordingMode: turntableConfiguration.recordingMode)
+    public func load(vinyl vinylName: String,  bundle: Bundle = testingBundle()) {
+        let plastic = Turntable.createPlastic(vinyl: vinylName, bundle: bundle, recordingMode: turntableConfiguration.recordingMode)
         let vinyl = Vinyl(plastic: plastic ?? [])
-        player = Turntable.createPlayer(vinyl, configuration: turntableConfiguration)
+        player = Turntable.createPlayer(with: vinyl, configuration: turntableConfiguration)
 
         switch turntableConfiguration.recordingMode {
         case .missingVinyl where plastic == nil, .missingTracks:
@@ -223,14 +223,14 @@ extension Turntable {
         }
     }
     
-    public func loadCassette(_ cassetteName: String,  bundle: Bundle = testingBundle()) {
+    public func load(cassette cassetteName: String,  bundle: Bundle = testingBundle()) {
         
-        let vinyl = Vinyl(plastic: Turntable.createCassettePlastic(cassetteName, bundle: bundle))
-        player = Turntable.createPlayer(vinyl, configuration: turntableConfiguration)
+        let vinyl = Vinyl(plastic: Turntable.createPlastic(cassette: cassetteName, bundle: bundle))
+        player = Turntable.createPlayer(with: vinyl, configuration: turntableConfiguration)
     }
     
-    public func loadVinyl(_ vinyl: Vinyl) {
-        player = Turntable.createPlayer(vinyl, configuration: turntableConfiguration)
+    public func load(vinyl: Vinyl) {
+        player = Turntable.createPlayer(with: vinyl, configuration: turntableConfiguration)
     }
 }
 
@@ -238,15 +238,15 @@ extension Turntable {
 
 extension Turntable {
     
-    fileprivate static func createPlayer(_ vinyl: Vinyl, configuration: TurntableConfiguration) -> Player {
+    fileprivate static func createPlayer(with vinyl: Vinyl, configuration: TurntableConfiguration) -> Player {
         
-        let trackMatchers = configuration.trackMatchersForVinyl(vinyl)
+        let trackMatchers = configuration.trackMatchers(for: vinyl)
         return Player(vinyl: vinyl, trackMatchers: trackMatchers)
     }
     
-    fileprivate static func createCassettePlastic(_ cassetteName: String, bundle: Bundle) -> Plastic {
+    fileprivate static func createPlastic(cassette cassetteName: String, bundle: Bundle) -> Plastic {
         
-        guard let cassette: [String: AnyObject] = loadJSON(bundle, fileName: cassetteName) else {
+        guard let cassette: [String: AnyObject] = loadJSON(from: bundle, fileName: cassetteName) else {
             fatalError("💣 Cassette file \"\(cassetteName)\" not found 😩")
         }
         
@@ -257,8 +257,8 @@ extension Turntable {
         return plastic
     }
     
-    fileprivate static func createVinylPlastic(_ vinylName: String, bundle: Bundle, recordingMode: RecordingMode) -> Plastic? {
-        if let plastic: Plastic = loadJSON(bundle, fileName: vinylName) {
+    fileprivate static func createPlastic(vinyl vinylName: String, bundle: Bundle, recordingMode: RecordingMode) -> Plastic? {
+        if let plastic: Plastic = loadJSON(from: bundle, fileName: vinylName) {
             return plastic
         }
 

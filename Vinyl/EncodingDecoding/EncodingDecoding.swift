@@ -9,7 +9,7 @@
 import Foundation
 
 // Heavily inspired by Venmo's work on DVR (https://github.com/venmo/DVR).
-func encodeBody(_ bodyData: Data?, headers: HTTPHeaders) -> AnyObject? {
+func encode(body bodyData: Data?, headers: HTTPHeaders) -> Any? {
     
     guard
         let body = bodyData,
@@ -21,17 +21,17 @@ func encodeBody(_ bodyData: Data?, headers: HTTPHeaders) -> AnyObject? {
     switch contentType {
         
     case _ where contentType.hasPrefix("text/"):
-        return String(data: body, encoding: .utf8) as AnyObject?
+        return String(data: body, encoding: .utf8) as Any?
         
     case _ where contentType.hasPrefix("application/json"):
-        return try! JSONSerialization.jsonObject(with: body, options: []) as AnyObject?
+        return try! JSONSerialization.jsonObject(with: body) as Any?
         
     default:
-        return body.base64EncodedString(options: []) as AnyObject?
+        return body.base64EncodedString(options: []) as Any?
     }
 }
 
-func decodeBody(_ bodyData: Any?, headers: HTTPHeaders) -> Data? {
+func decode(body bodyData: Any?, headers: HTTPHeaders) -> Data? {
     
     guard let body = bodyData else { return nil }
     
@@ -51,7 +51,7 @@ func decodeBody(_ bodyData: Any?, headers: HTTPHeaders) -> Data? {
     }
     
     if contentType.hasPrefix("application/json") {
-        return try? JSONSerialization.data(withJSONObject: body, options: [])
+        return try? JSONSerialization.data(withJSONObject: body)
     }
     
     if let string = body as? String {

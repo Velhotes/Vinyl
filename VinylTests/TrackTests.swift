@@ -13,7 +13,7 @@ import SwiftCheck
 class TrackTests: XCTestCase {
     func testProperties() {
         property("Bad tracks contain no body") <- forAllNoShrink(urlStringGen) { url in
-            let track = TrackFactory.createBadTrack(URL(string: url)!, statusCode: 400)
+            let track = TrackFactory.createBadTrack(url: URL(string: url)!, statusCode: 400)
             return track.response.urlResponse?.statusCode == 400
                 && track.response.urlResponse?.url?.absoluteString == url
                 && track.request.url?.absoluteString == url
@@ -23,7 +23,7 @@ class TrackTests: XCTestCase {
         property("Bad tracks created with an error reflect that error") <- forAllNoShrink(urlStringGen) { url in
             return forAll { (domain : String, code : Positive<Int>) in
                 let error = NSError(domain: domain, code: code.getPositive, userInfo: nil)
-                let track = TrackFactory.createBadTrack(URL(string: url)!, statusCode: code.getPositive, error: error)
+                let track = TrackFactory.createBadTrack(url: URL(string: url)!, statusCode: code.getPositive, error: error)
                 
                 return track.response.urlResponse?.statusCode == code.getPositive
                     && track.response.error?.localizedDescription == error.localizedDescription
@@ -36,7 +36,7 @@ class TrackTests: XCTestCase {
         property("Error tracks created without a status code") <- forAllNoShrink(urlStringGen) { url in
             return forAll { (domain : String, code : Positive<Int>) in
                 let error = NSError(domain: domain, code: code.getPositive, userInfo: nil)
-                let track = TrackFactory.createErrorTrack(URL(string: url)!, error: error)
+                let track = TrackFactory.createErrorTrack(url: URL(string: url)!, error: error)
 
                 return track.response.urlResponse == .none
                     && track.response.error?.localizedDescription == error.localizedDescription
@@ -51,7 +51,7 @@ class TrackTests: XCTestCase {
             , HTTPHeaders.arbitrary
             ) { (url, body, headers) in
                 let data = body.data(using: .utf8)!
-                let track = TrackFactory.createValidTrack(URL(string: url)!, body: data, headers: headers)
+                let track = TrackFactory.createValidTrack(url: URL(string: url)!, body: data, headers: headers)
                 
                 return isValidTrack(track, data: data, headers: headers, url: url)
         }
@@ -63,7 +63,7 @@ class TrackTests: XCTestCase {
             ) { (url, body, headers) in
                 
                 guard let data = Data(base64Encoded: body, options: .ignoreUnknownCharacters) else { return true }
-                let track = TrackFactory.createValidTrackFromBase64(URL(string: url)!, bodyString:body, headers: headers)
+                let track = TrackFactory.createValidTrack(url: URL(string: url)!, base64Body:body, headers: headers)
                 
                 return isValidTrack(track, data: data, headers: headers, url: url)
         }
@@ -75,7 +75,7 @@ class TrackTests: XCTestCase {
             ) { (url, body, headers) in
                 
                 guard let data = body.data(using: .utf8) else { return true}
-                let track = TrackFactory.createValidTrackFromUTF8(URL(string: url)!, bodyString:body, headers: headers)
+                let track = TrackFactory.createValidTrack(url: URL(string: url)!, utf8Body:body, headers: headers)
                 
                 return isValidTrack(track, data: data, headers: headers, url: url)
         }
@@ -87,7 +87,7 @@ class TrackTests: XCTestCase {
             ) { (url, body, headers) in
                 
                 guard let data = try? JSONSerialization.data(withJSONObject: body, options: .prettyPrinted) else { return true}
-                let track = TrackFactory.createValidTrackFromJSON(URL(string: url)!, json:body, headers: headers)
+                let track = TrackFactory.createValidTrack(url: URL(string: url)!, jsonBody:body, headers: headers)
                 
                 return isValidTrack(track, data: data, headers: headers, url: url)
         }

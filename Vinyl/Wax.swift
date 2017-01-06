@@ -18,7 +18,7 @@ struct Wax {
         self.tracks.append(contentsOf: tracks)
     }
     
-    mutating func addTrack(_ track: Track) {
+    mutating func add(track: Track) {
         tracks.append(track)
     }
 }

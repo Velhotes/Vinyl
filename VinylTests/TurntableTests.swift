@@ -191,13 +191,13 @@ class TurntableTests: XCTestCase {
         
         let tracks = [
             TrackFactory.createValidTrack(
-                URL(string: "http://api.test.com")!,
+                url: URL(string: "http://api.test.com")!,
                 body: "hello".data(using: String.Encoding.utf8),
                 headers: [:])
         ]
         
         let vinyl = Vinyl(tracks: tracks)
-        turntable.loadVinyl(vinyl)
+        turntable.load(vinyl: vinyl)
         singleCallTest(turntable)
     }
     
@@ -206,7 +206,7 @@ class TurntableTests: XCTestCase {
         let turntableConfiguration = TurntableConfiguration()
         let turntable = Turntable(configuration: turntableConfiguration)
         
-        turntable.loadVinyl("vinyl_single")
+        turntable.load(vinyl: "vinyl_single")
         singleCallTest(turntable)
     }
     
@@ -215,7 +215,7 @@ class TurntableTests: XCTestCase {
         let turntableConfiguration = TurntableConfiguration()
         let turntable = Turntable(configuration: turntableConfiguration)
         
-        turntable.loadCassette("dvr_single")
+        turntable.load(cassette: "dvr_single")
         singleCallTest(turntable)
     }
     
@@ -290,15 +290,15 @@ class TurntableTests: XCTestCase {
         
         var tracks = [
             TrackFactory.createValidTrack(
-                URL(string: "http://feelGoodINC.com/request/2")!,
+                url: URL(string: "http://feelGoodINC.com/request/2")!,
                 body: nil,
                 headers: [ "header1": "value1" ]),
             TrackFactory.createValidTrack(
-                URL(string: "http://feelGoodINC.com/request/1")!,
+                url: URL(string: "http://feelGoodINC.com/request/1")!,
                 body: nil,
                 headers: [ "header1": "value1", "header2": "value2" ]),
             TrackFactory.createValidTrack(
-                URL(string: "https://rand.com/")!)
+                url: URL(string: "https://rand.com/")!)
         ]
         
         var request1 = URLRequest(url: URL(string: "http://random.com")!)

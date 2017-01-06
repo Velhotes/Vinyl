@@ -10,7 +10,7 @@ import Foundation
 
 extension URLRequest {
     
-    static func createWithEncodedRequest(_ encodedRequest: EncodedObject) -> URLRequest {
+    static func create(with encodedRequest: EncodedObject) -> URLRequest {
         guard
             let urlString = encodedRequest["url"] as? String,
             let url = URL(string: urlString)
@@ -27,7 +27,7 @@ extension URLRequest {
         if let headers = encodedRequest["headers"] as? HTTPHeaders {
             request.allHTTPHeaderFields = headers
             
-            if let body = decodeBody(encodedRequest["body"], headers: headers) {
+            if let body = decode(body: encodedRequest["body"], headers: headers) {
                 request.httpBody = body
             }
         }
@@ -38,12 +38,12 @@ extension URLRequest {
     func encodedObject() -> EncodedObject {
         var json = EncodedObject()
         
-        json["url"] = url?.absoluteString as AnyObject?
-        json["method"] = httpMethod as AnyObject?
+        json["url"] = url?.absoluteString
+        json["method"] = httpMethod
         
         if let headers = allHTTPHeaderFields {
-            json["headers"] = headers as AnyObject?
-            json["body"] = encodeBody(httpBody, headers: headers) as AnyObject?
+            json["headers"] = headers
+            json["body"] = encode(body: httpBody, headers: headers)
         }
         
         return json

@@ -62,7 +62,7 @@ public struct TurntableConfiguration {
         self.recordingMode = recordingMode
     }
     
-    func trackMatchersForVinyl(_ vinyl: Vinyl) -> [TrackMatcher] {
+    func trackMatchers(for vinyl: Vinyl) -> [TrackMatcher] {
         
         switch matchingStrategy {
             

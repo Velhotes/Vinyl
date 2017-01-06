@@ -33,17 +33,17 @@ extension Response {
             fatalError("key not found 😞 for Response (check url/statusCode/headers) check \n------\n\(encodedResponse)\n------\n")
         }
         
-        self.init(urlResponse: urlResponse, body: decodeBody(encodedResponse["body"], headers: headers), error: nil)
+        self.init(urlResponse: urlResponse, body: decode(body: encodedResponse["body"], headers: headers), error: nil)
     }
     
     func encodedObject() -> EncodedObject {
         var json = EncodedObject()
         
         if let response = urlResponse {
-            json["url"] = response.url?.absoluteString as AnyObject?
-            json["status"] = response.statusCode as AnyObject?
-            json["headers"] = response.allHeaderFields as AnyObject?
-            json["body"] = encodeBody(body, headers: response.allHeaderFields as! [String : String]) as AnyObject?
+            json["url"] = response.url?.absoluteString
+            json["status"] = response.statusCode
+            json["headers"] = response.allHeaderFields
+            json["body"] = encode(body: body, headers: response.allHeaderFields as! [String : String])
         }
         
         return json
@@ -58,8 +58,7 @@ func ==(lhs: Response, rhs: Response) -> Bool {
 
 extension Response: Hashable {
     
-    var hashValue: Int {
-        
+    var hashValue: Int {        
         let body = self.body == nil ? "\(self.body)" : ""
         let error = self.error == nil ? "\(self.error)" : ""
         

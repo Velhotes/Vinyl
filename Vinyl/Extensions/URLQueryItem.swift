@@ -8,9 +8,9 @@
 
 import Foundation
 
-extension URLQueryItem: Comparable { }
-
-public func < (lhs: URLQueryItem, rhs: URLQueryItem) -> Bool {
+extension URLQueryItem: Comparable {
     
-    return lhs.name < rhs.name
+    public static func < (lhs: URLQueryItem, rhs: URLQueryItem) -> Bool {
+        return lhs.name < rhs.name
+    }
 }

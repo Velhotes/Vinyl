@@ -84,23 +84,23 @@ enum RequestMatcherType {
 In practise it would look like this:
 
 ```swift
-let matching = .requestAttributes(types: [.body, .query], playTracksUniquely: true)
-let configuration = TurntableConfiguration( matchingStrategy:  matching)
-let turntable = Turntable( vinylName: "vinyl_simple", configuration: configuration)
+let matching = MatchingStrategy.requestAttributes(types: [.body, .query], playTracksUniquely: true)
+let configuration = TurntableConfiguration(matchingStrategy:  matching)
+let turntable = Turntable(vinylName: "vinyl_simple", configuration: configuration)
 ```
 In this case we are matching by `.body` and `.query`. We also provide a way of making sure each track is only played once (or not), by setting the `playTracksUniquely` accordingly. 
 
 If the mapping approach is not desirable, you can make it behave like a queue: the first request will match the first response in the array and so on:
 
 ```swift
-let matching = .trackOrder
-let configuration = TurntableConfiguration( matchingStrategy:  matching)
-let turntable = Turntable( vinylName: "vinyl_simple", configuration: configuration)
+let matching = MatchingStrategy.trackOrder
+let configuration = TurntableConfiguration(matchingStrategy:  matching)
+let turntable = Turntable(vinylName: "vinyl_simple", configuration: configuration)
 ```
 We also allow creating a track by hand, instead of relying on a JSON file:
 
 ```swift
-let track = TrackFactory.createValidTrack(URL(string: "http://feelGoodINC.com")!, body: data, headers: headers)
+let track = TrackFactory.createValidTrack(url: URL(string: "http://feelGoodINC.com")!, body: data, headers: headers)
 
 let vinyl = Vinyl(tracks: [track])
 let turntable = Turntable(vinyl: vinyl, configuration: configuration)
@@ -110,17 +110,17 @@ If you have a custom configuration that you would like to see shared among your 
 
 ```swift
 class FooTests: XCTestCase {
-   let turntable = Turntable(configuration: TurntableConfiguration( matchingStrategy:  .trackOrder))
+    let turntable = Turntable(configuration: TurntableConfiguration(matchingStrategy: .trackOrder))
 
-   func test_1() {
-    turntable.loadVinyl("vinyl_1")
-    // Use the turntable
-   }
+    func test_1() {
+       turntable.loadVinyl("vinyl_1")
+       // Use the turntable
+    }
 
-   func test_2() {
-    turntable.loadVinyl("vinyl_1")
-    // Use the turntable
-   }
+    func test_2() {
+       turntable.loadVinyl("vinyl_1")
+       // Use the turntable
+    }
 }
 ```
 
@@ -132,9 +132,9 @@ Instead of using the [default manager](https://github.com/Alamofire/Alamofire/bl
 
 ```swift
 public init?(
-        session: URLSession,
-        delegate: SessionDelegate,
-        serverTrustPolicyManager: ServerTrustPolicyManager? = nil)
+    session: URLSession,
+    delegate: SessionDelegate,
+    serverTrustPolicyManager: ServerTrustPolicyManager? = nil)
     {
         guard delegate === session.delegate else { return nil }
 
@@ -149,12 +149,11 @@ Your network layer, could then be in the form of:
 
 ```swift
 class Network {
-  private let manager: SessionManager
+    private let manager: SessionManager
   
-  init(session: URLSession) {
-  
-    self.manager = SessionManager(session: session, delegate: SessionDelegate())
-  }
+    init(session: URLSession) {
+        self.manager = SessionManager(session: session, delegate: SessionDelegate())
+    }
 }
 ```
 
@@ -186,18 +185,18 @@ There are 3 recording modes:
 * `.missingVinyl` - will record a new Vinyl if the named Vinyl does not exist. This is the default mode.
 * `.missingTracks` - will record new Tracks to an existing Vinyl where the Track is not found.
 
-Both `.missingVinyl` and `.missingTracks` allow you to specify a `recordingPath` for where to save the recordings. If the the path is not provided (`.nil`) then the default path is current test target's Resource Bundle, which is also the default location from which Vinyl's are loaded.
+Both `.missingVinyl` and `.missingTracks` allow you to specify a `recordingPath` for where to save the recordings. If the path is not provided (`nil`) then the default path is current test target's Resource Bundle, which is also the default location from which Vinyl's are loaded.
 
 #### A simple example
 
 ```swift
-let recordingMode = .missingVinyl(recordingPath: nil)
-let configuration = TurntableConfiguration(recordingMode:  recordingMode)
+let recordingMode = RecordingMode.missingVinyl(recordingPath: nil)
+let configuration = TurntableConfiguration(recordingMode: recordingMode)
 let turntable = Turntable(vinylName: "new_vinyl", configuration: configuration)
 let request = URLRequest(url: URL(string: "http://api.test.com")!)
  
 turntable.dataTask(with: request) { (data, response, anError) in
- // Assert your expectations    
+    // Assert your expectations    
 }.resume()
 ```
 
@@ -205,7 +204,7 @@ The `recordingMode` in the example above is actually the default, but it's shown
 
 Recordings are saved either when the `Turntable` is deinitialized or you can explicitly call `turntable.stopRecording()` which will persist the recorded data.
 
-You can provide a `URLSession` for a `Turntable` to use for making network requests: 
+You can provide a `URLSession` for a `Turntable` to use for making network requests:
 
 `let turntable = Turntable(vinylName: "new_vinyl", configuration: configuration, urlSession: aSession)`
 

@@ -20,14 +20,14 @@ final class Recorder {
 }
 
 extension Recorder {
-    func saveTrack(withRequest request: Request, response: Response) {
-        wax.addTrack(Track(request: request, response: response))
+    func saveTrack(with request: Request, response: Response) {
+        wax.add(track: Track(request: request, response: response))
         somethingRecorded = true
     }
     
-    func saveTrack(withRequest request: Request, urlResponse: HTTPURLResponse?, body: Data? = nil, error: Error? = nil) {
+    func saveTrack(with request: Request, urlResponse: HTTPURLResponse?, body: Data? = nil, error: Error? = nil) {
         let response = Response(urlResponse: urlResponse, body: body, error: error)
-        saveTrack(withRequest: request, response: response)
+        saveTrack(with: request, response: response)
     }
 }
 

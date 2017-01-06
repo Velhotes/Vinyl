@@ -40,7 +40,7 @@ class RequestMatcherRegistryTests: XCTestCase {
             var anotherRequest = URLRequest(url: URL(string: url + path + params)!)
             anotherRequest.httpBody = commonData
             
-            return registry.matchableRequests(aRequest, anotherRequest: anotherRequest)
+            return registry.matchableRequests(request: aRequest, with: anotherRequest)
         }
         
         property("Requests with identical headers should match") <- forAllNoShrink(
@@ -55,7 +55,7 @@ class RequestMatcherRegistryTests: XCTestCase {
             var anotherRequest = URLRequest(url: URL(string: url)!)
             anotherRequest.allHTTPHeaderFields = headers
             
-            return registry.matchableRequests(aRequest, anotherRequest: anotherRequest)
+            return registry.matchableRequests(request: aRequest, with: anotherRequest)
         }
         
         property("Requests with mixed values shouldn't match") <- forAllNoShrink(
@@ -77,7 +77,7 @@ class RequestMatcherRegistryTests: XCTestCase {
                 var anotherRequest = URLRequest(url: URL(string: url)!)
                 anotherRequest.allHTTPHeaderFields = upperHeaders
                 
-                return registry.matchableRequests(aRequest, anotherRequest: anotherRequest)
+                return registry.matchableRequests(request: aRequest, with: anotherRequest)
             }
         }.expectFailure
         
@@ -99,7 +99,7 @@ class RequestMatcherRegistryTests: XCTestCase {
                 var anotherRequest = URLRequest(url: URL(string: url)!)
                 anotherRequest.allHTTPHeaderFields = upperHeaders
                 
-                return registry.matchableRequests(aRequest, anotherRequest: anotherRequest)
+                return registry.matchableRequests(request: aRequest, with: anotherRequest)
             }
         }
     }

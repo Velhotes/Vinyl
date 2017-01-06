@@ -19,7 +19,7 @@ public enum RequestMatcherType {
 }
 
 public protocol RequestMatcher {
-    func match(_ aRequest: Request, anotherRequest: Request) -> Bool
+    func match(request: Request, with anotherRequest: Request) -> Bool
 }
 
 public struct RequestMatcherRegistry {
@@ -29,15 +29,14 @@ public struct RequestMatcherRegistry {
     
     init(types: [RequestMatcherType]) {
         registeredTypes = types
-        matchingChain = types.map { RequestMatcherRegistry.matcherForType($0) }
+        matchingChain = types.map { RequestMatcherRegistry.matcher(for: $0) }
     }
     
-    func matchableRequests(_ aRequest: Request, anotherRequest: Request) -> Bool {
-        
-        return matchingChain.all { $0.match(aRequest, anotherRequest: anotherRequest) }
+    func matchableRequests(request: Request, with anotherRequest: Request) -> Bool {        
+        return matchingChain.all { $0.match(request: request, with: anotherRequest) }
     }
     
-    fileprivate static func matcherForType(_ requestMatcherType: RequestMatcherType) -> RequestMatcher {
+    fileprivate static func matcher(for requestMatcherType: RequestMatcherType) -> RequestMatcher {
         switch requestMatcherType {
         case .method:
             return MethodRequestMatcher()
@@ -60,41 +59,41 @@ public struct RequestMatcherRegistry {
 // MARK: - Matchers
 
 private struct MethodRequestMatcher: RequestMatcher {
-    func match(_ aRequest: Request, anotherRequest: Request) -> Bool {
+    func match(request: Request, with anotherRequest: Request) -> Bool {
         // `caseInsensitiveCompare` doesn't support an optional, to prevent unwrapping and perform more than one comparison we can capitalize both methods and rely on optionals to do the hard-work
-        return aRequest.httpMethod?.capitalized == anotherRequest.httpMethod?.capitalized
+        return request.httpMethod?.capitalized == anotherRequest.httpMethod?.capitalized
     }
 }
 
 private  struct URLRequestMatcher: RequestMatcher {
-    func match(_ aRequest: Request, anotherRequest: Request) -> Bool {
-        return aRequest.url == anotherRequest.url
+    func match(request: Request, with anotherRequest: Request) -> Bool {
+        return request.url == anotherRequest.url
     }
 }
 
 private  struct PathRequestMatcher: RequestMatcher {
-    func match(_ aRequest: Request, anotherRequest: Request) -> Bool {
-        return aRequest.url?.path == anotherRequest.url?.path
+    func match(request: Request, with anotherRequest: Request) -> Bool {
+        return request.url?.path == anotherRequest.url?.path
     }
 }
 
 private struct QueryRequestMatcher: RequestMatcher {
-    func match(_ aRequest: Request, anotherRequest: Request) -> Bool {
+    func match(request: Request, with anotherRequest: Request) -> Bool {
         
         let queryItems: (Request) -> [URLQueryItem] = { request in
             let components = URLComponents(string: request.url?.absoluteString ?? "")
             return components?.queryItems ?? []
         }
         
-        let aRequestItems = queryItems(aRequest).sorted(by: >)
+        let requestItems = queryItems(request).sorted(by: >)
         let anotherRequestItems = queryItems(anotherRequest).sorted(by: >)
     
-        return aRequestItems == anotherRequestItems
+        return requestItems == anotherRequestItems
     }
 }
 
 private struct HeadersRequestMatcher: RequestMatcher {
-    func match(_ aRequest: Request, anotherRequest: Request) -> Bool {
+    func match(request: Request, with anotherRequest: Request) -> Bool {
         
         let headers: (Request) -> HTTPHeaders  = { request in
             return request.allHTTPHeaderFields ?? [:]
@@ -111,24 +110,24 @@ private struct HeadersRequestMatcher: RequestMatcher {
 
         let loweredHeaders = headers ~> toLowerCase
         
-        let aRequestLoweredHeaders =  loweredHeaders(aRequest)
+        let requestLoweredHeaders =  loweredHeaders(request)
         let anotherRequestLoweredHeaders = loweredHeaders(anotherRequest)
 
-        return aRequestLoweredHeaders == anotherRequestLoweredHeaders
+        return requestLoweredHeaders == anotherRequestLoweredHeaders
     }
 }
 
 private struct BodyRequestMatcher: RequestMatcher {
-    func match(_ aRequest: Request, anotherRequest: Request) -> Bool {
+    func match(request: Request, with anotherRequest: Request) -> Bool {
 
-        switch (aRequest.httpBody, anotherRequest.httpBody) {
+        switch (request.httpBody, anotherRequest.httpBody) {
         case (.none, .none): return true
         case (.some(let lhsData), .some(let rhsData)):
-            guard let lhsHeaders = aRequest.allHTTPHeaderFields,
+            guard let lhsHeaders = request.allHTTPHeaderFields,
                 let rhsHeaders = anotherRequest.allHTTPHeaderFields,
-            let lhsBody = encodeBody(lhsData, headers: lhsHeaders),
-            let rhsBody = encodeBody(rhsData, headers: rhsHeaders) else { return lhsData == rhsData }
-            return lhsBody.isEqual(rhsBody)
+                let lhsBody = encode(body: lhsData, headers: lhsHeaders),
+                let rhsBody = encode(body: rhsData, headers: rhsHeaders) else { return lhsData == rhsData }
+            return (lhsBody as AnyObject).isEqual(rhsBody as AnyObject)
         default: return false
         }
     }
