@@ -26,7 +26,8 @@ class TrackTests: XCTestCase {
                 let track = TrackFactory.createBadTrack(url: URL(string: url)!, statusCode: code.getPositive, error: error)
                 
                 return track.response.urlResponse?.statusCode == code.getPositive
-                    && track.response.error?.localizedDescription == error.localizedDescription
+                    && track.response.error?._domain == error._domain
+                    && track.response.error?._code == error._code
                     && track.response.urlResponse?.url?.absoluteString == url
                     && track.request.url?.absoluteString == url
                     && track.response.body == nil
@@ -39,7 +40,8 @@ class TrackTests: XCTestCase {
                 let track = TrackFactory.createErrorTrack(url: URL(string: url)!, error: error)
 
                 return track.response.urlResponse == .none
-                    && track.response.error?.localizedDescription == error.localizedDescription
+                    && track.response.error?._domain == error._domain
+                    && track.response.error?._code == error._code
                     && track.request.url?.absoluteString == url
                     && track.response.body == nil
             }

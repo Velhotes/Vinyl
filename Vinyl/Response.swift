@@ -53,7 +53,8 @@ extension Response {
 func ==(lhs: Response, rhs: Response) -> Bool {
     return lhs.urlResponse == rhs.urlResponse
         && lhs.body == rhs.body
-        && lhs.error?.localizedDescription == rhs.error?.localizedDescription
+        && lhs.error?._domain == rhs.error?._domain
+        && lhs.error?._code   == rhs.error?._code
 }
 
 extension Response: Hashable {
