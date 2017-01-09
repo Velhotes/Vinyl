@@ -10,9 +10,9 @@ import Foundation
 
 public final class URLSessionDataTask: Foundation.URLSessionDataTask, URLSessionTaskType {
     
-    fileprivate let completion: (Void) -> Void
+    fileprivate let completion: () -> Void
     
-    init(completion: @escaping (Void) -> Void) {
+    init(completion: @escaping () -> Void) {
         self.completion = completion
     }
     

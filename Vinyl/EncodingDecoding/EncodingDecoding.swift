@@ -9,10 +9,10 @@
 import Foundation
 
 // Heavily inspired by Venmo's work on DVR (https://github.com/venmo/DVR).
-func encode(body bodyData: Data?, headers: HTTPHeaders) -> Any? {
+func encode(body: Data?, headers: HTTPHeaders) -> Any? {
     
     guard
-        let body = bodyData,
+        let body = body,
         let contentType = headers["Content-Type"]
         else {
             return nil
@@ -31,9 +31,9 @@ func encode(body bodyData: Data?, headers: HTTPHeaders) -> Any? {
     }
 }
 
-func decode(body bodyData: Any?, headers: HTTPHeaders) -> Data? {
+func decode(body: Any?, headers: HTTPHeaders) -> Data? {
     
-    guard let body = bodyData else { return nil }
+    guard let body = body else { return nil }
     
     guard let contentType = headers["Content-Type"]  else {
         

@@ -15,9 +15,9 @@ final class MockedTrackedNotFoundErrorHandler: ErrorHandler {
             self.completion()
         }()
     
-    fileprivate let completion: (Void) -> Void
+    fileprivate let completion: () -> Void
     
-    init (completion: @escaping (Void) -> Void) {
+    init (completion: @escaping () -> Void) {
         self.completion = completion
     }
     
