@@ -12,8 +12,7 @@ import SwiftCheck
 
 extension Dictionary {
     init<S : Sequence>(_ pairs : S)  {
-        self.init()
-        
+        self.init()        
         var g = pairs.makeIterator()
         while let (k, v) : (Key, Value) = g.next() as! (Key, Value)? {
             self[k] = v
