@@ -22,7 +22,7 @@ Vinyl should be used when you design your app's architecture with [Dependency In
 #### Carthage
 
 ```
-github "Velhotes/Vinyl" "0.10"
+github "Velhotes/Vinyl" "0.10.0"
 ```
 
 #### Intro
