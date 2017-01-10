@@ -5,7 +5,7 @@
 Vinyl
 -----
 
-[![Version](https://img.shields.io/badge/version-0.9.0-blue.svg)](https://github.com/Velhotes/Vinyl/releases/latest)
+[![Version](https://img.shields.io/badge/version-0.10.0-blue.svg)](https://github.com/Velhotes/Vinyl/releases/latest)
 [![Build Status](https://travis-ci.org/Velhotes/Vinyl.svg?branch=master)](https://travis-ci.org/Velhotes/Vinyl)
 [![codecov.io](https://codecov.io/github/Velhotes/Vinyl/coverage.svg?branch=master)](https://codecov.io/github/Velhotes/Vinyl?branch=master)
 <a href="https://github.com/Carthage/Carthage"><img src="https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat"></a>
@@ -22,7 +22,7 @@ Vinyl should be used when you design your app's architecture with [Dependency In
 #### Carthage
 
 ```
-github "Velhotes/Vinyl" "0.9"
+github "Velhotes/Vinyl" "0.10"
 ```
 
 #### Intro
@@ -212,7 +212,7 @@ If no `URLSession` is provided, it defaults to `URLSession.shared`.
 
 ## Current Status
 
-The current version ([0.9](https://github.com/Velhotes/Vinyl/releases/tag/0.9.0)) is currently being used in a project successfully. This gives us some degree of confidence it will work for you as well. **Nevertheless don't forget this is a pre-release version**. If there is something that isn't working for you, or you are finding its usage cumbersome, please [let us know](https://github.com/Velhotes/Vinyl/issues/new).  
+The current version ([0.10](https://github.com/Velhotes/Vinyl/releases/tag/0.10.0)) is currently being used in a project successfully. This gives us some degree of confidence it will work for you as well. **Nevertheless don't forget this is a pre-release version**. If there is something that isn't working for you, or you are finding its usage cumbersome, please [let us know](https://github.com/Velhotes/Vinyl/issues/new).  
 
 ## Roadmap
 
