@@ -8,12 +8,12 @@
 
 import Foundation
 
-func loadJSON<T>(bundle: NSBundle, fileName: String) -> T?  {
+func loadJSON<T>(from bundle: Bundle, fileName: String) -> T?  {
     
     guard
-        let path = bundle.pathForResource(fileName, ofType: "json"),
-        data = NSData(contentsOfFile: path),
-        jsonData = try? NSJSONSerialization.JSONObjectWithData(data, options: []) as? T
+        let path = bundle.path(forResource: fileName, ofType: "json"),
+        let data = try? Data(contentsOf: URL(fileURLWithPath: path)),
+        let jsonData = try? JSONSerialization.jsonObject(with: data) as? T
     else {
         return nil
     }

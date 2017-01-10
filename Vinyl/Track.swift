@@ -8,10 +8,10 @@
 
 import Foundation
 
-public typealias EncodedObject = [String : AnyObject]
+public typealias EncodedObject = [String : Any]
 public typealias HTTPHeaders = [String : String]
 
-public typealias Request = NSURLRequest
+public typealias Request = URLRequest
 
 public struct Track {
     let request: Request
@@ -23,13 +23,12 @@ public struct Track {
     }
     
     init(response: Response) {
-        
         self.response = response
         
-        let urlString = response.urlResponse?.URL?.absoluteString
-        let url = NSURL(string: urlString!)!
+        let urlString = response.urlResponse?.url?.absoluteString
+        let url = URL(string: urlString!)!
         
-        self.request = NSURLRequest(URL: url)
+        self.request = URLRequest(url: url)
     }
 }
 
@@ -38,7 +37,6 @@ public struct Track {
 extension Track {
     
     init(encodedTrack: EncodedObject) {
-        
         guard let encodedResponse = encodedTrack["response"] as? EncodedObject else {
             fatalError("request/response not found 😞 for Track: \(encodedTrack)")
         }
@@ -48,7 +46,7 @@ extension Track {
         if let encodedRequest = encodedTrack["request"] as? EncodedObject {
             
             // We're using a helper function because we cannot mutate a NSURLRequest directly
-            let request = Request.createWithEncodedRequest(encodedRequest)
+            let request = Request.create(with: encodedRequest)
             
             self.init(request: request, response: response)
             
@@ -83,10 +81,10 @@ public func ==(lhs: Track, rhs: Track) -> Bool {
 
 public struct TrackFactory {
     
-    public static func createTrack(url: NSURL, statusCode: Int, body: NSData? = nil, error: NSError? = nil, headers: HTTPHeaders = [:]) -> Track {
+    public static func createTrack(url: URL, statusCode: Int, body: Data? = nil, error: Error? = nil, headers: HTTPHeaders = [:]) -> Track {
         
         guard
-            let response = NSHTTPURLResponse(URL: url, statusCode: statusCode, HTTPVersion: nil, headerFields: headers)
+            let response = HTTPURLResponse(url: url, statusCode: statusCode, httpVersion: nil, headerFields: headers)
             else {
                 fatalError("We weren't able to create the Track 😫")
         }
@@ -95,43 +93,43 @@ public struct TrackFactory {
         return track
     }
     
-    public static func createBadTrack(url: NSURL, statusCode: Int, error: NSError? = nil, headers: HTTPHeaders = [:]) -> Track {
+    public static func createBadTrack(url: URL, statusCode: Int, error: Error? = nil, headers: HTTPHeaders = [:]) -> Track {
         
-        return createTrack(url, statusCode: statusCode, body: nil, error: error, headers: headers)
+        return createTrack(url: url, statusCode: statusCode, body: nil, error: error, headers: headers)
     }
 
-    public static func createErrorTrack(url: NSURL, error: NSError) -> Track {
+    public static func createErrorTrack(url: URL, error: Error) -> Track {
 
-        let request = NSURLRequest(URL: url)
+        let request = URLRequest(url: url)
         let response = Response(urlResponse: nil, body: nil, error: error)
         return Track(request: request, response: response)
     }
     
-    public static func createValidTrack(url: NSURL, body: NSData? = nil, headers: HTTPHeaders = [:]) -> Track {
+    public static func createValidTrack(url: URL, body: Data? = nil, headers: HTTPHeaders = [:]) -> Track {
         
-        return createTrack(url, statusCode: 200, body: body, error: nil, headers: headers)
+        return createTrack(url: url, statusCode: 200, body: body, error: nil, headers: headers)
     }
     
-    public static func createValidTrackFromJSON(url: NSURL, json: AnyObject, headers: HTTPHeaders = [:]) -> Track {
+    public static func createValidTrack(url: URL, jsonBody: AnyObject, headers: HTTPHeaders = [:]) -> Track {
         
         do {
-            let body = try NSJSONSerialization.dataWithJSONObject(json, options: .PrettyPrinted)
-            return createTrack(url, statusCode: 200, body: body, error: nil, headers: headers)
+            let body = try JSONSerialization.data(withJSONObject: jsonBody, options: .prettyPrinted)
+            return createTrack(url: url, statusCode: 200, body: body, error: nil, headers: headers)
         }
         catch {
             fatalError("Invalid JSON 😕\nBefore trying again check your JSON here http://jsonlint.com/ 👍")
         }
     }
     
-    public static func createValidTrackFromBase64(url: NSURL, bodyString: String, headers: HTTPHeaders = [:]) -> Track {
+    public static func createValidTrack(url: URL, base64Body: String, headers: HTTPHeaders = [:]) -> Track {
         
-        let body = NSData(base64EncodedString: bodyString, options: .IgnoreUnknownCharacters)
-        return createTrack(url, statusCode: 200, body: body, error: nil, headers: headers)
+        let body = Data(base64Encoded: base64Body, options: .ignoreUnknownCharacters)
+        return createTrack(url: url, statusCode: 200, body: body, error: nil, headers: headers)
     }
     
-    public static func createValidTrackFromUTF8(url: NSURL, bodyString: String, headers: HTTPHeaders = [:]) -> Track {
+    public static func createValidTrack(url: URL, utf8Body: String, headers: HTTPHeaders = [:]) -> Track {
         
-        let body = bodyString.dataUsingEncoding(NSUTF8StringEncoding)
-        return createTrack(url, statusCode: 200, body: body, error: nil, headers: headers)
+        let body = utf8Body.data(using: String.Encoding.utf8)
+        return createTrack(url: url, statusCode: 200, body: body, error: nil, headers: headers)
     }
 }

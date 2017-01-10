@@ -20,31 +20,31 @@ final class Recorder {
 }
 
 extension Recorder {
-    func saveTrack(withRequest request: Request, response: Response) {
-        wax.addTrack(Track(request: request, response: response))
+    func saveTrack(with request: Request, response: Response) {
+        wax.add(track: Track(request: request, response: response))
         somethingRecorded = true
     }
     
-    func saveTrack(withRequest request: Request, urlResponse: NSHTTPURLResponse?, body: NSData? = nil, error: NSError? = nil) {
+    func saveTrack(with request: Request, urlResponse: HTTPURLResponse?, body: Data? = nil, error: Error? = nil) {
         let response = Response(urlResponse: urlResponse, body: body, error: error)
-        saveTrack(withRequest: request, response: response)
+        saveTrack(with: request, response: response)
     }
 }
 
 extension Recorder {
     
     func persist() throws {
-        guard let recordingPath = recordingPath where somethingRecorded else {
+        guard let recordingPath = recordingPath, somethingRecorded else {
             if somethingRecorded {
-                throw Error.NoRecordingPath
+                throw TurntableError.noRecordingPath
             } else {
-                throw Error.NothingToRecord
+                throw TurntableError.nothingToRecord
             }
         }
         
-        let fileManager = NSFileManager.defaultManager()
-        guard fileManager.createFileAtPath(recordingPath, contents: nil, attributes: nil) == true,
-            let file = NSFileHandle(forWritingAtPath: recordingPath) else {
+        let fileManager = FileManager.default
+        guard fileManager.createFile(atPath: recordingPath, contents: nil, attributes: nil) == true,
+            let file = FileHandle(forWritingAtPath: recordingPath) else {
             return
         }
         
@@ -52,8 +52,8 @@ extension Recorder {
             $0.encodedTrack()
         }
         
-        let data = try NSJSONSerialization.dataWithJSONObject(jsonWax, options: .PrettyPrinted)
-        file.writeData(data)
+        let data = try JSONSerialization.data(withJSONObject: jsonWax, options: .prettyPrinted)
+        file.write(data)
         file.synchronizeFile()
         
         print("Vinyl recorded to: \(recordingPath)")

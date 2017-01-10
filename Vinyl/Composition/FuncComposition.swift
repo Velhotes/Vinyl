@@ -8,9 +8,14 @@
 
 import Foundation
 
-infix operator ~> { associativity left }
+precedencegroup VinylPrecedenceLeft {
+    associativity: left
+    higherThan: AssignmentPrecedence
+}
 
-func ~> <T, U, V>(f: T -> U, g: U -> V) -> T -> V {
+infix operator ~> : VinylPrecedenceLeft
+
+func ~> <T, U, V>(f: @escaping (T) -> U, g: @escaping (U) -> V) -> (T) -> V {
     
     return { g(f($0)) }
 }

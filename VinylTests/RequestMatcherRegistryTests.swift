@@ -10,40 +10,51 @@ import XCTest
 @testable import Vinyl
 import SwiftCheck
 
+extension Dictionary {
+    init<S : Sequence>(_ pairs : S)  {
+        self.init()        
+        var g = pairs.makeIterator()
+        while let (k, v) : (Key, Value) = g.next() as! (Key, Value)? {
+            self[k] = v
+        }
+    }
+}
+
+
 class RequestMatcherRegistryTests: XCTestCase {
     func testProperties() {
         property("Requests with identical paths and query parameters should match") <- forAllNoShrink(
-              Gen<RequestMatcherType>.fromElementsOf([RequestMatcherType.Path, .Query, .Body])
+              Gen<RequestMatcherType>.fromElements(of: [RequestMatcherType.path, .query, .body])
             , urlStringGen
             , urlPathGen
             , pathParameterGen
             , Optional<String>.arbitrary
         ) { (type, url, path, params, body) in
             let registry = RequestMatcherRegistry(types: [type])
-            let commonData = body?.dataUsingEncoding(NSUTF8StringEncoding)
+            let commonData = body?.data(using: .utf8)
             
-            let aRequest = NSMutableURLRequest(URL: NSURL(string: url + path + params )!)			
-            aRequest.HTTPBody = commonData
+            var aRequest = URLRequest(url: URL(string: url + path + params )!)
+            aRequest.httpBody = commonData
             
-            let anotherRequest = NSMutableURLRequest(URL: NSURL(string: url + path + params)!)
-            anotherRequest.HTTPBody = commonData
+            var anotherRequest = URLRequest(url: URL(string: url + path + params)!)
+            anotherRequest.httpBody = commonData
             
-            return registry.matchableRequests(aRequest, anotherRequest: anotherRequest)
+            return registry.matchableRequests(request: aRequest, with: anotherRequest)
         }
         
         property("Requests with identical headers should match") <- forAllNoShrink(
               urlStringGen
             , HTTPHeaders.arbitrary
         ) { (url, headers) in
-            let registry = RequestMatcherRegistry(types: [.Headers])
+            let registry = RequestMatcherRegistry(types: [.headers])
             
-            let aRequest = NSMutableURLRequest(URL: NSURL(string: url)!)
+            var aRequest = URLRequest(url: URL(string: url)!)
             aRequest.allHTTPHeaderFields = headers
             
-            let anotherRequest = NSMutableURLRequest(URL: NSURL(string: url)!)
+            var anotherRequest = URLRequest(url: URL(string: url)!)
             anotherRequest.allHTTPHeaderFields = headers
             
-            return registry.matchableRequests(aRequest, anotherRequest: anotherRequest)
+            return registry.matchableRequests(request: aRequest, with: anotherRequest)
         }
         
         property("Requests with mixed values shouldn't match") <- forAllNoShrink(
@@ -51,20 +62,21 @@ class RequestMatcherRegistryTests: XCTestCase {
             , Positive<Int>.arbitrary
         ) { (url, size) in
             return forAllNoShrink(
-                  lowerStringGen.proliferateSized(size.getPositive)
-                , lowerStringGen.proliferateSized(size.getPositive)
+                  lowerStringGen.proliferate(withSize: size.getPositive)
+                , lowerStringGen.proliferate(withSize: size.getPositive)
             ) { (keys, vals) in
-                let headers = HTTPHeaders(zip(keys, vals.sort(>)))
-                let upperHeaders = HTTPHeaders(zip(keys, vals.sort(<)))
-                let registry = RequestMatcherRegistry(types: [.Headers])
+                let headers = HTTPHeaders(zip(keys, vals.sorted { $0.caseInsensitiveCompare($1) == .orderedDescending }))
+                let upperHeaders = HTTPHeaders(zip(keys, vals.sorted()))
                 
-                let aRequest = NSMutableURLRequest(URL: NSURL(string: url)!)
+                let registry = RequestMatcherRegistry(types: [.headers])
+                
+                var aRequest = URLRequest(url: URL(string: url)!)
                 aRequest.allHTTPHeaderFields = headers
                 
-                let anotherRequest = NSMutableURLRequest(URL: NSURL(string: url)!)
+                var anotherRequest = URLRequest(url: URL(string: url)!)
                 anotherRequest.allHTTPHeaderFields = upperHeaders
                 
-                return registry.matchableRequests(aRequest, anotherRequest: anotherRequest)
+                return registry.matchableRequests(request: aRequest, with: anotherRequest)
             }
         }.expectFailure
         
@@ -73,20 +85,20 @@ class RequestMatcherRegistryTests: XCTestCase {
             , Positive<Int>.arbitrary
         ) { (url, size) in
             return forAllNoShrink(
-                  lowerStringGen.proliferateSized(size.getPositive)
-                , lowerStringGen.proliferateSized(size.getPositive)
+                  lowerStringGen.proliferate(withSize: size.getPositive)
+                , lowerStringGen.proliferate(withSize: size.getPositive)
             ) { (keys, vals) in
                 let headers = HTTPHeaders(zip(keys, vals))
-                let upperHeaders = HTTPHeaders(headers.map { (l, r) in (l.uppercaseString, r.uppercaseString) })
-                let registry = RequestMatcherRegistry(types: [.Headers])
+                let upperHeaders = HTTPHeaders(headers.map { (l, r) in (l.uppercased(), r.uppercased()) })
+                let registry = RequestMatcherRegistry(types: [.headers])
                 
-                let aRequest = NSMutableURLRequest(URL: NSURL(string: url)!)
+                var aRequest = URLRequest(url: URL(string: url)!)
                 aRequest.allHTTPHeaderFields = headers
                 
-                let anotherRequest = NSMutableURLRequest(URL: NSURL(string: url)!)
+                var anotherRequest = URLRequest(url: URL(string: url)!)
                 anotherRequest.allHTTPHeaderFields = upperHeaders
                 
-                return registry.matchableRequests(aRequest, anotherRequest: anotherRequest)
+                return registry.matchableRequests(request: aRequest, with: anotherRequest)
             }
         }
     }

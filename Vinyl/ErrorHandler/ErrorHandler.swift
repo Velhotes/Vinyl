@@ -9,13 +9,13 @@
 import Foundation
 
 protocol ErrorHandler {
-    func handleTrackNotFound(request: Request, playTracksUniquely: Bool)
+    func handleTrackNotFound(_ request: Request, playTracksUniquely: Bool)
     func handleUnknownError()
 }
 
 struct DefaultErrorHandler: ErrorHandler {
     
-    func handleTrackNotFound(request: Request, playTracksUniquely: Bool) {
+    func handleTrackNotFound(_ request: Request, playTracksUniquely: Bool) {
      
         if playTracksUniquely {
             fatalError("💥 No 🎶 recorded and matchable with request: \n\(request.debugDescription)\n\nThis might be happening because you are trying to consume the same request multiple times 😩\n")

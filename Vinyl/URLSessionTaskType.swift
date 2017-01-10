@@ -9,5 +9,5 @@
 import Foundation
 
 protocol URLSessionTaskType {
-    init(completion: Void -> Void)
+    init(completion: @escaping () -> Void)
 }

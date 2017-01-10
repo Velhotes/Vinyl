@@ -13,23 +13,23 @@ struct Player {
     let vinyl: Vinyl
     let trackMatchers: [TrackMatcher]
     
-    private func seekTrackForRequest(request: Request) -> Track? {
+    fileprivate func seekTrack(for request: Request) -> Track? {
         return vinyl.tracks.first { track in
-            trackMatchers.all { matcher in matcher.matchableTrack(request, track: track) }
+            trackMatchers.all { matcher in matcher.matchable(track: track, for: request) }
         }
     }
     
-    func playTrack(forRequest request: Request) throws -> (data: NSData?, response: NSURLResponse?, error: NSError?) {
+    func playTrack(for request: Request) throws -> (data: Data?, response: URLResponse?, error: Error?) {
         
-        guard let track = self.seekTrackForRequest(request) else {
-            throw Error.TrackNotFound
+        guard let track = self.seekTrack(for: request) else {
+            throw TurntableError.trackNotFound
         }
         
-        return (data: track.response.body, response: track.response.urlResponse, error: track.response.error)
+        return (data: track.response.body as Data?, response: track.response.urlResponse, error: track.response.error)
     }
     
-    func trackExists(forRequest request: Request) -> Bool {
-        if let _ = self.seekTrackForRequest(request) {
+    func trackExists(for request: Request) -> Bool {
+        if let _ = self.seekTrack(for: request) {
             return true
         }
         

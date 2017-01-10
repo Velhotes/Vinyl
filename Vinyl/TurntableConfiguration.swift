@@ -9,14 +9,14 @@
 import Foundation
 
 public enum MatchingStrategy {
-    case RequestAttributes(types: [RequestMatcherType], playTracksUniquely: Bool)
-    case TrackOrder
+    case requestAttributes(types: [RequestMatcherType], playTracksUniquely: Bool)
+    case trackOrder
 }
 
 public enum RecordingMode {
-    case None
-    case MissingTracks(recordingPath: String?)
-    case MissingVinyl(recordingPath: String?)
+    case none
+    case missingTracks(recordingPath: String?)
+    case missingVinyl(recordingPath: String?)
 }
 
 public struct TurntableConfiguration {
@@ -27,8 +27,8 @@ public struct TurntableConfiguration {
     var playTracksUniquely: Bool {
         get {
             switch matchingStrategy {
-            case .RequestAttributes(_, let playTracksUniquely): return playTracksUniquely
-            case .TrackOrder: return true
+            case .requestAttributes(_, let playTracksUniquely): return playTracksUniquely
+            case .trackOrder: return true
             }
         }
     }
@@ -36,7 +36,7 @@ public struct TurntableConfiguration {
     var recodingEnabled: Bool {
         get {
             switch recordingMode {
-            case .None:
+            case .none:
                 return false
             default:
                 return true
@@ -47,26 +47,26 @@ public struct TurntableConfiguration {
     var recordingPath: String? {
         get {
             switch recordingMode {
-            case .MissingVinyl(let path):
+            case .missingVinyl(let path):
                 return path
-            case .MissingTracks(let path):
+            case .missingTracks(let path):
                 return path
             default:
-                return .None
+                return .none
             }
         }
     }
     
-    public init(matchingStrategy: MatchingStrategy = .RequestAttributes(types: [.Method, .URL], playTracksUniquely: true), recordingMode: RecordingMode = .MissingVinyl(recordingPath: nil)) {
+    public init(matchingStrategy: MatchingStrategy = .requestAttributes(types: [.method, .url], playTracksUniquely: true), recordingMode: RecordingMode = .missingVinyl(recordingPath: nil)) {
         self.matchingStrategy = matchingStrategy
         self.recordingMode = recordingMode
     }
     
-    func trackMatchersForVinyl(vinyl: Vinyl) -> [TrackMatcher] {
+    func trackMatchers(for vinyl: Vinyl) -> [TrackMatcher] {
         
         switch matchingStrategy {
             
-        case .RequestAttributes(let types, let playTracksUniquely):
+        case .requestAttributes(let types, let playTracksUniquely):
             
             var trackMatchers: [TrackMatcher] = [ TypeTrackMatcher(requestMatcherTypes: types) ]
             
@@ -77,7 +77,7 @@ public struct TurntableConfiguration {
             
             return trackMatchers
             
-        case .TrackOrder:
+        case .trackOrder:
             return [ UniqueTrackMatcher(availableTracks: vinyl.tracks) ]
         }
     }

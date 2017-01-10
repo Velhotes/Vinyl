@@ -8,11 +8,11 @@
 
 import Foundation
 
-public final class URLSessionUploadTask: NSURLSessionUploadTask, URLSessionTaskType {
+public final class URLSessionUploadTask: Foundation.URLSessionUploadTask, URLSessionTaskType {
     
-    private let completion: Void -> Void
+    fileprivate let completion: () -> Void
     
-    init(completion: Void -> Void) {
+    init(completion: @escaping () -> Void) {
         self.completion = completion
     }
     
