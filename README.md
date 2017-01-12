@@ -29,11 +29,6 @@ github "Velhotes/Vinyl" "0.10.0"
 ```swift
 .Package(url: "https://github.com/Velhotes/Vinyl.git", Version(0, 10, 0))
 ```
-#### Swift Package Manager
-
-```swift
-.Package(url: "https://github.com/Velhotes/Vinyl.git", majorVersion:0, minor:9)
-```
 
 #### Intro
 Vinyl uses the same nomenclature that you would see in real life, when playing a vinyl:
