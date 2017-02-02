@@ -155,6 +155,14 @@ public final class Turntable: URLSession {
 
 extension Turntable {
     
+    public override var configuration: URLSessionConfiguration {
+        if let session = recordingSession {
+            return session.configuration
+        } else {
+            return URLSessionConfiguration.default
+        }
+    }
+    
     public override func dataTask(with url: URL, completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void) -> Foundation.URLSessionDataTask {
         let request = URLRequest(url: url)
         return dataTask(with: request, completionHandler: completionHandler)
