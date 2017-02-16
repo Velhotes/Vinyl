@@ -474,4 +474,27 @@ class TurntableTests: XCTestCase {
             expectation.fulfill()
             }) .resume()
     }
+
+    func test_default_URLSession_configuration() {
+        let turntable = Turntable(vinylName: "vinyl_single")
+
+        // If this doesn't crash we pass
+        let _ = turntable.configuration
+    }
+
+    func test_recording_URLSession_configuration() {
+        let expectedHeaderValue = "Vinyl"
+        let configuration = URLSessionConfiguration.default
+        configuration.httpAdditionalHeaders = ["X-UniqueHeader": expectedHeaderValue]
+
+        let urlSession = URLSession(configuration: configuration)
+        let turntable = Turntable(vinylName: "vinyl_single",
+                                  turntableConfiguration: TurntableConfiguration(recordingMode: .missingTracks(recordingPath: nil)),
+                                  urlSession: urlSession)
+
+        let headerValue = turntable.configuration.httpAdditionalHeaders!["X-UniqueHeader"] as! String
+
+        // Can't compare `configuration` instances since they return copies
+        XCTAssertEqual(headerValue, expectedHeaderValue)
+    }
 }
