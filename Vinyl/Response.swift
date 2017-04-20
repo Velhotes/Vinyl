@@ -60,8 +60,8 @@ func ==(lhs: Response, rhs: Response) -> Bool {
 extension Response: Hashable {
     
     var hashValue: Int {        
-        let body = self.body == nil ? "" : "\(self.body!)"
-        let error = self.error == nil ? "" : "\(self.error!)"
+        let body = "\(self.body ?? Data())"
+        let error = "\(self.error ?? NSError())"
         
         return "\(urlResponse?.hashValue ?? 0):\((body)):\(error)".hashValue
     }    
