@@ -11,9 +11,9 @@ import SwiftCheck
 
 /// Generates an array of lowercase alphabetic `Character`s.
 let lowerStringGen =
-Gen<Character>.fromElements(in: "a"..."z")
-    .proliferateNonEmpty
-    .map(String.init)
+    Gen<Character>.fromElements(in: "a"..."z")
+        .proliferateNonEmpty
+        .map(String.init)
 
 /// Generates a URL of the form `(http|https)://<domain>.com`.
 let urlStringGen : Gen<String> = sequence([
@@ -40,7 +40,7 @@ let jsonStringPairsArray: Gen<[String]> = Gen.sized { sz in
 }
 // Generates a JSON string pair of the form '"key":"value", "key1":"value1" ....'
 let jsonStringPairs: Gen<String> = jsonStringPairsArray.map { xs in
-        return xs.reduce("") { $0 == "" ? $1 : $0 + "," + $1
+    return xs.reduce("") { $0 == "" ? $1 : $0 + "," + $1
     }
 }
 
@@ -78,7 +78,13 @@ let pathParameterGenArray: Gen<[String]> = Gen.sized { sz in
 }
 /// Generates a set of parameters.
 let pathParameterGen: Gen<String> = pathParameterGenArray.map { xs in
-        return xs.reduce("?") { $0 == "?" ? "?" + $1 : $0 + "&" + $1
+    return xs.reduce("?") { (acc, val) in
+        if acc == "?" {
+            return "?" + val
+        }
+        else {
+            return acc + "?" + val
+        }
     }
 }
 
