@@ -13,7 +13,7 @@ import SwiftCheck
 let lowerStringGen =
     Gen<Character>.fromElements(in: "a"..."z")
         .proliferateNonEmpty
-        .map(String.init)
+        .map { String($0) }
 
 /// Generates a URL of the form `(http|https)://<domain>.com`.
 let urlStringGen : Gen<String> = sequence([
