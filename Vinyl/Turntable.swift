@@ -147,7 +147,7 @@ public final class Turntable: URLSession {
     }
     
     public override var delegate: URLSessionDelegate? {
-        return nil
+        return recordingSession?.delegate
     }
 }
 
