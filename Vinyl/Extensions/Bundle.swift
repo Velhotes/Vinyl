@@ -9,7 +9,7 @@
 import Foundation
 
 // Idea taken from Venmo/DVR (thanks!)
-func testingBundle() -> Bundle {
+public func testingBundle() -> Bundle {
     
     let bundleArray = Bundle.allBundles.filter() { $0.bundlePath.hasSuffix(".xctest") }
     
