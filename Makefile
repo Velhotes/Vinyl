@@ -7,4 +7,4 @@ Mac:
 	set -o pipefail && xcodebuild test -project Vinyl.xcodeproj -scheme Vinyl-Mac -destination "platform=macOS" | xcpretty
 
 tvOS:
-	set -o pipefail && xcodebuild test -project Vinyl.xcodeproj -scheme Vinyl-tvOS -destination "platform=tvOS Simulator,name=Apple 4K TV 1080p" | xcpretty
+	set -o pipefail && xcodebuild test -project Vinyl.xcodeproj -scheme Vinyl-tvOS -destination "platform=tvOS Simulator,name=Apple TV 4K" | xcpretty
