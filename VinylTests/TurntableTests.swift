@@ -57,7 +57,7 @@ class TurntableTests: XCTestCase {
         var numberOfCalls = 0
         let checker: (Data?, URLResponse?, Error?) -> () = { (data, response, anError) in
             
-            guard let httpResponse = response as? HTTPURLResponse else { fatalError("\(response) should be a NSHTTPURLResponse") }
+            guard let httpResponse = response as? HTTPURLResponse else { fatalError("\(String(describing: response)) should be a NSHTTPURLResponse") }
             
             switch numberOfCalls {
             case 0:
@@ -89,7 +89,7 @@ class TurntableTests: XCTestCase {
         var numberOfCalls = 0
         let checker: (Data?, URLResponse?, Error?) -> () = { (data, response, anError) in
             
-            guard let httpResponse = response as? HTTPURLResponse else { fatalError("\(response) should be a NSHTTPURLResponse") }
+            guard let httpResponse = response as? HTTPURLResponse else { fatalError("\(String(describing: response)) should be a NSHTTPURLResponse") }
             
             numberOfCalls += 1
             
@@ -130,7 +130,7 @@ class TurntableTests: XCTestCase {
         var numberOfCalls = 0
         let checker: (Data?, URLResponse?, Error?) -> () = { (data, response, anError) in
             
-            guard let httpResponse = response as? HTTPURLResponse else { fatalError("\(response) should be a NSHTTPURLResponse") }
+            guard let httpResponse = response as? HTTPURLResponse else { fatalError("\(String(describing: response)) should be a NSHTTPURLResponse") }
             
             switch numberOfCalls {
             case 0:
@@ -170,7 +170,7 @@ class TurntableTests: XCTestCase {
         turntable.uploadTask(with: request, from: data, completionHandler: { (data, response, error) in
             XCTAssertNil(error)
             
-            guard let httpResponse = response as? HTTPURLResponse else { fatalError("\(response) should be a NSHTTPURLResponse") }
+            guard let httpResponse = response as? HTTPURLResponse else { fatalError("\(String(describing: response)) should be a NSHTTPURLResponse") }
             
             let body = ["token": "thespidersfrommars"]
             let responseBody = try! JSONSerialization.jsonObject(with: data!, options: []) as AnyObject
@@ -232,7 +232,7 @@ class TurntableTests: XCTestCase {
             
             XCTAssertNil(anError)
             
-            guard let httpResponse = response as? HTTPURLResponse else { fatalError("\(response) should be a NSHTTPURLResponse") }
+            guard let httpResponse = response as? HTTPURLResponse else { fatalError("\(String(describing: response)) should be a NSHTTPURLResponse") }
             
             let body = "hello".data(using: String.Encoding.utf8)!
             
@@ -256,7 +256,7 @@ class TurntableTests: XCTestCase {
         var numberOfCalls = 0
         let checker: (Data?, URLResponse?, Error?) -> () = { (data, response, anError) in
             
-            guard let httpResponse = response as? HTTPURLResponse else { fatalError("\(response) should be a NSHTTPURLResponse") }
+            guard let httpResponse = response as? HTTPURLResponse else { fatalError("\(String(describing: response)) should be a NSHTTPURLResponse") }
             
             switch numberOfCalls {
             case 0:
