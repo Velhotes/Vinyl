@@ -13,7 +13,7 @@ import SwiftCheck
 let lowerStringGen =
 Gen<Character>.fromElements(in: "a"..."z")
     .proliferateNonEmpty
-    .map(String.init)
+    .map { String($0) }
 
 /// Generates a URL of the form `(http|https)://<domain>.com`.
 let urlStringGen : Gen<String> = sequence([
@@ -78,7 +78,13 @@ let pathParameterGenArray: Gen<[String]> = Gen.sized { sz in
 }
 /// Generates a set of parameters.
 let pathParameterGen: Gen<String> = pathParameterGenArray.map { xs in
-        return xs.reduce("?") { $0 == "?" ? "?" + $1 : $0 + "&" + $1
+    return xs.reduce("?") {
+        switch $0 {
+        case "?":
+            return $0 + $1
+        default:
+            return $0 + "&" + $1
+        }
     }
 }
 
