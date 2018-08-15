@@ -176,7 +176,7 @@ let turntable = Turntable(cassetteName: "dvr_single")
 
 That way you won't have to throw anything away.
 
-> Note: only use it for cassettes that you already have in the bundle, otherwise recording will crash trying to read missing file.
+**Note:** only use it for cassettes that you already have in the bundle, otherwise recording will crash trying to read missing file.
 
 ## Recording
 
