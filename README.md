@@ -86,7 +86,7 @@ In practise it would look like this:
 ```swift
 let matching = MatchingStrategy.requestAttributes(types: [.body, .query], playTracksUniquely: true)
 let configuration = TurntableConfiguration(matchingStrategy:  matching)
-let turntable = Turntable(vinylName: "vinyl_simple", configuration: configuration)
+let turntable = Turntable(vinylName: "vinyl_simple", turntableConfiguration: configuration)
 ```
 In this case we are matching by `.body` and `.query`. We also provide a way of making sure each track is only played once (or not), by setting the `playTracksUniquely` accordingly. 
 
@@ -95,7 +95,7 @@ If the mapping approach is not desirable, you can make it behave like a queue: t
 ```swift
 let matching = MatchingStrategy.trackOrder
 let configuration = TurntableConfiguration(matchingStrategy:  matching)
-let turntable = Turntable(vinylName: "vinyl_simple", configuration: configuration)
+let turntable = Turntable(vinylName: "vinyl_simple", turntableConfiguration: configuration)
 ```
 We also allow creating a track by hand, instead of relying on a JSON file:
 
@@ -103,14 +103,14 @@ We also allow creating a track by hand, instead of relying on a JSON file:
 let track = TrackFactory.createValidTrack(url: URL(string: "http://feelGoodINC.com")!, body: data, headers: headers)
 
 let vinyl = Vinyl(tracks: [track])
-let turntable = Turntable(vinyl: vinyl, configuration: configuration)
+let turntable = Turntable(vinyl: vinyl, turntableConfiguration: configuration)
 ```
 
 If you have a custom configuration that you would like to see shared among your tests, we recommend the following:
 
 ```swift
 class FooTests: XCTestCase {
-    let turntable = Turntable(configuration: TurntableConfiguration(matchingStrategy: .trackOrder))
+    let turntable = Turntable(turntableConfiguration: TurntableConfiguration(matchingStrategy: .trackOrder))
 
     func test_1() {
        turntable.loadVinyl("vinyl_1")
@@ -176,6 +176,8 @@ let turntable = Turntable(cassetteName: "dvr_single")
 
 That way you won't have to throw anything away.
 
+**Note:** only use it for cassettes that you already have in the bundle, otherwise recording will crash trying to read missing file.
+
 ## Recording
 
 You can also use Vinyl to record requests and responses from the network to use for future testing. This is an easy way to create Vinyls and Tracks automatically with genuine data rather than creating them manually.
@@ -185,14 +187,14 @@ There are 3 recording modes:
 * `.missingVinyl` - will record a new Vinyl if the named Vinyl does not exist. This is the default mode.
 * `.missingTracks` - will record new Tracks to an existing Vinyl where the Track is not found.
 
-Both `.missingVinyl` and `.missingTracks` allow you to specify a `recordingPath` for where to save the recordings. If the path is not provided (`nil`) then the default path is current test target's Resource Bundle, which is also the default location from which Vinyl's are loaded.
+Both `.missingVinyl` and `.missingTracks` allow you to specify a `recordingPath` for where to save the recordings (this should be a file path). If the path is not provided (`nil`) then the default path is current test target's Resource Bundle, which is also the default location from which Vinyl's are loaded.
 
 #### A simple example
 
 ```swift
 let recordingMode = RecordingMode.missingVinyl(recordingPath: nil)
 let configuration = TurntableConfiguration(recordingMode: recordingMode)
-let turntable = Turntable(vinylName: "new_vinyl", configuration: configuration)
+let turntable = Turntable(vinylName: "new_vinyl", turntableConfiguration: configuration)
 let request = URLRequest(url: URL(string: "http://api.test.com")!)
  
 turntable.dataTask(with: request) { (data, response, anError) in
@@ -206,7 +208,7 @@ Recordings are saved either when the `Turntable` is deinitialized or you can exp
 
 You can provide a `URLSession` for a `Turntable` to use for making network requests:
 
-`let turntable = Turntable(vinylName: "new_vinyl", configuration: configuration, urlSession: aSession)`
+`let turntable = Turntable(vinylName: "new_vinyl", turntableConfiguration: configuration, urlSession: aSession)`
 
 If no `URLSession` is provided, it defaults to `URLSession.shared`.
 
