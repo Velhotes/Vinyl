@@ -107,7 +107,8 @@ public final class Turntable: URLSession {
                 if request.httpShouldHandleCookies, 
                    let cookieStorage = self.configuration.httpCookieStorage, 
                    let httpResponse = completion.response as? HTTPURLResponse, 
-                   let headerFields = httpResponse.allHeaderFields as? [String: String], let url = httpResponse.url {
+                   let headerFields = httpResponse.allHeaderFields as? [String: String], 
+                   let url = httpResponse.url {
                     let cookies = HTTPCookie.cookies(withResponseHeaderFields: headerFields, for: url)
                     cookieStorage.setCookies(cookies, for: url, mainDocumentURL: request.mainDocumentURL)
                 }
