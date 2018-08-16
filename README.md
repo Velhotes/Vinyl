@@ -5,7 +5,7 @@
 Vinyl
 -----
 
-[![Version](https://img.shields.io/badge/version-0.10.1-blue.svg)](https://github.com/Velhotes/Vinyl/releases/latest)
+[![Version](https://img.shields.io/badge/version-0.10.2-blue.svg)](https://github.com/Velhotes/Vinyl/releases/latest)
 [![Build Status](https://travis-ci.org/Velhotes/Vinyl.svg?branch=master)](https://travis-ci.org/Velhotes/Vinyl)
 [![codecov.io](https://codecov.io/github/Velhotes/Vinyl/coverage.svg?branch=master)](https://codecov.io/github/Velhotes/Vinyl?branch=master)
 [![Carthage](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
@@ -214,7 +214,7 @@ If no `URLSession` is provided, it defaults to `URLSession.shared`.
 
 ## Current Status
 
-The current version ([0.10.1](https://github.com/Velhotes/Vinyl/releases/tag/0.10.1)) is currently being used in a project successfully. This gives us some degree of confidence it will work for you as well. **Nevertheless don't forget this is a pre-release version**. If there is something that isn't working for you, or you are finding its usage cumbersome, please [let us know](https://github.com/Velhotes/Vinyl/issues/new).
+The current version ([0.10.2](https://github.com/Velhotes/Vinyl/releases/latest)) is currently being used in a project successfully. This gives us some degree of confidence it will work for you as well. **Nevertheless don't forget this is a pre-release version**. If there is something that isn't working for you, or you are finding its usage cumbersome, please [let us know](https://github.com/Velhotes/Vinyl/issues/new).
 
 ## Roadmap
 
