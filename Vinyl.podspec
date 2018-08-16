@@ -1,9 +1,9 @@
 Pod::Spec.new do |s|
   s.name         = "Vinyl"
-  s.version      = "0.10.0"
+  s.version      = "0.10.1"
   s.summary      = "Network testing à la VCR in Swift"
   s.description  = "Vinyl is a simple, yet flexible library used for replaying HTTP requests while unit testing. It takes heavy inspiration from DVR and VCR."
-  s.homepage     = "https://github.com/Velhotes/Vinyl" 
+  s.homepage     = "https://github.com/Velhotes/Vinyl"
   s.author       = { 'Velhotes' => '(email)' }
   s.license      = 'MIT'
   s.ios.deployment_target = '8.0'

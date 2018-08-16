@@ -1,28 +1,28 @@
 <p align="center">
-<img src="https://dl.dropboxusercontent.com/u/14102938/1455301679_gramphone.png">
+<img src="turntable.png">
 </p>
 
 Vinyl
 -----
 
-[![Version](https://img.shields.io/badge/version-0.10.0-blue.svg)](https://github.com/Velhotes/Vinyl/releases/latest)
+[![Version](https://img.shields.io/badge/version-0.10.1-blue.svg)](https://github.com/Velhotes/Vinyl/releases/latest)
 [![Build Status](https://travis-ci.org/Velhotes/Vinyl.svg?branch=master)](https://travis-ci.org/Velhotes/Vinyl)
 [![codecov.io](https://codecov.io/github/Velhotes/Vinyl/coverage.svg?branch=master)](https://codecov.io/github/Velhotes/Vinyl?branch=master)
-<a href="https://github.com/Carthage/Carthage"><img src="https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat"></a>
-[![Swift 3.0](https://img.shields.io/badge/Swift-3.0-orange.svg?style=flat)](https://developer.apple.com/swift/)
+[![Carthage](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
+[![Swift 4.1](https://img.shields.io/badge/Swift-4.1-orange.svg?style=flat)](https://developer.apple.com/swift/)
 [![License MIT](https://img.shields.io/badge/License-MIT-lightgrey.svg?style=flat)](https://opensource.org/licenses/MIT)
 ![platforms](https://img.shields.io/badge/platforms-iOS%20%7C%20OS%20X%20%7C%20tvOS%20-lightgrey.svg)
 
 Vinyl is a simple, yet flexible library used for replaying HTTP requests while unit testing. It takes heavy inspiration from [DVR](https://github.com/venmo/DVR) and [VCR](https://github.com/vcr/vcr).
 
-Vinyl should be used when you design your app's architecture with [Dependency Injection](https://en.wikipedia.org/wiki/Dependency_injection) in mind. For other cases, where your `URLSession` is fixed, we would recommend [OHHTTPStubs](https://github.com/AliSoftware/OHHTTPStubs) or [Mockingjay](https://github.com/kylef/Mockingjay). 
+Vinyl should be used when you design your app's architecture with [Dependency Injection](https://en.wikipedia.org/wiki/Dependency_injection) in mind. For other cases, where your `URLSession` is fixed, we would recommend [OHHTTPStubs](https://github.com/AliSoftware/OHHTTPStubs) or [Mockingjay](https://github.com/kylef/Mockingjay).
 
 ## How to use it
 
 #### Carthage
 
 ```
-github "Velhotes/Vinyl" "0.10.0"
+github "Velhotes/Vinyl"
 ```
 
 #### Intro
@@ -37,9 +37,9 @@ Let's start with the most basic configuration, where you already have a track (s
 ```swift
 let turntable = Turntable(vinylName: "vinyl_single")
 let request = URLRequest(url: URL(string: "http://api.test.com")!)
- 
+
 turntable.dataTask(with: request) { (data, response, anError) in
- // Assert your expectations    
+ // Assert your expectations
 }.resume()
 ```
 
@@ -62,8 +62,8 @@ A track is a mapping between a request (`URLRequest`) and a response (`HTTPURLRe
 ```
 Vinyl by default will use the mapping approach. Internally, we will try to match the request sent with the track recorded based on:
 
-*  The sent request's `url` with the track request's `url`. 
-*  The sent request's `httpMethod` with the track request's `httpMethod`. 
+*  The sent request's `url` with the track request's `url`.
+*  The sent request's `httpMethod` with the track request's `httpMethod`.
 
 As you might have noticed, we don't provide an `httpMethod` in the `vinyl_single`, by default it will fallback to `GET`.
 
@@ -88,7 +88,7 @@ let matching = MatchingStrategy.requestAttributes(types: [.body, .query], playTr
 let configuration = TurntableConfiguration(matchingStrategy:  matching)
 let turntable = Turntable(vinylName: "vinyl_simple", turntableConfiguration: configuration)
 ```
-In this case we are matching by `.body` and `.query`. We also provide a way of making sure each track is only played once (or not), by setting the `playTracksUniquely` accordingly. 
+In this case we are matching by `.body` and `.query`. We also provide a way of making sure each track is only played once (or not), by setting the `playTracksUniquely` accordingly.
 
 If the mapping approach is not desirable, you can make it behave like a queue: the first request will match the first response in the array and so on:
 
@@ -150,7 +150,7 @@ Your network layer, could then be in the form of:
 ```swift
 class Network {
     private let manager: SessionManager
-  
+
     init(session: URLSession) {
         self.manager = SessionManager(session: session, delegate: SessionDelegate())
     }
@@ -161,7 +161,7 @@ This way it's becomes quite easy to test your components using Vinyl. This might
 
 #### Coming from DVR
 
-If your tests are already working with DVR, you will probably have pre-recorded cassettes. Vinyl provides a compatibility mode that allows you to re-use those cassettes. 
+If your tests are already working with DVR, you will probably have pre-recorded cassettes. Vinyl provides a compatibility mode that allows you to re-use those cassettes.
 
 If your tests look like this:
 
@@ -196,9 +196,9 @@ let recordingMode = RecordingMode.missingVinyl(recordingPath: nil)
 let configuration = TurntableConfiguration(recordingMode: recordingMode)
 let turntable = Turntable(vinylName: "new_vinyl", turntableConfiguration: configuration)
 let request = URLRequest(url: URL(string: "http://api.test.com")!)
- 
+
 turntable.dataTask(with: request) { (data, response, anError) in
-    // Assert your expectations    
+    // Assert your expectations
 }.resume()
 ```
 
@@ -214,7 +214,7 @@ If no `URLSession` is provided, it defaults to `URLSession.shared`.
 
 ## Current Status
 
-The current version ([0.10](https://github.com/Velhotes/Vinyl/releases/tag/0.10.0)) is currently being used in a project successfully. This gives us some degree of confidence it will work for you as well. **Nevertheless don't forget this is a pre-release version**. If there is something that isn't working for you, or you are finding its usage cumbersome, please [let us know](https://github.com/Velhotes/Vinyl/issues/new).  
+The current version ([0.10.1](https://github.com/Velhotes/Vinyl/releases/tag/0.10.1)) is currently being used in a project successfully. This gives us some degree of confidence it will work for you as well. **Nevertheless don't forget this is a pre-release version**. If there is something that isn't working for you, or you are finding its usage cumbersome, please [let us know](https://github.com/Velhotes/Vinyl/issues/new).
 
 ## Roadmap
 
@@ -228,10 +228,8 @@ The current version ([0.10](https://github.com/Velhotes/Vinyl/releases/tag/0.10.
 
 From our point of view, DVR is too strict. If you change something in your request, even if you are expecting the same response, your tests will break. With that in mind, we intend to follow VCR's approach, where you can define what should be fixed, and what's not (e.g. only care if the `NSURL` changes, instead of the headers, body and HTTP Method). Bottom line, our approach will have flexibility and extensibility in mind.
 
-We also feel that the DVR project has stalled. As of 15/02/2016, the project has 10 issues open, 2 PRs and the last commit was more than one month ago. 
+We also feel that the DVR project has stalled. As of 15/02/2016, the project has 10 issues open, 2 PRs and the last commit was more than one month ago.
 
 ## Contributing
 
 We will gladly accept Pull Requests that take the roadmap into consideration. Documentation, or tests, are always welcome as well. :heart:
-
-
