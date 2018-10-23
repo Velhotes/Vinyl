@@ -11,6 +11,11 @@ import Foundation
 extension URLQueryItem: Comparable {
     
     public static func < (lhs: URLQueryItem, rhs: URLQueryItem) -> Bool {
-        return lhs.name < rhs.name
+        guard lhs.name < rhs.name else { return false }
+        switch (lhs.value, rhs.value) {
+        case let (lhs?, rhs?): return lhs < rhs
+        case (nil, nil): return false
+        default: return lhs.value == nil
+        }
     }
 }
