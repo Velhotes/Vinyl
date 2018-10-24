@@ -11,11 +11,13 @@ import Foundation
 final class Recorder {
     var wax: Wax
     let recordingPath: String?
+    let strategy: RecordingStrategy
     var somethingRecorded = false
-    
-    init(wax: Wax, recordingPath: String?) {
+
+    init(wax: Wax, recordingPath: String?, strategy: RecordingStrategy) {
         self.wax = wax
         self.recordingPath = recordingPath
+        self.strategy = strategy
     }
 }
 
@@ -34,14 +36,14 @@ extension Recorder {
 extension Recorder {
     
     func persist() throws {
-        guard let recordingPath = recordingPath, somethingRecorded else {
-            if somethingRecorded {
-                throw TurntableError.noRecordingPath
-            } else {
-                throw TurntableError.nothingToRecord
-            }
+        guard somethingRecorded || strategy == .always else {
+            throw TurntableError.nothingToRecord
         }
-        
+
+        guard let recordingPath = recordingPath else {
+            throw TurntableError.noRecordingPath
+        }
+
         let fileManager = FileManager.default
         guard fileManager.createFile(atPath: recordingPath, contents: nil, attributes: nil) == true,
             let file = FileHandle(forWritingAtPath: recordingPath) else {

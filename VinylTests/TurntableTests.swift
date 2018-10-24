@@ -475,6 +475,28 @@ class TurntableTests: XCTestCase {
             }) .resume()
     }
 
+    func test_Vynil_recording_empty() {
+        let recordingVinylName = "vinyl_recording"
+        let path = prepPathForRecording(recordingVinylName)
+
+        let dogFood = Turntable(vinylName: "vinyl_single")
+        var turntable = Turntable(vinylName: "vinyl_single",
+                                  turntableConfiguration: TurntableConfiguration(recordingMode: .missingTracks(recordingPath: path), recordingStrategy: .nonEmpty),
+                                  urlSession: dogFood)
+
+        turntable.stopRecording()
+
+        XCTAssertFalse(FileManager.default.fileExists(atPath: path))
+
+        turntable = Turntable(vinylName: "vinyl_single",
+                              turntableConfiguration: TurntableConfiguration(recordingMode: .missingTracks(recordingPath: path), recordingStrategy: .always),
+                              urlSession: dogFood)
+
+        turntable.stopRecording()
+
+        XCTAssertTrue(FileManager.default.fileExists(atPath: path))
+    }
+
     func test_default_URLSession_configuration() {
         let turntable = Turntable(vinylName: "vinyl_single")
 

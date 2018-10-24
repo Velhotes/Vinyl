@@ -38,7 +38,9 @@ public final class Turntable: URLSession {
         }
         
         if configuration.recodingEnabled {
-            recorder = Recorder(wax: Wax(tracks: []), recordingPath: configuration.recordingPath)
+            recorder = Recorder(wax: Wax(tracks: []),
+                                recordingPath: configuration.recordingPath,
+                                strategy: configuration.recordingStrategy)
             recordingSession = urlSession ?? URLSession.shared
         }
         
@@ -62,7 +64,7 @@ public final class Turntable: URLSession {
         
         switch turntableConfiguration.recordingMode {
         case .missingVinyl where plastic == nil, .missingTracks:
-            recorder = Recorder(wax: Wax(vinyl: vinyl), recordingPath: recordingPath(fromConfiguration: turntableConfiguration, vinylName: vinylName, bundle: bundle))
+            recorder = Recorder(wax: Wax(vinyl: vinyl), recordingPath: recordingPath(fromConfiguration: turntableConfiguration, vinylName: vinylName, bundle: bundle), strategy: turntableConfiguration.recordingStrategy)
         default:
             recorder = nil
             recordingSession = nil
@@ -234,7 +236,7 @@ extension Turntable {
 
         switch turntableConfiguration.recordingMode {
         case .missingVinyl where plastic == nil, .missingTracks:
-            recorder = Recorder(wax: Wax(vinyl: vinyl), recordingPath: recordingPath(fromConfiguration: turntableConfiguration, vinylName: vinylName, bundle: bundle))
+            recorder = Recorder(wax: Wax(vinyl: vinyl), recordingPath: recordingPath(fromConfiguration: turntableConfiguration, vinylName: vinylName, bundle: bundle), strategy: turntableConfiguration.recordingStrategy)
         default:
             recorder = nil
             recordingSession = nil
