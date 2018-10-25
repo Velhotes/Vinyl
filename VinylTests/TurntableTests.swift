@@ -480,17 +480,9 @@ class TurntableTests: XCTestCase {
         let path = prepPathForRecording(recordingVinylName)
 
         let dogFood = Turntable(vinylName: "vinyl_single")
-        var turntable = Turntable(vinylName: "vinyl_single",
-                                  turntableConfiguration: TurntableConfiguration(recordingMode: .missingTracks(recordingPath: path), recordingStrategy: .nonEmpty),
+        let turntable = Turntable(vinylName: "vinyl_single",
+                                  turntableConfiguration: TurntableConfiguration(recordingMode: .missingTracks(recordingPath: path)),
                                   urlSession: dogFood)
-
-        turntable.stopRecording()
-
-        XCTAssertFalse(FileManager.default.fileExists(atPath: path))
-
-        turntable = Turntable(vinylName: "vinyl_single",
-                              turntableConfiguration: TurntableConfiguration(recordingMode: .missingTracks(recordingPath: path), recordingStrategy: .always),
-                              urlSession: dogFood)
 
         turntable.stopRecording()
 
