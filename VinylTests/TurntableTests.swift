@@ -469,7 +469,7 @@ class TurntableTests: XCTestCase {
         turntable.dataTask(with: URL(string: urlString)!, completionHandler: { (data, response, anError) in
             turntable.stopRecording()
             
-            XCTAssertFalse(FileManager.default.fileExists(atPath: path))
+            XCTAssertTrue(FileManager.default.fileExists(atPath: path))
             
             expectation.fulfill()
             }) .resume()
