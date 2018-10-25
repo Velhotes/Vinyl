@@ -19,16 +19,10 @@ public enum RecordingMode {
     case missingVinyl(recordingPath: String?)
 }
 
-public enum RecordingStrategy {
-    case always
-    case nonEmpty
-}
-
 public struct TurntableConfiguration {
     
     public let matchingStrategy: MatchingStrategy
     public let recordingMode: RecordingMode
-    public let recordingStrategy: RecordingStrategy
 
     var playTracksUniquely: Bool {
         get {
@@ -65,11 +59,9 @@ public struct TurntableConfiguration {
     
     public init(
         matchingStrategy: MatchingStrategy = .requestAttributes(types: [.method, .url], playTracksUniquely: true),
-        recordingMode: RecordingMode = .missingVinyl(recordingPath: nil),
-        recordingStrategy: RecordingStrategy = .nonEmpty
+        recordingMode: RecordingMode = .missingVinyl(recordingPath: nil)
     ) {
         self.matchingStrategy = matchingStrategy
-        self.recordingStrategy = recordingStrategy
         self.recordingMode = recordingMode
     }
     

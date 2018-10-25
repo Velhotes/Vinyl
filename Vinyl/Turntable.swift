@@ -12,7 +12,6 @@ enum TurntableError: Error {
     
     case trackNotFound
     case noRecordingPath
-    case nothingToRecord
 }
 
 public typealias Plastic = [[String: Any]]
@@ -39,8 +38,7 @@ public final class Turntable: URLSession {
         
         if configuration.recodingEnabled {
             recorder = Recorder(wax: Wax(tracks: []),
-                                recordingPath: configuration.recordingPath,
-                                strategy: configuration.recordingStrategy)
+                                recordingPath: configuration.recordingPath)
             recordingSession = urlSession ?? URLSession.shared
         }
         
@@ -64,7 +62,7 @@ public final class Turntable: URLSession {
         
         switch turntableConfiguration.recordingMode {
         case .missingVinyl where plastic == nil, .missingTracks:
-            recorder = Recorder(wax: Wax(vinyl: vinyl), recordingPath: recordingPath(fromConfiguration: turntableConfiguration, vinylName: vinylName, bundle: bundle), strategy: turntableConfiguration.recordingStrategy)
+            recorder = Recorder(wax: Wax(vinyl: vinyl), recordingPath: recordingPath(fromConfiguration: turntableConfiguration, vinylName: vinylName, bundle: bundle))
         default:
             recorder = nil
             recordingSession = nil
@@ -82,9 +80,6 @@ public final class Turntable: URLSession {
         
         do {
             try recorder.persist()
-        }
-        catch TurntableError.nothingToRecord {
-            print("Nothing to record.")
         }
         catch TurntableError.noRecordingPath {
             fatalError("💣 no path was configured for saving the recording.")
@@ -236,7 +231,7 @@ extension Turntable {
 
         switch turntableConfiguration.recordingMode {
         case .missingVinyl where plastic == nil, .missingTracks:
-            recorder = Recorder(wax: Wax(vinyl: vinyl), recordingPath: recordingPath(fromConfiguration: turntableConfiguration, vinylName: vinylName, bundle: bundle), strategy: turntableConfiguration.recordingStrategy)
+            recorder = Recorder(wax: Wax(vinyl: vinyl), recordingPath: recordingPath(fromConfiguration: turntableConfiguration, vinylName: vinylName, bundle: bundle))
         default:
             recorder = nil
             recordingSession = nil

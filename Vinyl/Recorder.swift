@@ -11,20 +11,16 @@ import Foundation
 final class Recorder {
     var wax: Wax
     let recordingPath: String?
-    let strategy: RecordingStrategy
-    var somethingRecorded = false
 
-    init(wax: Wax, recordingPath: String?, strategy: RecordingStrategy) {
+    init(wax: Wax, recordingPath: String?) {
         self.wax = wax
         self.recordingPath = recordingPath
-        self.strategy = strategy
     }
 }
 
 extension Recorder {
     func saveTrack(with request: Request, response: Response) {
         wax.add(track: Track(request: request, response: response))
-        somethingRecorded = true
     }
     
     func saveTrack(with request: Request, urlResponse: HTTPURLResponse?, body: Data? = nil, error: Error? = nil) {
@@ -36,10 +32,6 @@ extension Recorder {
 extension Recorder {
     
     func persist() throws {
-        guard somethingRecorded || strategy == .always else {
-            throw TurntableError.nothingToRecord
-        }
-
         guard let recordingPath = recordingPath else {
             throw TurntableError.noRecordingPath
         }
@@ -59,6 +51,5 @@ extension Recorder {
         file.synchronizeFile()
         
         print("Vinyl recorded to: \(recordingPath)")
-        somethingRecorded = false
     }
 }
