@@ -80,13 +80,13 @@ private  struct PathRequestMatcher: RequestMatcher {
 private struct QueryRequestMatcher: RequestMatcher {
     func match(lhs: Request, rhs: Request) -> Bool {
         
-        let queryItems: (Request) -> [URLQueryItem] = { request in
+        let queryItems: (Request) -> Set<URLQueryItem> = { request in
             let components = URLComponents(string: request.url?.absoluteString ?? "")
-            return components?.queryItems ?? []
+            return Set(components?.queryItems ?? [])
         }
         
-        let lhsItems = queryItems(lhs).sorted(by: >)
-        let rhsItems = queryItems(rhs).sorted(by: >)
+        let lhsItems = queryItems(lhs)
+        let rhsItems = queryItems(rhs)
     
         return lhsItems == rhsItems
     }
