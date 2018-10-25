@@ -34,7 +34,6 @@
 		7DBD4CB31C79CC4D008C5487 /* Vinyl.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7DBD4CA91C79CC4C008C5487 /* Vinyl.framework */; };
 		7DBD4CC21C79CCE2008C5487 /* ErrorHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7995DC11C75F38F00E1D905 /* ErrorHandler.swift */; };
 		7DBD4CC31C79CCE2008C5487 /* FuncComposition.swift in Sources */ = {isa = PBXBuildFile; fileRef = C70886141C735136002DBB2C /* FuncComposition.swift */; };
-		7DBD4CC41C79CCE2008C5487 /* URLQueryItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = C70886111C7346CF002DBB2C /* URLQueryItem.swift */; };
 		7DBD4CC51C79CCE2008C5487 /* URLRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = C70886161C737684002DBB2C /* URLRequest.swift */; };
 		7DBD4CC61C79CCE2008C5487 /* SequenceType.swift in Sources */ = {isa = PBXBuildFile; fileRef = C708861A1C737C1B002DBB2C /* SequenceType.swift */; };
 		7DBD4CC71C79CCE2008C5487 /* Bundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7995DCD1C7724F700E1D905 /* Bundle.swift */; };
@@ -51,7 +50,6 @@
 		7DBD4CD21C79CCE2008C5487 /* RequestMatcherRegistry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D48F0D21C7159F10044DC32 /* RequestMatcherRegistry.swift */; };
 		7DBD4CD31C79CCF4008C5487 /* ErrorHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7995DC11C75F38F00E1D905 /* ErrorHandler.swift */; };
 		7DBD4CD41C79CCF4008C5487 /* FuncComposition.swift in Sources */ = {isa = PBXBuildFile; fileRef = C70886141C735136002DBB2C /* FuncComposition.swift */; };
-		7DBD4CD51C79CCF4008C5487 /* URLQueryItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = C70886111C7346CF002DBB2C /* URLQueryItem.swift */; };
 		7DBD4CD61C79CCF4008C5487 /* URLRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = C70886161C737684002DBB2C /* URLRequest.swift */; };
 		7DBD4CD71C79CCF4008C5487 /* SequenceType.swift in Sources */ = {isa = PBXBuildFile; fileRef = C708861A1C737C1B002DBB2C /* SequenceType.swift */; };
 		7DBD4CD81C79CCF4008C5487 /* Bundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7995DCD1C7724F700E1D905 /* Bundle.swift */; };
@@ -68,7 +66,6 @@
 		7DBD4CE31C79CCF4008C5487 /* RequestMatcherRegistry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D48F0D21C7159F10044DC32 /* RequestMatcherRegistry.swift */; };
 		7DBD4CE41C79CCFA008C5487 /* ErrorHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7995DC11C75F38F00E1D905 /* ErrorHandler.swift */; };
 		7DBD4CE51C79CCFA008C5487 /* FuncComposition.swift in Sources */ = {isa = PBXBuildFile; fileRef = C70886141C735136002DBB2C /* FuncComposition.swift */; };
-		7DBD4CE61C79CCFA008C5487 /* URLQueryItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = C70886111C7346CF002DBB2C /* URLQueryItem.swift */; };
 		7DBD4CE71C79CCFA008C5487 /* URLRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = C70886161C737684002DBB2C /* URLRequest.swift */; };
 		7DBD4CE81C79CCFA008C5487 /* SequenceType.swift in Sources */ = {isa = PBXBuildFile; fileRef = C708861A1C737C1B002DBB2C /* SequenceType.swift */; };
 		7DBD4CE91C79CCFA008C5487 /* Bundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7995DCD1C7724F700E1D905 /* Bundle.swift */; };
@@ -191,7 +188,6 @@
 		7DC570501C72ACA100BA1458 /* RequestMatcherRegistryTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RequestMatcherRegistryTests.swift; sourceTree = "<group>"; };
 		7DE666A51CAB49DA00ED063D /* URLSessionTaskType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = URLSessionTaskType.swift; sourceTree = "<group>"; };
 		82D8B7731C78E3FF00D8E037 /* Arbitrary.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Arbitrary.swift; sourceTree = "<group>"; };
-		C70886111C7346CF002DBB2C /* URLQueryItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = URLQueryItem.swift; sourceTree = "<group>"; };
 		C70886141C735136002DBB2C /* FuncComposition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FuncComposition.swift; sourceTree = "<group>"; };
 		C70886161C737684002DBB2C /* URLRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = URLRequest.swift; sourceTree = "<group>"; };
 		C708861A1C737C1B002DBB2C /* SequenceType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SequenceType.swift; sourceTree = "<group>"; };
@@ -282,7 +278,6 @@
 		C70886101C7346C8002DBB2C /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
-				C70886111C7346CF002DBB2C /* URLQueryItem.swift */,
 				C70886161C737684002DBB2C /* URLRequest.swift */,
 				C708861A1C737C1B002DBB2C /* SequenceType.swift */,
 				C7995DCD1C7724F700E1D905 /* Bundle.swift */,
@@ -674,7 +669,6 @@
 				7DBD4CC21C79CCE2008C5487 /* ErrorHandler.swift in Sources */,
 				7DBD4CC31C79CCE2008C5487 /* FuncComposition.swift in Sources */,
 				E530E6121C864B3300D9B590 /* URLSessionUploadTask.swift in Sources */,
-				7DBD4CC41C79CCE2008C5487 /* URLQueryItem.swift in Sources */,
 				7DBD4CC51C79CCE2008C5487 /* URLRequest.swift in Sources */,
 				7DBD4CC61C79CCE2008C5487 /* SequenceType.swift in Sources */,
 				7DBD4CC71C79CCE2008C5487 /* Bundle.swift in Sources */,
@@ -714,7 +708,6 @@
 				7DBD4CE41C79CCFA008C5487 /* ErrorHandler.swift in Sources */,
 				7DBD4CE51C79CCFA008C5487 /* FuncComposition.swift in Sources */,
 				E530E6131C864B3300D9B590 /* URLSessionUploadTask.swift in Sources */,
-				7DBD4CE61C79CCFA008C5487 /* URLQueryItem.swift in Sources */,
 				7DBD4CE71C79CCFA008C5487 /* URLRequest.swift in Sources */,
 				7DBD4CE81C79CCFA008C5487 /* SequenceType.swift in Sources */,
 				7DBD4CE91C79CCFA008C5487 /* Bundle.swift in Sources */,
@@ -754,7 +747,6 @@
 				7DBD4CD31C79CCF4008C5487 /* ErrorHandler.swift in Sources */,
 				7DBD4CD41C79CCF4008C5487 /* FuncComposition.swift in Sources */,
 				E530E6111C864B3300D9B590 /* URLSessionUploadTask.swift in Sources */,
-				7DBD4CD51C79CCF4008C5487 /* URLQueryItem.swift in Sources */,
 				7DBD4CD61C79CCF4008C5487 /* URLRequest.swift in Sources */,
 				7DBD4CD71C79CCF4008C5487 /* SequenceType.swift in Sources */,
 				7DBD4CD81C79CCF4008C5487 /* Bundle.swift in Sources */,
