@@ -37,11 +37,10 @@ public final class Turntable: URLSession {
         }
         
         if configuration.recodingEnabled {
-            recorder = Recorder(wax: Wax(tracks: []),
-                                recordingPath: configuration.recordingPath)
-            recordingSession = urlSession ?? URLSession.shared
+            recorder = Recorder(wax: Wax(tracks: []), recordingPath: configuration.recordingPath)
         }
-        
+        recordingSession = urlSession ?? URLSession.shared
+
         super.init()
     }
     

@@ -36,10 +36,10 @@ public struct TurntableConfiguration {
     var recodingEnabled: Bool {
         get {
             switch recordingMode {
-            case .none:
-                return false
+            case let .missingTracks(recordingPath), let .missingVinyl(recordingPath):
+                return recordingPath != nil
             default:
-                return true
+                return false
             }
         }
     }
