@@ -23,7 +23,7 @@ public struct TurntableConfiguration {
     
     public let matchingStrategy: MatchingStrategy
     public let recordingMode: RecordingMode
-    
+
     var playTracksUniquely: Bool {
         get {
             switch matchingStrategy {
@@ -36,10 +36,10 @@ public struct TurntableConfiguration {
     var recodingEnabled: Bool {
         get {
             switch recordingMode {
-            case .none:
-                return false
+            case let .missingTracks(recordingPath), let .missingVinyl(recordingPath):
+                return recordingPath != nil
             default:
-                return true
+                return false
             }
         }
     }
@@ -57,7 +57,10 @@ public struct TurntableConfiguration {
         }
     }
     
-    public init(matchingStrategy: MatchingStrategy = .requestAttributes(types: [.method, .url], playTracksUniquely: true), recordingMode: RecordingMode = .missingVinyl(recordingPath: nil)) {
+    public init(
+        matchingStrategy: MatchingStrategy = .requestAttributes(types: [.method, .url], playTracksUniquely: true),
+        recordingMode: RecordingMode = .missingVinyl(recordingPath: nil)
+    ) {
         self.matchingStrategy = matchingStrategy
         self.recordingMode = recordingMode
     }

@@ -238,11 +238,11 @@ class TurntableTests: XCTestCase {
             
             XCTAssertEqual(httpResponse.url!.absoluteString, urlString)
             XCTAssertEqual(httpResponse.statusCode, 200)
-            XCTAssertTrue(data! == body)
+            XCTAssertTrue(data == body)
             XCTAssertNotNil(httpResponse.allHeaderFields)
             
             expectation.fulfill()
-            }) .resume()
+            }).resume()
     }
     
     fileprivate func multipleCallTest(_ turntable: Turntable) {
@@ -358,7 +358,7 @@ class TurntableTests: XCTestCase {
             
             XCTAssertFalse(Thread.isMainThread)
             expectation.fulfill()
-            }) .resume()
+            }).resume()
     }
     
     func test_Vinyl_mainQueue() {
@@ -374,7 +374,7 @@ class TurntableTests: XCTestCase {
             
             XCTAssertTrue(Thread.isMainThread)
             expectation.fulfill()
-            }) .resume()
+            }).resume()
     }
     
     func test_Vinyl_Delegate() {
@@ -382,51 +382,51 @@ class TurntableTests: XCTestCase {
         let turntable = Turntable(vinylName: "vinyl_single", delegateQueue: OperationQueue.main)
         XCTAssertNil(turntable.delegate)
     }
-    
+
     func test_Vinyl_recording_missingVinyl_vinylMissing() {
         let expectation = self.expectation(description: "Expected callback to be called on background thread")
         defer { self.waitForExpectations(timeout: 4, handler: nil) }
-        
+
         let recordingVinylName = "vinyl_recording"
         let path = prepPathForRecording(recordingVinylName)
-        
+
         let dogFood = Turntable(vinylName: "vinyl_single")
         let turntable = Turntable(vinylName: recordingVinylName,
                                   turntableConfiguration: TurntableConfiguration(recordingMode: .missingVinyl(recordingPath: nil)),
                                   urlSession: dogFood)
-        
+
         let urlString = "http://api.test.com"
-        
+
         turntable.dataTask(with: URL(string: urlString)!, completionHandler: { (data, response, anError) in
             turntable.stopRecording()
-            
+
             XCTAssertTrue(FileManager.default.fileExists(atPath: path))
-            
+
             expectation.fulfill()
-            }) .resume()
+            }).resume()
     }
 
     func test_Vinyl_recording_missingVinyl_vinylPresent() {
         let expectation = self.expectation(description: "Expected callback to be called on background thread")
         defer { self.waitForExpectations(timeout: 4, handler: nil) }
-        
+
         let recordingVinylName = "vinyl_recording"
         let path = prepPathForRecording(recordingVinylName)
-        
+
         let dogFood = Turntable(vinylName: "vinyl_single")
         let turntable = Turntable(vinylName: "vinyl_single",
                                   turntableConfiguration: TurntableConfiguration(recordingMode: .missingVinyl(recordingPath: nil)),
                                   urlSession: dogFood)
-        
+
         let urlString = "http://api.test.com"
-        
+
         turntable.dataTask(with: URL(string: urlString)!, completionHandler: { (data, response, anError) in
             turntable.stopRecording()
-            
+
             XCTAssertFalse(FileManager.default.fileExists(atPath: path))
-            
+
             expectation.fulfill()
-            }) .resume()
+            }).resume()
     }
 
     func test_Vinyl_recording_missingTracks_missingTrack() {
@@ -449,7 +449,7 @@ class TurntableTests: XCTestCase {
             XCTAssertTrue(FileManager.default.fileExists(atPath: path))
             
             expectation.fulfill()
-            }) .resume()
+            }).resume()
     }
 
     func test_Vinyl_recording_missingTracks_existingTrack() {
@@ -469,10 +469,24 @@ class TurntableTests: XCTestCase {
         turntable.dataTask(with: URL(string: urlString)!, completionHandler: { (data, response, anError) in
             turntable.stopRecording()
             
-            XCTAssertFalse(FileManager.default.fileExists(atPath: path))
+            XCTAssertTrue(FileManager.default.fileExists(atPath: path))
             
             expectation.fulfill()
-            }) .resume()
+            }).resume()
+    }
+
+    func test_Vynil_recording_empty() {
+        let recordingVinylName = "vinyl_recording"
+        let path = prepPathForRecording(recordingVinylName)
+
+        let dogFood = Turntable(vinylName: "vinyl_single")
+        let turntable = Turntable(vinylName: "vinyl_single",
+                                  turntableConfiguration: TurntableConfiguration(recordingMode: .missingTracks(recordingPath: path)),
+                                  urlSession: dogFood)
+
+        turntable.stopRecording()
+
+        XCTAssertTrue(FileManager.default.fileExists(atPath: path))
     }
 
     func test_default_URLSession_configuration() {
@@ -487,12 +501,15 @@ class TurntableTests: XCTestCase {
         let configuration = URLSessionConfiguration.default
         configuration.httpAdditionalHeaders = ["X-UniqueHeader": expectedHeaderValue]
 
+        let recordingVinylName = "vinyl_recording"
+        let path = prepPathForRecording(recordingVinylName)
+
         let urlSession = URLSession(configuration: configuration)
         let turntable = Turntable(vinylName: "vinyl_single",
-                                  turntableConfiguration: TurntableConfiguration(recordingMode: .missingTracks(recordingPath: nil)),
+                                  turntableConfiguration: TurntableConfiguration(recordingMode: .missingTracks(recordingPath: path)),
                                   urlSession: urlSession)
 
-        let headerValue = turntable.configuration.httpAdditionalHeaders!["X-UniqueHeader"] as! String
+        let headerValue = turntable.configuration.httpAdditionalHeaders?["X-UniqueHeader"] as? String
 
         // Can't compare `configuration` instances since they return copies
         XCTAssertEqual(headerValue, expectedHeaderValue)

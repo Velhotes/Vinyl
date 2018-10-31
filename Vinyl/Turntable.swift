@@ -12,7 +12,6 @@ enum TurntableError: Error {
     
     case trackNotFound
     case noRecordingPath
-    case nothingToRecord
 }
 
 public typealias Plastic = [[String: Any]]
@@ -39,9 +38,9 @@ public final class Turntable: URLSession {
         
         if configuration.recodingEnabled {
             recorder = Recorder(wax: Wax(tracks: []), recordingPath: configuration.recordingPath)
-            recordingSession = urlSession ?? URLSession.shared
         }
-        
+        recordingSession = urlSession ?? URLSession.shared
+
         super.init()
     }
     
@@ -80,9 +79,6 @@ public final class Turntable: URLSession {
         
         do {
             try recorder.persist()
-        }
-        catch TurntableError.nothingToRecord {
-            print("Nothing to record.")
         }
         catch TurntableError.noRecordingPath {
             fatalError("💣 no path was configured for saving the recording.")
