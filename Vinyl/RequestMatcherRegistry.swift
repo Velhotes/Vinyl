@@ -11,6 +11,7 @@ import Foundation
 public enum RequestMatcherType {
     case method
     case url
+    case host
     case path
     case query
     case headers
@@ -42,6 +43,8 @@ public struct RequestMatcherRegistry {
             return MethodRequestMatcher()
         case .url:
             return URLRequestMatcher()
+        case .host:
+            return HostRequestMatcher()
         case .path:
             return PathRequestMatcher()
         case .query:
@@ -65,13 +68,19 @@ private struct MethodRequestMatcher: RequestMatcher {
     }
 }
 
-private  struct URLRequestMatcher: RequestMatcher {
+private struct URLRequestMatcher: RequestMatcher {
     func match(lhs: Request, rhs: Request) -> Bool {
         return lhs.url == rhs.url
     }
 }
 
-private  struct PathRequestMatcher: RequestMatcher {
+private struct HostRequestMatcher: RequestMatcher {
+    func match(lhs: Request, rhs: Request) -> Bool {
+        return lhs.url?.host == rhs.url?.host
+    }
+}
+
+private struct PathRequestMatcher: RequestMatcher {
     func match(lhs: Request, rhs: Request) -> Bool {
         return lhs.url?.path == rhs.url?.path
     }

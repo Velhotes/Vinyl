@@ -88,6 +88,26 @@ let pathParameterGen: Gen<String> = pathParameterGenArray.map { xs in
     }
 }
 
+func pathParameterGenArrayMinimumSize(_ minimumSize: Int) -> Gen<[String]> {
+    return Gen.sized { sz in
+        return parameterGen.proliferate(withSize: max(sz + 1, minimumSize))
+    }
+}
+
+func pathParameterGenMinimumSize(_ minimumSize: Int) -> Gen<String> {
+    return pathParameterGenArrayMinimumSize(minimumSize).map { xs in
+        return xs.reduce("?") {
+            switch $0 {
+            case "?":
+                return $0 + $1
+            default:
+                return $0 + "&" + $1
+            }
+        }
+    }
+}
+
+
 private func curry<A, B, C>(_ f : @escaping (A, B) -> C) -> (A) -> (B) -> C {
     return { a in { b in f(a, b) } }
 }

@@ -24,7 +24,7 @@ extension Dictionary {
 class RequestMatcherRegistryTests: XCTestCase {
     func testProperties() {
         property("Requests with identical paths and query parameters should match") <- forAllNoShrink(
-              Gen<RequestMatcherType>.fromElements(of: [RequestMatcherType.path, .query, .body])
+              Gen<RequestMatcherType>.fromElements(of: [.path, .query, .body])
             , urlStringGen
             , urlPathGen
             , pathParameterGen
@@ -39,6 +39,48 @@ class RequestMatcherRegistryTests: XCTestCase {
             var anotherRequest = URLRequest(url: URL(string: url + path + params)!)
             anotherRequest.httpBody = commonData
             
+            return registry.matchableRequests(request: aRequest, with: anotherRequest)
+        }
+
+        property("Requests with different order of query parameters should not match by URL")  <- forAllNoShrink(
+            Gen<RequestMatcherType>.fromElements(of: [.url, .path, .query, .body])
+            , urlStringGen
+            , urlPathGen
+            , pathParameterGenMinimumSize(2)
+            , Optional<String>.arbitrary
+        ) { (type, url, path, params, body) in
+            let registry = RequestMatcherRegistry(types: [type])
+            let commonData = body?.data(using: .utf8)
+
+            var aRequest = URLRequest(url: URL(string: url + path + params )!)
+            aRequest.httpBody = commonData
+
+            let shuffledParams = "?" + params.dropFirst().components(separatedBy: "&").reversed().joined(separator: "&")
+
+            var anotherRequest = URLRequest(url: URL(string: url + path + shuffledParams)!)
+            anotherRequest.httpBody = commonData
+
+            return registry.matchableRequests(request: aRequest, with: anotherRequest)
+        }.expectFailure
+
+        property("Requests with different order of query parameters should match by Host")  <- forAllNoShrink(
+            Gen<RequestMatcherType>.fromElements(of: [.host, .path, .query, .body])
+            , urlStringGen
+            , urlPathGen
+            , pathParameterGenMinimumSize(2)
+            , Optional<String>.arbitrary
+        ) { (type, url, path, params, body) in
+            let registry = RequestMatcherRegistry(types: [type])
+            let commonData = body?.data(using: .utf8)
+
+            var aRequest = URLRequest(url: URL(string: url + path + params )!)
+            aRequest.httpBody = commonData
+
+            let shuffledParams = "?" + params.dropFirst().components(separatedBy: "&").reversed().joined(separator: "&")
+
+            var anotherRequest = URLRequest(url: URL(string: url + path + shuffledParams)!)
+            anotherRequest.httpBody = commonData
+
             return registry.matchableRequests(request: aRequest, with: anotherRequest)
         }
         
