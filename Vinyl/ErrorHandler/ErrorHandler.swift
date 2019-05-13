@@ -8,14 +8,16 @@
 
 import Foundation
 
-protocol ErrorHandler {
+public protocol ErrorHandler {
     func handleTrackNotFound(_ request: Request, playTracksUniquely: Bool)
     func handleUnknownError()
 }
 
-struct DefaultErrorHandler: ErrorHandler {
-    
-    func handleTrackNotFound(_ request: Request, playTracksUniquely: Bool) {
+public struct DefaultErrorHandler: ErrorHandler {
+
+    public init() {}
+
+    public func handleTrackNotFound(_ request: Request, playTracksUniquely: Bool) {
      
         if playTracksUniquely {
             fatalError("💥 No 🎶 recorded and matchable with request: \n\(request.debugDescription)\n\nThis might be happening because you are trying to consume the same request multiple times 😩\n")
@@ -25,7 +27,7 @@ struct DefaultErrorHandler: ErrorHandler {
         }
     }
     
-    func handleUnknownError() {
+    public func handleUnknownError() {
         fatalError("💥")
     }
 }

@@ -54,11 +54,12 @@ public final class Turntable: URLSession {
         self.init(vinyl: vinyl, turntableConfiguration: turntableConfiguration, delegateQueue: delegateQueue, urlSession: urlSession)
     }
     
-    public convenience init(vinylName: String, bundle: Bundle = testingBundle(), turntableConfiguration: TurntableConfiguration = TurntableConfiguration(), delegateQueue: OperationQueue? = nil, urlSession: URLSession? = nil) {
+    public convenience init(vinylName: String, bundle: Bundle = testingBundle(), turntableConfiguration: TurntableConfiguration = TurntableConfiguration(), delegateQueue: OperationQueue? = nil, urlSession: URLSession? = nil, errorHandler: ErrorHandler = DefaultErrorHandler()) {
         let plastic = Turntable.createPlastic(vinyl: vinylName, bundle: bundle, recordingMode: turntableConfiguration.recordingMode)
         let vinyl = Vinyl(plastic: plastic ?? [])
         self.init(vinyl: vinyl, turntableConfiguration: turntableConfiguration, delegateQueue: delegateQueue, urlSession: urlSession)
-        
+
+        self.errorHandler = errorHandler
         switch turntableConfiguration.recordingMode {
         case .missingVinyl where plastic == nil, .missingTracks:
             recorder = Recorder(wax: Wax(vinyl: vinyl), recordingPath: recordingPath(fromConfiguration: turntableConfiguration, vinylName: vinylName, bundle: bundle))
