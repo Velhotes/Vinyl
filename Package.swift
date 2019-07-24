@@ -6,9 +6,12 @@ let package = Package(
     products: [
         .library(name: "Vinyl", targets: ["Vinyl"]),
     ],
+    dependencies: [
+        .package(url: "https://github.com/typelift/SwiftCheck", from: "0.12.0")
+    ],
     targets: [
         .target(name: "Vinyl", path: "Vinyl"),
-        .testTarget(name: "VinylTests", path: "VinylTests"),
+        .testTarget(name: "VinylTests", dependencies: ["Vinyl", "SwiftCheck"], path: "VinylTests"),
     ],
     swiftLanguageVersions: [.v4_2]
 )
