@@ -8,3 +8,6 @@ Mac:
 
 tvOS:
 	set -o pipefail && xcodebuild test -project Vinyl.xcodeproj -scheme Vinyl-tvOS -destination "platform=tvOS Simulator,name=Apple TV 4K" | xcpretty
+
+watchOS:
+	set -o pipefail && xcodebuild test -project Vinyl.xcodeproj -scheme Vinyl-watchOS -destination "platform=watchOS Simulator,name=Apple Watch Series 5 - 44mm" | xcpretty
